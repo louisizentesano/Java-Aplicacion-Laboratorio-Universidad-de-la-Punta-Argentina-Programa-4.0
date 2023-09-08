@@ -13,27 +13,30 @@ import java.time.LocalDate;
  */
 public class Alumno {
     private int idAlumno;
+    private int dni;
     private String apellido;
     private String nombre;
-    private LocalDate fechaNac;
-    private boolean activo;
+    private LocalDate fechaNacimiento;
+    private boolean estado;
 
     public Alumno() {
     }
 
-    public Alumno(int idAlumno, String apellido, String nombre, LocalDate fechaNac, boolean activo) {
+    public Alumno(int idAlumno, int dni, String apellido, String nombre, LocalDate fechaNacimiento, boolean estado) {
         this.idAlumno = idAlumno;
+        this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
-        this.fechaNac = fechaNac;
-        this.activo = activo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.estado = estado;
     }
 
-    public Alumno(String apellido, String nombre, LocalDate fechaNac, boolean activo) {
+    public Alumno(int dni, String apellido, String nombre, LocalDate fechaNacimiento, boolean estado) {
+        this.dni = dni;
         this.apellido = apellido;
         this.nombre = nombre;
-        this.fechaNac = fechaNac;
-        this.activo = activo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.estado = estado;
     }
 
     public int getIdAlumno() {
@@ -42,6 +45,14 @@ public class Alumno {
 
     public void setIdAlumno(int idAlumno) {
         this.idAlumno = idAlumno;
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
     }
 
     public String getApellido() {
@@ -60,22 +71,22 @@ public class Alumno {
         this.nombre = nombre;
     }
 
-    public LocalDate getFechaNac() {
-        return fechaNac;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFechaNac(LocalDate fechaNac) {
-        this.fechaNac = fechaNac;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
-    
-    
+
+  
     
 }
