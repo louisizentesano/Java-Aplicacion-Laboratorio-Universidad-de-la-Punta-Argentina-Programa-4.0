@@ -4,6 +4,8 @@ package universidadejemplo.Entidades;
  *
  * @author PC1
  */
+
+//Autor Diego G
 public class Materia {
 
     private int idMateria;
