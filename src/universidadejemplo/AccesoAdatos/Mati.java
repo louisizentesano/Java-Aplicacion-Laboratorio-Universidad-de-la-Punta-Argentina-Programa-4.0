@@ -10,5 +10,19 @@ package universidadejemplo.AccesoAdatos;
  * @author Matias
  */
 public class Mati {
+    private String meborraran;
+    private int dni;
+    private boolean descripcion;
+
+    public Mati(String meborraran, int dni, boolean descripcion) {
+        this.meborraran = meborraran;
+        this.dni = dni;
+        this.descripcion = descripcion;
+    }
+
+    public Mati() {
+    }
+    
+    
     
 }
