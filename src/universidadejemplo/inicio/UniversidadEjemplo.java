@@ -20,6 +20,7 @@ public class UniversidadEjemplo {
     public static void main(String[] args) {
         MenuPrincipal menu = new MenuPrincipal();
         ControladorMenuPrincipal crlmenu = new ControladorMenuPrincipal(menu);
+        crlmenu.iniciar();
         menu.setVisible(true);
         
     }

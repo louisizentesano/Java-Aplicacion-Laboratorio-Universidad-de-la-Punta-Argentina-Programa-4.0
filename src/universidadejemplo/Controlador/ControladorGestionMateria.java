@@ -8,8 +8,8 @@ package universidadejemplo.Controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import javax.swing.JOptionPane;
 import universidadejemplo.AccesoAdatos.MateriaData;
+import universidadejemplo.Entidades.Materia;
 import universidadejemplo.Vistas.GestionMateria;
 import universidadejemplo.Vistas.MenuPrincipal;
 
@@ -53,11 +53,26 @@ public class ControladorGestionMateria implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         
         if (e.getSource() == vista.jbtBuscar ){
-            JOptionPane.showMessageDialog(null,"Funciona!!!");
+            // JOptionPane.showMessageDialog(null,"Funciona!!!");
+            Materia m = new Materia();
+            
+            
         }
-        if (e.getSource() == vista.jbtSalir){
+        if (e.getSource() == vista.jbtSalir){ //Salir del JinternalFrame GestionMateria
             vista.dispose();
         }
+        
+        if (e.getSource() == vista.jbtNuevo){
+            vista.jbtNuevo.setEnabled(false);
+            vista.jbtEliminar.setEnabled(false);
+            vista.jtxCodigo.setText("-1");
+            vista.jtxCodigo.setEnabled(false);
+            vista.jtxNombre.setText("");
+            vista.jtxAño.setText("");
+            //vista.jchEstado.set
+            
+        }
+        
     } 
 
   
