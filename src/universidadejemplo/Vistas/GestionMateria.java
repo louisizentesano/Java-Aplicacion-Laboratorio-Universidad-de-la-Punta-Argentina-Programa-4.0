@@ -33,7 +33,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jtxCodigo = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jbtBuscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jtxNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -55,8 +55,8 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
         jtxCodigo.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButton1.setText("Buscar");
+        jbtBuscar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jbtBuscar.setText("Buscar");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel3.setText("Nombre:");
@@ -96,7 +96,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jtxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(jbtBuscar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -129,7 +129,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jbtBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -169,20 +169,20 @@ public class GestionMateria extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jbtEliminar;
-    private javax.swing.JButton jbtGuardar;
-    private javax.swing.JButton jbtNuevo;
-    private javax.swing.JButton jbtSalir;
-    private javax.swing.JRadioButton jchEstado;
-    private javax.swing.JTextField jtxAño;
-    private javax.swing.JTextField jtxCodigo;
-    private javax.swing.JTextField jtxNombre;
+    public javax.swing.JPanel jPanel1;
+    public javax.swing.JButton jbtBuscar;
+    public javax.swing.JButton jbtEliminar;
+    public javax.swing.JButton jbtGuardar;
+    public javax.swing.JButton jbtNuevo;
+    public javax.swing.JButton jbtSalir;
+    public javax.swing.JRadioButton jchEstado;
+    public javax.swing.JTextField jtxAño;
+    public javax.swing.JTextField jtxCodigo;
+    public javax.swing.JTextField jtxNombre;
     // End of variables declaration//GEN-END:variables
 }
