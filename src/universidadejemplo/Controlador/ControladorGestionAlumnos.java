@@ -64,6 +64,10 @@ public class ControladorGestionAlumnos implements ActionListener{
         if (ae.getSource() == vista.jbtSalir){
             vista.dispose();
         }
+        if(ae.getSource() == vista.jbtNuevo){
+            vista.jbtNuevo.setEnabled(false);
+            vista.jbtEliminar.setEnabled(false);
+        }
     }
     
 }
