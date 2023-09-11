@@ -31,6 +31,7 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
         this.menu.jmiManipulacionNotas.addActionListener(this);
         this.menu.jmiAlumnosPorMateria.addActionListener(this);
         // con AddMenuListener se escuchan a los jMenu en los metodos menuSelected, MenuDeselected y menuCanceled
+        // Para Git
         this.menu.jmSalir.addMenuListener(this);
 
     }

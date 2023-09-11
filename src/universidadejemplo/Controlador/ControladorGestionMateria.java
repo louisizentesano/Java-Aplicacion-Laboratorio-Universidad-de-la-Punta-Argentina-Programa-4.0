@@ -74,7 +74,7 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
             if (m != null){
                 vista.jtxCodigo.setText(m.getIdMateria() + "");
                 vista.jtxNombre.setText(m.getNombre());
-                vista.jtxAño.setText(m.getAnio() + "");
+                vista.jtxAño.setText(m.getAnioMateria()+ "");
                 //vista.jchEstado.isSelected(m.getEstado()); // no se como cargar el jCheckBox
                 
             }else{
