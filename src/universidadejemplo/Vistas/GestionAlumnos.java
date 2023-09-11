@@ -196,12 +196,12 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtBuscar;
-    private javax.swing.JButton jbtEliminar;
-    private javax.swing.JButton jbtGuardar;
-    private javax.swing.JButton jbtNuevo;
-    private javax.swing.JButton jbtSalir;
-    private com.toedter.calendar.JCalendar jcFechadeNacimiento;
+    public javax.swing.JButton jbtBuscar;
+    public javax.swing.JButton jbtEliminar;
+    public javax.swing.JButton jbtGuardar;
+    public javax.swing.JButton jbtNuevo;
+    public javax.swing.JButton jbtSalir;
+    public com.toedter.calendar.JCalendar jcFechadeNacimiento;
     private javax.swing.JLabel jlAlumno;
     private javax.swing.JLabel jlApellido;
     private javax.swing.JLabel jlDocumento;
@@ -209,8 +209,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlFechaDeNacimiento;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JRadioButton jrbEstado;
-    private javax.swing.JTextField jtxApellido;
-    private javax.swing.JTextField jtxDocumento;
-    private javax.swing.JTextField jtxNombre;
+    public javax.swing.JTextField jtxApellido;
+    public javax.swing.JTextField jtxDocumento;
+    public javax.swing.JTextField jtxNombre;
     // End of variables declaration//GEN-END:variables
 }
