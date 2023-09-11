@@ -34,15 +34,15 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jlNombre = new javax.swing.JLabel();
         jlEstado = new javax.swing.JLabel();
         jlFechaDeNacimiento = new javax.swing.JLabel();
-        jtDocumento = new javax.swing.JTextField();
-        jtApellido = new javax.swing.JTextField();
-        jtNombre = new javax.swing.JTextField();
+        jtxDocumento = new javax.swing.JTextField();
+        jtxApellido = new javax.swing.JTextField();
+        jtxNombre = new javax.swing.JTextField();
         jrbEstado = new javax.swing.JRadioButton();
-        jbNuevo = new javax.swing.JButton();
-        jbEliminar = new javax.swing.JButton();
-        jbGuardar = new javax.swing.JButton();
-        jbSalir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jbtNuevo = new javax.swing.JButton();
+        jbtEliminar = new javax.swing.JButton();
+        jbtGuardar = new javax.swing.JButton();
+        jbtSalir = new javax.swing.JButton();
+        jbtBuscar = new javax.swing.JButton();
         jcFechadeNacimiento = new com.toedter.calendar.JCalendar();
 
         setBackground(new java.awt.Color(0, 153, 255));
@@ -70,31 +70,31 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         jlFechaDeNacimiento.setText("Fecha de Nacimiento:");
         jlFechaDeNacimiento.setToolTipText("");
 
-        jtDocumento.addActionListener(new java.awt.event.ActionListener() {
+        jtxDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtDocumentoActionPerformed(evt);
+                jtxDocumentoActionPerformed(evt);
             }
         });
 
-        jbNuevo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbNuevo.setText("Nuevo");
+        jbtNuevo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtNuevo.setText("Nuevo");
 
-        jbEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbEliminar.setText("Eliminar");
+        jbtEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtEliminar.setText("Eliminar");
 
-        jbGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbGuardar.setText("Guardar");
+        jbtGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtGuardar.setText("Guardar");
 
-        jbSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+        jbtSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtSalir.setText("Salir");
+        jbtSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
+                jbtSalirActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Buscar");
+        jbtBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtBuscar.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,18 +110,18 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                                     .addComponent(jlEstado)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(19, 19, 19)
-                                        .addComponent(jbNuevo)
+                                        .addComponent(jbtNuevo)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jbEliminar)))
+                                        .addComponent(jbtEliminar)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(58, 58, 58)
                                         .addComponent(jrbEstado))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(jbGuardar)
+                                        .addComponent(jbtGuardar)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jbSalir))))
+                                        .addComponent(jbtSalir))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jlFechaDeNacimiento)
                                 .addGap(29, 29, 29)
@@ -129,17 +129,17 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jlDocumento)
                                 .addGap(18, 18, 18)
-                                .addComponent(jtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtxDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))
+                                .addComponent(jbtBuscar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jlApellido)
                                 .addGap(18, 18, 18)
-                                .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jtxApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jlNombre)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(137, 137, 137)
                         .addComponent(jlAlumno)))
@@ -153,16 +153,16 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlDocumento)
-                    .addComponent(jtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jtxDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtBuscar))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlApellido)
-                    .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlNombre)
-                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlEstado)
@@ -176,31 +176,31 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                         .addComponent(jcFechadeNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbEliminar)
-                    .addComponent(jbGuardar)
-                    .addComponent(jbSalir)
-                    .addComponent(jbNuevo))
+                    .addComponent(jbtEliminar)
+                    .addComponent(jbtGuardar)
+                    .addComponent(jbtSalir)
+                    .addComponent(jbtNuevo))
                 .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDocumentoActionPerformed
+    private void jtxDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxDocumentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtDocumentoActionPerformed
+    }//GEN-LAST:event_jtxDocumentoActionPerformed
 
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+    private void jbtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbSalirActionPerformed
+    }//GEN-LAST:event_jbtSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jbEliminar;
-    private javax.swing.JButton jbGuardar;
-    private javax.swing.JButton jbNuevo;
-    private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbtBuscar;
+    private javax.swing.JButton jbtEliminar;
+    private javax.swing.JButton jbtGuardar;
+    private javax.swing.JButton jbtNuevo;
+    private javax.swing.JButton jbtSalir;
     private com.toedter.calendar.JCalendar jcFechadeNacimiento;
     private javax.swing.JLabel jlAlumno;
     private javax.swing.JLabel jlApellido;
@@ -209,8 +209,8 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlFechaDeNacimiento;
     private javax.swing.JLabel jlNombre;
     private javax.swing.JRadioButton jrbEstado;
-    private javax.swing.JTextField jtApellido;
-    private javax.swing.JTextField jtDocumento;
-    private javax.swing.JTextField jtNombre;
+    private javax.swing.JTextField jtxApellido;
+    private javax.swing.JTextField jtxDocumento;
+    private javax.swing.JTextField jtxNombre;
     // End of variables declaration//GEN-END:variables
 }
