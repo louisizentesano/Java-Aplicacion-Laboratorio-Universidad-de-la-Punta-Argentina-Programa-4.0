@@ -8,6 +8,7 @@ package universidadejemplo.Controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.Entidades.Alumno;
 import universidadejemplo.Vistas.GestionAlumnos;
@@ -47,7 +48,22 @@ public class ControladorGestionAlumnos implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if (ae.getSource() == vista.jbtBuscar){
+           Alumno a = new Alumno();
+           a = data.buscarAlumnoPorDni(Integer.parseInt(vista.jtxDocumento.getText()));
+           if (a != null){
+               vista.jtxDocumento.setText(a.getIdAlumno()+ "");
+               vista.jtxNombre.setText(a.getNombre());
+               vista.jtxApellido.setText(a.getApellido());
+           }else{
+               JOptionPane.showMessageDialog(null, "Su Consulta no pudo ser llevada a cabo");
+           }
+        }
+        
+        if (ae.getSource() == vista.jbtSalir){
+            vista.dispose();
+        }
     }
     
 }
