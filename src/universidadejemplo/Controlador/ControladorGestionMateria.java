@@ -7,7 +7,12 @@ package universidadejemplo.Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 import universidadejemplo.AccesoAdatos.MateriaData;
 import universidadejemplo.Entidades.Materia;
 import universidadejemplo.Vistas.GestionMateria;
@@ -18,7 +23,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
  *
  * @author Dario
  */
-public class ControladorGestionMateria implements ActionListener{
+public class ControladorGestionMateria implements ActionListener, FocusListener,KeyListener {
     private Connection con;
     private final GestionMateria vista;
     private final MateriaData data;
@@ -28,12 +33,23 @@ public class ControladorGestionMateria implements ActionListener{
         this.vista = vista;
         this.data = data;
         this.menu = menu;
+        
+        // Se Colocan los objetos que tendran ActionListener
         vista.jbtBuscar.addActionListener(this);
         vista.jbtSalir.addActionListener(this);
         vista.jbtNuevo.addActionListener(this);
         vista.jbtEliminar.addActionListener(this);
         vista.jbtGuardar.addActionListener(this);
         
+        // Se declaran los objetos que tendran FocusListener
+        vista.jtxCodigo.addFocusListener(this);
+        vista.jtxNombre.addFocusListener(this);
+        vista.jtxAño.addFocusListener(this);        
+        
+        // Se declaran los objetos que tendran KeyListener
+        vista.jtxCodigo.addKeyListener(this);
+        vista.jtxAño.addKeyListener(this);
+
     }
     
     public void iniciar(){
@@ -43,7 +59,7 @@ public class ControladorGestionMateria implements ActionListener{
         menu.jFondo.add(vista);
         vista.setVisible(true);
         menu.jFondo.moveToFront(vista);
-        vista.requestFocus();
+        vista.requestFocus(); //le da el foco al formulario
         
         
     }
@@ -52,16 +68,24 @@ public class ControladorGestionMateria implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getSource() == vista.jbtBuscar ){
-            // JOptionPane.showMessageDialog(null,"Funciona!!!");
+        if (e.getSource() == vista.jbtBuscar ){ //Buscar alumno por medio del numero ingresado en el jtxCodigo
             Materia m = new Materia();
-            
-            
+            m = data.buscarMateria(Integer.parseInt(vista.jtxCodigo.getText()));
+            if (m != null){
+                vista.jtxCodigo.setText(m.getIdMateria() + "");
+                vista.jtxNombre.setText(m.getNombre());
+                vista.jtxAño.setText(m.getAnio() + "");
+                //vista.jchEstado.isSelected(m.getEstado()); // no se como cargar el jCheckBox
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "Se consulto pero no regreso ningun dato");
+            }
         }
+        
+        
         if (e.getSource() == vista.jbtSalir){ //Salir del JinternalFrame GestionMateria
             vista.dispose();
         }
-        
         if (e.getSource() == vista.jbtNuevo){
             vista.jbtNuevo.setEnabled(false);
             vista.jbtEliminar.setEnabled(false);
@@ -69,11 +93,88 @@ public class ControladorGestionMateria implements ActionListener{
             vista.jtxCodigo.setEnabled(false);
             vista.jtxNombre.setText("");
             vista.jtxAño.setText("");
-            //vista.jchEstado.set
-            
+            vista.jchEstado.setSelected(true); 
+            vista.jtxNombre.requestFocus();
         }
-        
-    } 
+        if (e.getSource() == vista.jbtGuardar) {
+            /* este boton tiene que guardar si es nuevo o modificar si ya existe para esto nos valemos del valor de jxCodigo
+                si contiene el valor -1 que es lo que seteamos al precionar el boton nuevo para que limpie los campos
+                caso contrario lo que hace es modificar segun el codigo actual siempre y cuando este no sea 0.
+             */
+            vista.jbtNuevo.setEnabled(true);
+            vista.jbtEliminar.setEnabled(true);
+            vista.jtxCodigo.setEnabled(true);
+            if (!vista.jtxCodigo.getText().equals("-1") && !vista.jtxCodigo.getText().equals("0")) {
+                Materia m = new Materia(Integer.parseInt(vista.jtxCodigo.getText()), vista.jtxNombre.getText(), Integer.parseInt(vista.jtxAño.getText()), vista.isSelected());
+                data.modificarMateria(m);
+
+            } else {
+                Materia m = new Materia(-1, vista.jtxNombre.getText(), Integer.parseInt(vista.jtxAño.getText()), true);
+                //m.setNombre(vista.jtxNombre.getText());
+                //m.setAnioMateria(Integer.parseInt(vista.jtxAño.getText()));
+                data.guardarMateria(m); // de error!!
+                // m.setActivo(vista.jchEstado.isSelected()); // no existe la opcion de SetActivo en la Entidad materia
+
+            }
+
+        }
+        if (e.getSource() == vista.jbtEliminar) {
+            if (!vista.jtxCodigo.getText().equals("0")) {
+                int vResp = JOptionPane.showConfirmDialog(null, "Seguro de Eliminar la materia " + vista.jtxCodigo.getText() + " - " + vista.jtxNombre.getText());
+                if (vResp == 0) {
+                    data.eliminarMateria(Integer.parseInt(vista.jtxCodigo.getText()));
+
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+       if (e.getSource() == vista.jtxCodigo){
+           vista.jtxCodigo.selectAll();
+       }
+       
+       if (e.getSource() == vista.jtxNombre){
+           vista.jtxNombre.selectAll();
+       }
+       if (e.getSource() == vista.jtxAño){
+           vista.jtxAño.selectAll();
+       }
+           
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if (e.getSource() == vista.jtxCodigo) {
+            char caracter = e.getKeyChar(); // Convierte la tecla precionada en un caracter y luego los compara con los que siquiero que se cargen!!
+            if (caracter < '0' || caracter > '9') {
+                e.consume();
+            }
+        }
+        if (e.getSource() == vista.jtxAño) {
+            char caracter = e.getKeyChar(); // Convierte la tecla precionada en un caracter y luego los compara con los que siquiero que se cargen!!
+            if (caracter < '0' || caracter > '9') {
+                e.consume();
+            }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
   
     }
