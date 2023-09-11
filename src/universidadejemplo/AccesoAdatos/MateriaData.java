@@ -40,7 +40,7 @@ public class MateriaData {
                     resultSet.getInt("idMateria"),
                     resultSet.getString("nombre"),
                     resultSet.getInt("año"),
-                    boolean estado = resultSet.getBoolean("estado");
+                    resultSet.getBoolean("estado")
                 );
             }
         } catch (SQLException e) {
@@ -85,7 +85,7 @@ public class MateriaData {
                     resultSet.getInt("idMateria"),
                     resultSet.getString("nombre"),
                     resultSet.getInt("año"),
-                    resultSet.getInt("estado")
+                    resultSet.getBoolean("estado")
                 );
                 materias.add(materia);
             }
