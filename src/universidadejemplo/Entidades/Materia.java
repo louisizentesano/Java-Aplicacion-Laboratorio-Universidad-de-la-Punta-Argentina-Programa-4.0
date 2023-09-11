@@ -2,10 +2,9 @@ package universidadejemplo.Entidades;
 
 /**
  *
- * @author PC1
+ * @author Autor Diego G
  */
 
-//Autor Diego G
 public class Materia {
 
     private int idMateria;
@@ -51,6 +50,14 @@ public class Materia {
 
     public void setAnioMateria(int anioMateria) {
         this.anioMateria = anioMateria;
+    }
+
+    public int getAnio() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getEstado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
