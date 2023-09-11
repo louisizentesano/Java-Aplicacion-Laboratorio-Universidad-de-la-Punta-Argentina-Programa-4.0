@@ -52,12 +52,11 @@ public class Materia {
         this.anioMateria = anioMateria;
     }
 
-    public int getAnio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean isActivo() {
+        return activo;
     }
 
-    public int getEstado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
-    
 }

@@ -17,20 +17,23 @@ public class MateriaData {
 
     public void guardarMateria(Materia materia) {
         try {
+            conexion=Conexion.getConexion();
             String sql = "INSERT INTO materia (nombre, año, estado) VALUES (?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setString(1, materia.getNombre());
-            statement.setInt(2, materia.getAnio());
-            statement.setInt(3, materia.getEstado());
+            statement.setInt(2, materia.getAnioMateria());
+            statement.setBoolean(3, materia.isActivo());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+         cerrarConexion();
     }
 
     public Materia buscarMateria(int id) {
         Materia materia = null;
         try {
+            conexion=Conexion.getConexion();
             String sql = "SELECT * FROM materia WHERE idMateria = ?";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);
@@ -46,25 +49,30 @@ public class MateriaData {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+         cerrarConexion();
         return materia;
     }
 
     public void modificarMateria(Materia materia) {
         try {
+            conexion=Conexion.getConexion();
             String sql = "UPDATE materia SET nombre = ?, año = ?, estado = ? WHERE idMateria = ?";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setString(1, materia.getNombre());
-            statement.setInt(2, materia.getAnio());
-            statement.setInt(3, materia.getEstado());
+            statement.setInt(2, materia.getAnioMateria());
+           statement.setBoolean(3, materia.isActivo());
             statement.setInt(4, materia.getIdMateria());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            
         }
+         cerrarConexion();
     }
 
     public void eliminarMateria(int id) {
         try {
+            conexion=Conexion.getConexion();
             String sql = "DELETE FROM materia WHERE idMateria = ?";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);
@@ -72,11 +80,13 @@ public class MateriaData {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+         cerrarConexion();
     }
 
     public List<Materia> listarMaterias() {
         List<Materia> materias = new ArrayList<>();
         try {
+            conexion=Conexion.getConexion();
             String sql = "SELECT * FROM materia";
             PreparedStatement statement = conexion.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
@@ -92,6 +102,8 @@ public class MateriaData {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        cerrarConexion();
         return materias;
     }
 
