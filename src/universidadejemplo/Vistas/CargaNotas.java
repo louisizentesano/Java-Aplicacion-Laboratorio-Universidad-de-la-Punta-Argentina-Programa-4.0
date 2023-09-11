@@ -185,4 +185,5 @@ private DefaultTableModel modelo = new DefaultTableModel();
         jTCargaNotas.setModel(modelo);
     }
 
+   private void noquieroerror(){}
 }
