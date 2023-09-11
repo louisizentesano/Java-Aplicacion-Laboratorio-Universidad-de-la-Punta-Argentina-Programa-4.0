@@ -6,7 +6,11 @@
 package universidadejemplo.Controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.AccesoAdatos.MateriaData;
+import universidadejemplo.Vistas.GestionAlumnos;
 import universidadejemplo.Vistas.GestionMateria;
 import universidadejemplo.Vistas.MenuPrincipal;
 
@@ -14,14 +18,20 @@ import universidadejemplo.Vistas.MenuPrincipal;
  *
  * @author Dario
  */
-public class ControladorMenuPrincipal implements ActionListener{
+public class ControladorMenuPrincipal implements ActionListener, MenuListener{
 
     private final MenuPrincipal menu;
 
     public ControladorMenuPrincipal(MenuPrincipal menu) {
         this.menu = menu;
+        //con  addActionListener se escucham a los JmenuItems en el metodo actionPerformed
+        this.menu.jmiFormularioAlumno.addActionListener(this);
         this.menu.jmiFormularioMaterias.addActionListener(this);
-        //this.menu.jmMateria.addActionListener(this);
+        this.menu.jmiManejoInscripciones.addActionListener(this);
+        this.menu.jmiManipulacionNotas.addActionListener(this);
+        this.menu.jmiAlumnosPorMateria.addActionListener(this);
+        // con AddMenuListener se escuchan a los jMenu en los metodos menuSelected, MenuDeselected y menuCanceled
+        this.menu.jmSalir.addMenuListener(this);
 
     }
 
@@ -33,23 +43,45 @@ public class ControladorMenuPrincipal implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == menu.jmiFormularioAlumno ){
+            AlumnoData data = new AlumnoData();
+            GestionAlumnos vista = new GestionAlumnos();
+            //ControladorGestionMateria a = new ControladorGestionMateria(vista, data, menu);
+            //ControladorGestionAlumnos b = new ControladorGestionAlumnos();
+           // b.iniciar();
+        }
         if (e.getSource() == menu.jmiFormularioMaterias) {
             MateriaData data = new MateriaData();
             GestionMateria vista = new GestionMateria();
             ControladorGestionMateria a = new ControladorGestionMateria(vista, data, menu);
             a.iniciar();
+        }
+        if(e.getSource() == menu.jmiManejoInscripciones){
             
+        }
+        if(e.getSource() == menu.jmiManipulacionNotas){
             
-            /* // Codigo que llama al form y lo pone al frente pero no lo hace por medio del 
-               // controlador y se necesita que lo haga por el controlador esto esta solo de prueba
-            menu.jFondo.removeAll();
-            menu.jFondo.repaint();
-            GestionMateria v = new GestionMateria();
-            menu.jFondo.add(v);
-            v.setVisible(true);
-            menu.jFondo.moveToFront(v);
-            */
+        }
+        if(e.getSource() == menu.jmiAlumnosPorMateria){
+            
         }
     }
 
+    @Override
+    public void menuSelected(MenuEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (e.getSource() == menu.jmSalir){
+            menu.dispose();
+        }
+    }
+
+    @Override
+    public void menuDeselected(MenuEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void menuCanceled(MenuEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

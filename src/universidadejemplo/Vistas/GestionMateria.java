@@ -16,7 +16,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
      */
     public GestionMateria() {
         initComponents();
-        setTitle("Materias");
+   
        
     }
 
