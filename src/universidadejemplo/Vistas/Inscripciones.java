@@ -216,7 +216,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
         Inscripciones.addColumn("id");
         Inscripciones.addColumn("Nombre");
         Inscripciones.addColumn("año");
-        Inscripciones.setModel(model);
+      //  Inscripciones.setModelo(modelo);
 
     }
 }
