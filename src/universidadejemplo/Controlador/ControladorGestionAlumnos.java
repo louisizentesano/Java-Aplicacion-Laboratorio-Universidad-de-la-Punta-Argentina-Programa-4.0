@@ -34,6 +34,17 @@ public class ControladorGestionAlumnos implements ActionListener{
         vista.jbtGuardar.addActionListener(this);
     }
 
+    public void iniciar(){
+    
+        menu.jFondo.removeAll();
+        menu.jFondo.repaint();
+        menu.jFondo.add(vista);
+        vista.setVisible(true);
+        menu.jFondo.moveToFront(vista);
+        vista.requestFocus();
+        
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
