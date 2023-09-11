@@ -1,5 +1,3 @@
-/nbproject/private/
-/build/
 # Compiled class file
 *.class
 
@@ -26,7 +24,11 @@ hs_err_pid*
 replay_pid*
 nbproject/private
 nbproject/private/
+nbproject/private/private.properties
+nbproject/Build-impl.xml
+nbproject/project.properties
+nbproject/genfiles.propierties
 build
 dist
 test
-nbproject/private/private.properties
+
