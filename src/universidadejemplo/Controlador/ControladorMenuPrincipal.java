@@ -9,7 +9,9 @@ import java.awt.event.ActionListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import universidadejemplo.AccesoAdatos.AlumnoData;
+import universidadejemplo.AccesoAdatos.InscripcionData;
 import universidadejemplo.AccesoAdatos.MateriaData;
+import universidadejemplo.Vistas.ConsultaAlumnoMateria;
 import universidadejemplo.Vistas.GestionAlumnos;
 import universidadejemplo.Vistas.GestionMateria;
 import universidadejemplo.Vistas.MenuPrincipal;
@@ -63,6 +65,11 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
             
         }
         if(e.getSource() == menu.jmiAlumnosPorMateria){
+            MateriaData data = new MateriaData();
+            InscripcionData data1 = new InscripcionData();
+            ConsultaAlumnoMateria vista = new ConsultaAlumnoMateria();
+            ControladorConsultaAlumnoMateria a = new ControladorConsultaAlumnoMateria(data, data1, menu, vista);
+            a.inicia();
             
         }
     }

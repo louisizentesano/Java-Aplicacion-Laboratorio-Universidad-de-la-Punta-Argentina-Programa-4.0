@@ -11,7 +11,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Connection;
+//import java.sql.Connection;
 import javax.swing.JOptionPane;
 import universidadejemplo.AccesoAdatos.MateriaData;
 import universidadejemplo.Entidades.Materia;
@@ -24,7 +24,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
  * @author Dario
  */
 public class ControladorGestionMateria implements ActionListener, FocusListener,KeyListener {
-    private Connection con;
+    //private Connection con; // lo elimino porque ni se usa XD
     private final GestionMateria vista;
     private final MateriaData data;
     private final MenuPrincipal menu;
