@@ -7,6 +7,8 @@ package universidadejemplo.Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
@@ -95,5 +97,47 @@ public class ControladorGestionAlumnos implements ActionListener{
             data.guardarAlumno(b);
         }
     }
-}
+    }
+    
+    public void focusGained(FocusEvent e) {
+        try {
+            if (e.getSource() == vista.jtxDocumento) {
+                vista.jtxDocumento.selectAll();
+            }
+
+            if (e.getSource() == vista.jtxNombre) {
+                vista.jtxNombre.selectAll();
+            }
+            if (e.getSource() == vista.jtxApellido) {
+                vista.jtxApellido.selectAll();
+            }
+        } catch (Exception ex) {
+            // Manejar la excepción aquí
+            ex.printStackTrace(); // Esto es solo un ejemplo, puedes hacer algo más adecuado en tu aplicación.
+        }
+    }
+
+    public void focusLost(FocusEvent e) {
+        // No es necesario implementar esto si no lo necesitas
+    }
+
+    public void keyTyped(KeyEvent e) {
+        try {
+            if (e.getSource() == vista.jtxDocumento) {
+                char caracter = e.getKeyChar();
+                if (caracter < '0' || caracter > '9') {
+                    e.consume();
+                }
+            }
+            if (e.getSource() == vista.jtxDocumento) {
+                char caracter = e.getKeyChar();
+                if (caracter < '0' || caracter > '9') {
+                    e.consume();
+                }
+            }
+        } catch (Exception ex) {
+            // Manejar la excepción aquí
+            ex.printStackTrace(); // Esto es solo un ejemplo, puedes hacer algo más adecuado en tu aplicación.
+        }
+    }
 }
