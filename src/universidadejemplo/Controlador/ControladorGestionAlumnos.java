@@ -26,6 +26,7 @@ public class ControladorGestionAlumnos implements ActionListener{
     private final GestionAlumnos vista;
     private final AlumnoData data;
     private final MenuPrincipal menu;
+
     
     public ControladorGestionAlumnos(GestionAlumnos vista, AlumnoData data, MenuPrincipal menu){
         this.vista = vista;
@@ -86,6 +87,7 @@ public class ControladorGestionAlumnos implements ActionListener{
         String nombre = vista.jtxNombre.getText();
         String apellido = vista.jtxApellido.getText();
         boolean estado = true; // Asumiendo que siempre quieres establecer el estado en verdadero
+        
         
         if (dni != -1 && dni != 1) {
             // Código para modificar el alumno existente
