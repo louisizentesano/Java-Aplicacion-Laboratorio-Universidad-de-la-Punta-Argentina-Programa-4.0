@@ -47,9 +47,8 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
         if (e.getSource() == menu.jmiFormularioAlumno ){
             AlumnoData data = new AlumnoData();
             GestionAlumnos vista = new GestionAlumnos();
-            //ControladorGestionMateria a = new ControladorGestionMateria(vista, data, menu);
-            //ControladorGestionAlumnos b = new ControladorGestionAlumnos();
-           // b.iniciar();
+            ControladorGestionAlumnos a = new ControladorGestionAlumnos(vista, data, menu);
+            a.iniciar();
         }
         if (e.getSource() == menu.jmiFormularioMaterias) {
             MateriaData data = new MateriaData();
