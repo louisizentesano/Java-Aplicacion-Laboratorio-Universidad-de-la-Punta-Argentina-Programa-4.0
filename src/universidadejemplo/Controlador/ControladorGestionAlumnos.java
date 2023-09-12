@@ -8,6 +8,7 @@ package universidadejemplo.Controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.Entidades.Alumno;
@@ -67,7 +68,32 @@ public class ControladorGestionAlumnos implements ActionListener{
         if(ae.getSource() == vista.jbtNuevo){
             vista.jbtNuevo.setEnabled(false);
             vista.jbtEliminar.setEnabled(false);
+            vista.jtxDocumento.setText("-1");
+            vista.jtxDocumento.setEnabled(false);
+            vista.jtxNombre.setText("");
+            vista.jtxApellido.setText("");
+            vista.jtxNombre.requestFocus();
+            //Si alguno sabe cual es la mejor opcion de codigo para Jcalendar, puede editar aqui sin problema.
+        }
+       if (ae.getSource() == vista.jbtGuardar) {
+        vista.jbtNuevo.setEnabled(true);
+        vista.jbtEliminar.setEnabled(true);
+        vista.jtxDocumento.setEnabled(true);
+        
+        int dni = Integer.parseInt(vista.jtxDocumento.getText());
+        String nombre = vista.jtxNombre.getText();
+        String apellido = vista.jtxApellido.getText();
+        boolean estado = true; // Asumiendo que siempre quieres establecer el estado en verdadero
+        
+        if (dni != -1 && dni != 1) {
+            // Código para modificar el alumno existente
+            Alumno a = new Alumno(dni, apellido, nombre, LocalDate.MIN, estado);
+            data.modificarAlumno(a);
+        } else {
+            // Código para guardar un nuevo alumno
+            Alumno b = new Alumno(dni, apellido, nombre, LocalDate.MIN, true);
+            data.guardarAlumno(b);
         }
     }
-    
+}
 }
