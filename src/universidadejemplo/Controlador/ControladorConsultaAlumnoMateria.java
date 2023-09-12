@@ -10,9 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import universidadejemplo.AccesoAdatos.InscripcionData;
 import universidadejemplo.AccesoAdatos.MateriaData;
 import universidadejemplo.Entidades.Materia;
+import universidadejemplo.Entidades.Alumno;
 import universidadejemplo.Vistas.ConsultaAlumnoMateria;
 import universidadejemplo.Vistas.MenuPrincipal;
 
@@ -25,6 +27,7 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
     public InscripcionData idata;
     public MenuPrincipal menu;
     public ConsultaAlumnoMateria vista;
+    DefaultTableModel modelo = new DefaultTableModel();
 
     public ControladorConsultaAlumnoMateria(MateriaData mdata, InscripcionData idata, MenuPrincipal menu, ConsultaAlumnoMateria vista) {
         this.mdata = mdata;
@@ -45,20 +48,40 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
         menu.jFondo.moveToFront(vista);
         vista.requestFocus(); //le da el foco al formulario
         cargaCombo();
+        modelaTabla();
         
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vista.jbtSalir){
+        if (e.getSource() == vista.jbtSalir){ // sale del jInternalFrame
             vista.dispose();
         }
-        
+        if (e.getSource() == vista.jcbMateria){ // Actualiza la Tabla con los datos de la consulta de InscripcionData
+            System.out.println("Cargando Tabla ");
+            String combobox = vista.jcbMateria.getSelectedItem().toString();
+            String partes[] = combobox.split("-");
+            int idMateria = Integer.parseInt(partes[0].trim());
+            System.out.println(" ID Materia " + idMateria);
+            List<Alumno> alumnos = new ArrayList<Alumno>();
+            alumnos = idata.obtenerAlumnosxMateria(idMateria);
+            System.out.println("Alumnos " + alumnos.size());
+            modelo.setRowCount(0); // Borra todas las filas
+            for (Alumno alumno : alumnos) {
+                modelo.addRow(new Object[]{alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre()});
+                System.out.println("Agregando - " + alumno.toString());
+            }
+            vista.jTabla.setModel(modelo);
+        }
         
     }
     
-    public void modelaTabla(){
-        
+    public void modelaTabla() {
+        modelo.addColumn("ID");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombre");
+        vista.jTabla.setModel(modelo);
     }
     
     public void cargaCombo(){
