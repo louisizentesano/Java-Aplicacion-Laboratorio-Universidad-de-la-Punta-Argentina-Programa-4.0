@@ -47,11 +47,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jFondo.setLayout(jFondoLayout);
         jFondoLayout.setHorizontalGroup(
             jFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 782, Short.MAX_VALUE)
+            .addGap(0, 1057, Short.MAX_VALUE)
         );
         jFondoLayout.setVerticalGroup(
             jFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 603, Short.MAX_VALUE)
+            .addGap(0, 770, Short.MAX_VALUE)
         );
 
         jmAlumno.setText("Alumno");

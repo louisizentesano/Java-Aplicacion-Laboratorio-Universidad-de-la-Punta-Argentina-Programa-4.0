@@ -35,10 +35,14 @@ public class ConsultaAlumnoMateria extends javax.swing.JInternalFrame {
         jTabla = new javax.swing.JTable();
         jbtSalir = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Listado de Alumnos por Materia");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Seleccione una Materia:");
 
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
