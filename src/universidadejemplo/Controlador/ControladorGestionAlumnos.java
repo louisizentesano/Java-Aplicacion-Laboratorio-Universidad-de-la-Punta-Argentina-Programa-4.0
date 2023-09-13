@@ -52,24 +52,7 @@ public class ControladorGestionAlumnos implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (!vista.jtxDocumento.getText().isEmpty()) {
-            try {
-                int dni = Integer.parseInt(vista.jtxDocumento.getText());
-                Alumno a = data.buscarAlumnoPorDni(dni);
-                if (a != null) {
-                    vista.jtxDocumento.setText(Integer.toString(a.getIdAlumno()));
-                    vista.jtxNombre.setText(a.getNombre());
-                    vista.jtxApellido.setText(a.getApellido());
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró al alumno.");
-                }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "El número de documento debe ser un valor numérico válido.");
-            }
-        } else {
-            // En caso de que este vacio
-            JOptionPane.showMessageDialog(null, "Ingrese un número de documento válido.");
-        }
+        
 
         if (ae.getSource() == vista.jbtSalir) {
             vista.dispose();
@@ -96,11 +79,11 @@ public class ControladorGestionAlumnos implements ActionListener {
             
             if (dni != -1 && dni != 1) {
                 // Código para modificar el alumno existente
-                Alumno a = new Alumno(dni, apellido, nombre, LocalDate.MIN, estado);
+                Alumno a = new Alumno(dni, apellido, nombre, LocalDate.now(), estado);
                 data.modificarAlumno(a);
             } else {
                 // Código para guardar un nuevo alumno
-                Alumno b = new Alumno(dni, apellido, nombre, LocalDate.MIN, true);
+                Alumno b = new Alumno(dni, apellido, nombre, LocalDate.now(), true);
                 data.guardarAlumno(b);
             }
         }
