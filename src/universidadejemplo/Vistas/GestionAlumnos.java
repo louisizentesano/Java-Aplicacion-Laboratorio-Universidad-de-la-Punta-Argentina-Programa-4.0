@@ -164,9 +164,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                     .addComponent(jlNombre)
                     .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlEstado)
-                    .addComponent(jrbEstado))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jrbEstado)
+                    .addComponent(jlEstado))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -201,14 +201,14 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
     public javax.swing.JButton jbtGuardar;
     public javax.swing.JButton jbtNuevo;
     public javax.swing.JButton jbtSalir;
-    private com.toedter.calendar.JDateChooser jdcFechadeNacimiento;
+    public com.toedter.calendar.JDateChooser jdcFechadeNacimiento;
     private javax.swing.JLabel jlAlumno;
     private javax.swing.JLabel jlApellido;
     private javax.swing.JLabel jlDocumento;
     private javax.swing.JLabel jlEstado;
     private javax.swing.JLabel jlFechaDeNacimiento;
     private javax.swing.JLabel jlNombre;
-    private javax.swing.JRadioButton jrbEstado;
+    public javax.swing.JRadioButton jrbEstado;
     public javax.swing.JTextField jtxApellido;
     public javax.swing.JTextField jtxDocumento;
     public javax.swing.JTextField jtxNombre;

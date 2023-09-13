@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import universidadejemplo.AccesoAdatos.AlumnoData;
@@ -37,6 +38,8 @@ public class ControladorGestionAlumnos implements ActionListener {
         vista.jbtNuevo.addActionListener(this);
         vista.jbtEliminar.addActionListener(this);
         vista.jbtGuardar.addActionListener(this);
+        vista.jrbEstado.addActionListener(this);
+        //vista.jdcFechadeNacimiento.actionPerformed(this);
     }
 
     public void iniciar() {
@@ -47,12 +50,25 @@ public class ControladorGestionAlumnos implements ActionListener {
         vista.setVisible(true);
         menu.jFondo.moveToFront(vista);
         vista.requestFocus();
+        vista.jtxDocumento.setText("0");
 
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
+        if(ae.getSource() == vista.jbtBuscar) {
+         int a=Integer.parseInt(vista.jtxDocumento.getText());
+         Alumno alum= new Alumno();
+         alum = data.buscarAlumnoPorDni(a);
+         if(alum != null){
+             vista.jtxNombre.setText(alum.getNombre());
+             vista.jtxApellido.setText(alum.getApellido());
+             vista.jrbEstado.setSelected(alum.isEstado());
+             vista.jdcFechadeNacimiento.setDate(Date.valueOf(alum.getFechaNacimiento()));
+         }else{
+             JOptionPane.showMessageDialog(null, "El alumno no existe");
+         }        
+        }
 
         if (ae.getSource() == vista.jbtSalir) {
             vista.dispose();
