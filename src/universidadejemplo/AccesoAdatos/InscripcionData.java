@@ -289,7 +289,7 @@ public class InscripcionData {
             String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.apellido"
                     + "FROM Alumno " + "JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno "
                     + "WHERE inscripcion.idMateria = ?";
-
+            
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
 
