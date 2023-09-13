@@ -60,11 +60,7 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
             a.iniciar();
         }
         if(e.getSource() == menu.jmiManejoInscripciones){
-            MateriaData data = new MateriaData();
-            InscripcionData data1 = new InscripcionData();
-            ConsultaAlumnoMateria vista = new ConsultaAlumnoMateria();
-            ControladorConsultaAlumnoMateria a = new ControladorConsultaAlumnoMateria(data, data1, menu, vista);
-            a.inicia();
+            
         }
         if(e.getSource() == menu.jmiManipulacionNotas){
             
@@ -72,9 +68,9 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
         if(e.getSource() == menu.jmiAlumnosPorMateria){
             MateriaData data = new MateriaData();
             InscripcionData data1 = new InscripcionData();
-            Inscripciones vista = new Inscripciones();
-            //ControladorInscripciones a = new ControladorInscripciones(data, data1, menu, vista);
-            //a.inicia();
+            ConsultaAlumnoMateria vista = new ConsultaAlumnoMateria();
+            ControladorConsultaAlumnoMateria a = new ControladorConsultaAlumnoMateria(data, data1, menu, vista);
+            a.inicia();
             
         }
     }
