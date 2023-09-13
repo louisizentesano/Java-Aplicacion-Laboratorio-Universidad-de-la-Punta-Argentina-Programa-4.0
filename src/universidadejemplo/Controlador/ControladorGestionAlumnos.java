@@ -77,7 +77,7 @@ public class ControladorGestionAlumnos implements ActionListener {
         if (ae.getSource() == vista.jbtNuevo) {
             vista.jbtNuevo.setEnabled(false);
             vista.jbtEliminar.setEnabled(false);
-            vista.jtxDocumento.setText("-1");
+            vista.jtxDocumento.setText("0");
             vista.jtxDocumento.setEnabled(false);
             vista.jtxNombre.setText("");
             vista.jtxApellido.setText("");
