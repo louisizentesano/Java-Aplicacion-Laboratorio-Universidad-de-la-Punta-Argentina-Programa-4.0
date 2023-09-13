@@ -49,6 +49,7 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
         vista.requestFocus(); //le da el foco al formulario
         cargaCombo();
         modelaTabla();
+        vista.jTabla.setEnabled(false);
         
     }
 
@@ -94,6 +95,5 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
                 vista.jcbMateria.addItem(cadena);
             }
         }
-        
     }
 }

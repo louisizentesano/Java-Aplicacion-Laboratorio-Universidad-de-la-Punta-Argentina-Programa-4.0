@@ -36,6 +36,8 @@ public class AlumnoData {
             ps.setInt(1, alumno.getDni());
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
+            System.out.println(" Fecha Nacimiento en Alumno: " + alumno.getFechaNacimiento());
+            System.out.println(" Fecja Nacimiento convertido a Date: " + Date.valueOf(alumno.getFechaNacimiento()));
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));//localDate a Date
             ps.setBoolean(5, alumno.isEstado()); // if reducido
             ps.executeUpdate();
@@ -54,7 +56,7 @@ public class AlumnoData {
     public Alumno buscarAlumnoPorDni(int dni) {
         con = Conexion.getConexion();
         Alumno alumno = null;
-        String sql = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento FROM alumno WHERE dni=?";
+        String sql = "SELECT * FROM alumno WHERE dni=?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -105,7 +107,7 @@ public class AlumnoData {
     
     public void modificarAlumno(Alumno alumno) {
         con = Conexion.getConexion();
-        String sql = "UPDATE alumno SET dni = ? , apellido = ?, nombre = ?, fechaNacimiento = ? WHERE idAlumno = ?";
+        String sql = "UPDATE alumno SET dni = ? , apellido = ?, nombre = ?, fechaNacimiento = ?, estado = ? WHERE idAlumno = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -113,7 +115,7 @@ public class AlumnoData {
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
-            ps.setInt(5, alumno.getIdAlumno());
+            ps.setBoolean(5, alumno.isEstado());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
