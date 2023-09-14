@@ -32,6 +32,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
         vistacarganotas.jComboBListAlumCargaNotas.addActionListener(this);
         vistacarganotas.jButtonSalirCargaNotas.addActionListener(this);
         vistacarganotas.jButtonGuardar.addActionListener(this);
+        
 //agregan un oyente de accion a los componentes de la interfaz de usuario
 //se refiere a la instancia actual de la clase ControladorCargarNotas 
 // this se refiere a la instancia actual de la clase que actua como oyente de
@@ -96,7 +97,7 @@ public void modeloTabla() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
         modelo.addColumn("Nota");
-        vista.jTabla.setModel(modelo);
+        vista.jTableCargaNotas.setModel(modelo);
     }
 
  public void cargarCombo(){
