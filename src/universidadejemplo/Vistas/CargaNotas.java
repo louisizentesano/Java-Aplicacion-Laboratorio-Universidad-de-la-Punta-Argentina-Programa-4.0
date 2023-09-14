@@ -1,19 +1,16 @@
 package universidadejemplo.Vistas;
 
-import javax.swing.table.DefaultTableModel;
 import universidadejemplo.Entidades.Alumno;
 
 /**
  * louisinette
  */
 public class CargaNotas extends javax.swing.JInternalFrame {
-private DefaultTableModel modelo = new DefaultTableModel();
 
 
     public CargaNotas() {
         initComponents();
-       armarCabecera();
-       setTitle("CargaNotas");
+    
     }
 
     /**
@@ -27,12 +24,12 @@ private DefaultTableModel modelo = new DefaultTableModel();
 
         jLCargaNotas = new javax.swing.JLabel();
         jLSelectAlumn = new javax.swing.JLabel();
-        jComboBListAlum = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTCargaNotas = new javax.swing.JTable();
-        jButtonSalir = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
+        jButtonSalirCargaNotas = new javax.swing.JButton();
+        jComboBListAlumCargaNotas = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableCargaNotas = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(0, 204, 204));
 
@@ -41,12 +38,6 @@ private DefaultTableModel modelo = new DefaultTableModel();
 
         jLSelectAlumn.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLSelectAlumn.setText("Seleccione un alumno:");
-
-        jComboBListAlum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBListAlumActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -59,7 +50,17 @@ private DefaultTableModel modelo = new DefaultTableModel();
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jTCargaNotas.setModel(new javax.swing.table.DefaultTableModel(
+        jButtonGuardar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButtonGuardar.setText("Guardar");
+
+        jButtonSalirCargaNotas.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jButtonSalirCargaNotas.setText("Salir");
+        jButtonSalirCargaNotas.setToolTipText("");
+
+        jComboBListAlumCargaNotas.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+
+        jTableCargaNotas.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        jTableCargaNotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -70,23 +71,7 @@ private DefaultTableModel modelo = new DefaultTableModel();
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTCargaNotas);
-
-        jButtonSalir.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButtonSalir.setText("Salir");
-        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalirActionPerformed(evt);
-            }
-        });
-
-        jButtonGuardar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
-        jButtonGuardar.setText("Guardar");
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(jTableCargaNotas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,95 +80,65 @@ private DefaultTableModel modelo = new DefaultTableModel();
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonGuardar)
-                .addGap(29, 29, 29)
-                .addComponent(jButtonSalir)
-                .addGap(64, 64, 64))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLSelectAlumn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBListAlumCargaNotas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(7, 7, 7))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLSelectAlumn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBListAlum, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(175, 175, 175)
+                        .addComponent(jLCargaNotas))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(jLCargaNotas)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(62, 62, 62)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(81, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonGuardar)
+                .addGap(52, 52, 52)
+                .addComponent(jButtonSalirCargaNotas)
+                .addGap(108, 108, 108))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(13, 13, 13)
+                .addGap(65, 65, 65)
                 .addComponent(jLCargaNotas)
-                .addGap(63, 63, 63)
+                .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLSelectAlumn)
-                    .addComponent(jComboBListAlum, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
+                    .addComponent(jComboBListAlumCargaNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGuardar)
-                    .addComponent(jButtonSalir))
-                .addGap(63, 63, 63))
+                    .addComponent(jButtonSalirCargaNotas))
+                .addGap(76, 76, 76))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBListAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBListAlumActionPerformed
-//        Alumno alumnoSeleccionado = (Alumno) jComboBListAlum.getSelectedItem();
-//        jTCargaNotas
-    }//GEN-LAST:event_jComboBListAlumActionPerformed
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
-
-    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSalirActionPerformed
-
+ 
    public static void main(String args[]) {
    }
    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonSalir;
-    private javax.swing.JComboBox<Alumno> jComboBListAlum;
+    public javax.swing.JButton jButtonGuardar;
+    public javax.swing.JButton jButtonSalirCargaNotas;
+    public javax.swing.JComboBox<Alumno> jComboBListAlumCargaNotas;
     private javax.swing.JLabel jLCargaNotas;
     private javax.swing.JLabel jLSelectAlumn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTCargaNotas;
+    public javax.swing.JTable jTableCargaNotas;
     // End of variables declaration//GEN-END:variables
 
-   
-    
-    private void cargarComboListaAlumnNotas() {
-//        jComboBListAlum.addItem(new Alumno(1, 22333444, "Mercado", "Javier", "1975-08-01", 1));
-//        jComboBListAlum.addItem(new Alumno(1, 22333444, "Mercado", "Luis", "1986-04-05", 1));
-
-    }
-
-    private void armarCabecera(){
-        modelo.addColumn("Codigo");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Nota");
-        jTCargaNotas.setModel(modelo);
-    }
-
-   private void noquieroerror(){}
 }
