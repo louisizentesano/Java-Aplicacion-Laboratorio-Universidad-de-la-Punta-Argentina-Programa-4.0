@@ -33,7 +33,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
         vistacarganotas.jButtonSalirCargaNotas.addActionListener(this);
         vistacarganotas.jButtonGuardar.addActionListener(this);
 //agregan un oyente de accion a los componentes de la interfaz de usuario
-//se refiere a la instancia actual de la clase ControladorConsultaAlumnoMateria. 
+//se refiere a la instancia actual de la clase ControladorCargarNotas 
 // this se refiere a la instancia actual de la clase que actua como oyente de
 // los eventos generados por los componentes jcbMateria etc y ejecuta en esta clase
 // el metodo actionPerformed de la interfaz ActionListener que implementa
@@ -55,20 +55,40 @@ public void inicia(){
 //hasta que se habilite nuevamente.
         
 }
-
-    
-@Override
+ 
+   //getSource() se utiliza para determinar que componente genero el evento
+  
+ @Override
 public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) {
-    // Código para manejar el evento del JComboBox
-        // puedo  acceder al elemento seleccionado con vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem()
-     
+    if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) { // verifico si el evento proviene del JComboBox 
+        if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
+            //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
+            String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem(); 
+            
+  //Divido la cadena seleccionada para obtener el ID del alumno
+            String[] partes = selectedItem.split(" - ");
+            int idAlumno = Integer.parseInt(partes[3]); //el indice 3 contiene el id del alumno se convierte a entero
+
+            AlumnoData alumData = new AlumnoData(); // instancia de AlumnoData
+            Alumno alumno = alumnoData.listarAlumnos(idAlumno);   // Llamo al metodo listarAlumnos de la clase AlumnoData
+
+            // Ahora  tengo la instancia del alumno con la información
+            // Puedo acceder a sus propiedades, como DNI, apellido, nombre, etc.
+            if (alumno != null) {
+                System.out.println("DNI: " + alumno.getDni());
+                System.out.println("Apellido: " + alumno.getApellido());
+                System.out.println("Nombre: " + alumno.getNombre());
+                System.out.println("ID Alumno: " + alumno.getIdAlumno());
+            }
+           
      } else if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
-        // Código para manejar el evento del botón "Salir"
-    
+        if (e.getSource() == vista.jButtonSalirCargaNotas){
+            vistacarganotas.dispose();
+          
     }else if (e.getSource() == vistacarganotas.jButtonGuardar) {
         // Código para manejar el evento del botón "Guardar" en una celda de la tabla????
     }
+  
     
 }
 
