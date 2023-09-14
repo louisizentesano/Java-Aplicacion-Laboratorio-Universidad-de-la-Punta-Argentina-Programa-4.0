@@ -4,7 +4,7 @@ package universidadejemplo.Controlador;
  *
  * @author PC1 Diego Gimenez
  */
-import java.awt.event.ActionEvent;
+/*import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
@@ -52,7 +52,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
                 if (materiaSeleccionada != null) {
 
                     // Realizar la inscripción del alumno en la materia
-                    inscripcionData.inscribirAlumnoEnMateria(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
+                    inscripcionData.inscribirAlumnoEnMateria(alumnoSeleccionado.getIdAlumno(), materiaSeleccionada.getIdMateria());
 
                     // Actualizar la tabla y cualquier otro componente necesario
                     cargarMateriasNoInscriptas();
@@ -68,7 +68,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
                 if (materiaSeleccionada != null) {
 
                     // Eliminar la inscripción del alumno en la materia
-                    inscripcionData.eliminarInscripcion(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
+                    inscripcionData.eliminarInscripcion(alumnoSeleccionado.getIdAlumno(), materiaSeleccionada.getIdMateria());
 
                     // Actualizar la tabla y cualquier otro componente necesario
                     cargarMateriasNoInscriptas();
@@ -112,3 +112,4 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         return materiaData.obtenerMateriaPorID(idMateria);
     }
 }
+*/
