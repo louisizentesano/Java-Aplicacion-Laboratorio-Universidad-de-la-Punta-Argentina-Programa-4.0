@@ -102,8 +102,8 @@ public class ControladorGestionAlumnos implements ActionListener {
         LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
             if (dni > 0) {
                 // Código para modificar el alumno existente
-                Alumno a = new Alumno(dni, apellido, nombre, fecha ,estado);
-                data.modificarAlumno(a);
+                Alumno a = new Alumno(dni, apellido, nombre, fecha ,estado); 
+                data.guardarAlumno(a);
             } else {
                 // Código para guardar un nuevo alumno
                 Alumno b = new Alumno(dni, apellido, nombre, fecha , true);
