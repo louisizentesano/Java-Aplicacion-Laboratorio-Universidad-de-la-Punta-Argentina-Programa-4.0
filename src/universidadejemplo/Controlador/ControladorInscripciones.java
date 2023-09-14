@@ -4,7 +4,7 @@ package universidadejemplo.Controlador;
  *
  * @author PC1 Diego Gimenez
  */
-/*import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
@@ -68,7 +68,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
                 if (materiaSeleccionada != null) {
 
                     // Eliminar la inscripción del alumno en la materia
-                    inscripcionData.eliminarInscripcion(alumnoSeleccionado.getIdAlumno(), materiaSeleccionada.getIdMateria());
+                    inscripcionData.borrarInscripcionMateriaAlumno(alumnoSeleccionado.getIdAlumno(), materiaSeleccionada.getIdMateria());
 
                     // Actualizar la tabla y cualquier otro componente necesario
                     cargarMateriasNoInscriptas();
@@ -87,15 +87,15 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
     private void cargarMateriasNoInscriptas() {
 
         // Obtener todas las materias disp.
-        List<Materia> materiasDisponibles = materiaData.obtenerMateriasDisponiblesParaInscripcion(alumnoSeleccionado.getId());
+        List<Materia> materiasDisponibles = materiaData.obtenerMateriasNoCursadas(alumnoSeleccionado.getIdAlumno());
 
         // Cargar las materias no inscritas en la tabla
-        DefaultTableModel modelo = (DefaultTableModel) vista.jTable1.getModel();
+        jTable1 modelo = (jTable1) vista.jTable1.getModel();
 
-        modelo.setRowCount(0); // Limpia la tabla
+       modelo.setRowCount(0); // Limpia la tabla
        
         for (Materia materia : materiasDisponibles) {
-            modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.getAnio()});
+            modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.getAnioMateria()});
         }
     }
 
@@ -109,7 +109,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         int idMateria = (int) vista.jTable1.getValueAt(fila, 0);
 
         // Obtener la materia correspondiente según su ID
-        return materiaData.obtenerMateriaPorID(idMateria);
+        return materiaData.buscarMateria(idMateria);
     }
+    
 }
-*/
