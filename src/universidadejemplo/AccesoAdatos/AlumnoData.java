@@ -39,11 +39,11 @@ public class AlumnoData {
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));//localDate a Date
             ps.setBoolean(5, alumno.isEstado()); // if reducido
             ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                alumno.setIdAlumno(rs.getInt("idAlumno"));
+          //  ResultSet rs = ps.getGeneratedKeys();  // Regresa los ID generados por la insercion anterior
+          //  if (rs.next()) { // 
+          //      alumno.setIdAlumno(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Alumno añadido con exito.");
-            }
+          //  }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno" + ex.getMessage());
