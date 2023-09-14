@@ -22,10 +22,10 @@ public class InscripcionData {
     private AlumnoData aludata;
 
     public InscripcionData() {
-        con = Conexion.getConexion(); //ver si es conexion o connection en clase conexion
-    }
+           }
 
     public void guardarInscripcion(Inscripcion insc) {
+         con = Conexion.getConexion();
         try {
             String sql = "INSERT INTO inscripcion (idInscripto, nota, idAlumno, idMateria) VALUES (?, ?, ?, ?)";
             //El valor del parámetro insc en la siguiente consulta SQL proviene del argumento que se pasa al método
@@ -51,6 +51,7 @@ public class InscripcionData {
     }
 
     public List<Inscripcion> obtenerInscripciones() {
+         con = Conexion.getConexion();
         //Se crea una lista vacía llamada inscripciones para almacenar los objetos Inscripcion que se recuperarán de la base de datos.
         List<Inscripcion> inscripciones = new ArrayList<>();
 
@@ -108,6 +109,7 @@ public class InscripcionData {
     }
 
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
+                  con = Conexion.getConexion();
         List<Inscripcion> inscripciones = new ArrayList<>();
 
         try {
@@ -141,6 +143,7 @@ public class InscripcionData {
 
     // Método para obtener todas las materias cursadas con el ID especificado
     public List<Materia> obtenerMateriasCursadas(int id) {
+         con = Conexion.getConexion();
         List<Materia> materias = new ArrayList<>();
         try {
             String sql = "SELECT inscripcion.idMateria,nombre,año FROM inscripcion,materia"
@@ -173,6 +176,7 @@ public class InscripcionData {
     // Método para obtener todas las materias no cursadas con id especificado 
     //a consulta se enfoca en la tabla "materia" y busca las materias que no están en la lista de inscripciones del alumno.
     public List<Materia> obtenerMateriasNoCursadas(int id) {
+         con = Conexion.getConexion();
         List<Materia> materiasNoCursadas = new ArrayList<>();
         try {
             String sql = "SELECT materia.idMateria, nombre, año FROM materia "
@@ -219,6 +223,7 @@ public class InscripcionData {
 //            }
 //        }
     public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
+         con = Conexion.getConexion();
         try {
 
             String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
@@ -263,6 +268,7 @@ public class InscripcionData {
 //        }
 //        }
     public void actualizarNota(int idAlumno, int idMateria, double nota) {
+         con = Conexion.getConexion();
         try {
 
             String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? OR idMateria = ?";
@@ -283,12 +289,12 @@ public class InscripcionData {
 
 // Método para obtener una lista de alumnos inscritos en una materia específica
     public List<Alumno> obtenerAlumnosxMateria(int idMateria) {
+         con = Conexion.getConexion();
         List<Alumno> alumnosInscritos = new ArrayList<>();
         try {
 
-            String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.apellido"
-                    + "FROM Alumno " + "JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno "
-                    + "WHERE inscripcion.idMateria = ?";
+            String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.apellido FROM Alumno JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno WHERE inscripcion.idMateria = ? ";
+                  
             
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
@@ -306,7 +312,7 @@ public class InscripcionData {
 
             cerrarRecursos(ps, resultSet);
         } catch (SQLException ex) {
-            // Manejo de excepciones
+            JOptionPane.showMessageDialog(null, "Error no se pudo obtener la materia del alumno solicitado " + ex.getMessage());// Manejo de excepciones
         }
         return alumnosInscritos;
     }
