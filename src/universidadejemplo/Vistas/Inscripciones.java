@@ -93,6 +93,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane3.setViewportView(jTable1);
+        jTable1.getAccessibleContext().setAccessibleParent(jTable1);
 
         jComboBListAlum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +157,8 @@ public class Inscripciones extends javax.swing.JInternalFrame {
                     .addComponent(jbtSalir1))
                 .addGap(20, 20, 20))
         );
+
+        jbtInscribir.getAccessibleContext().setAccessibleParent(jbtInscribir);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

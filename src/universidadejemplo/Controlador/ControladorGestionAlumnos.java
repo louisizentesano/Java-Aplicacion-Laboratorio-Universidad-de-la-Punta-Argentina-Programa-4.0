@@ -11,7 +11,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.Entidades.Alumno;
@@ -77,11 +79,10 @@ public class ControladorGestionAlumnos implements ActionListener {
             vista.jbtNuevo.setEnabled(false);
             vista.jbtEliminar.setEnabled(false);
             vista.jtxDocumento.setText("0");
-            vista.jtxDocumento.setEnabled(false);
             vista.jtxNombre.setText("");
             vista.jtxApellido.setText("");
-            vista.jtxNombre.requestFocus();
-            //Si alguno sabe cual es la mejor opcion de codigo para Jcalendar, puede editar aqui sin problema.
+            vista.jtxDocumento.requestFocus();
+            
         }
         if (ae.getSource() == vista.jbtGuardar) {
             vista.jbtNuevo.setEnabled(true);
@@ -92,14 +93,20 @@ public class ControladorGestionAlumnos implements ActionListener {
             String nombre = vista.jtxNombre.getText();
             String apellido = vista.jtxApellido.getText();
             boolean estado = true; // Asumiendo que siempre quieres establecer el estado en verdadero
-            
-            if (dni != -1 && dni != 1) {
+            java.util.Date nac = vista.jdcFechadeNacimiento.getDate();
+
+        // Convierte el objeto Date a Instant
+        Instant instant = nac.toInstant();
+
+        // Convierte el Instant a LocalDate utilizando una zona horaria específica
+        LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            if (dni > 0) {
                 // Código para modificar el alumno existente
-                Alumno a = new Alumno(dni, apellido, nombre, LocalDate.now(), estado);
-                data.modificarAlumno(a);
+                Alumno a = new Alumno(dni, apellido, nombre, fecha ,estado); 
+                data.guardarAlumno(a);
             } else {
                 // Código para guardar un nuevo alumno
-                Alumno b = new Alumno(dni, apellido, nombre, LocalDate.now(), true);
+                Alumno b = new Alumno(dni, apellido, nombre, fecha , true);
                 data.guardarAlumno(b);
             }
         }

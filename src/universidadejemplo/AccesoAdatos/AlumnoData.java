@@ -36,8 +36,6 @@ public class AlumnoData {
             ps.setInt(1, alumno.getDni());
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
-            System.out.println(" Fecha Nacimiento en Alumno: " + alumno.getFechaNacimiento());
-            System.out.println(" Fecja Nacimiento convertido a Date: " + Date.valueOf(alumno.getFechaNacimiento()));
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));//localDate a Date
             ps.setBoolean(5, alumno.isEstado()); // if reducido
             ps.executeUpdate();
