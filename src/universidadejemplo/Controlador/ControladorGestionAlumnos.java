@@ -125,20 +125,25 @@ public class ControladorGestionAlumnos implements ActionListener {
 
             // Convierte el objeto Date a Instant
             Instant instant = nac.toInstant();
-
-            // Convierte el Instant a LocalDate utilizando una zona horaria específica
-            LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-            if (dni > 0) {
-                // Código para modificar el alumno existente
-                Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
-                data.guardarAlumno(a);
-            } else {
-                // Código para guardar un nuevo alumno
-                Alumno b = new Alumno(dni, apellido, nombre, fecha, true);
-                data.guardarAlumno(b);
+            if (idAlumno == -1) {
+                // Pregunta al usuario si quiere guardar el nuevo alumno
+                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de guardar el nuevo alumno?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            }
+                // Convierte el Instant a LocalDate utilizando una zona horaria específica
+                LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+                if (dni > 0) {
+                    // Código para modificar el alumno existente
+                    Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
+                    data.guardarAlumno(a);
+                } else {
+                    // Código para guardar un nuevo alumno
+                    Alumno b = new Alumno(dni, apellido, nombre, fecha, true);
+                    data.guardarAlumno(b);
+                }
             }
         }
-    }
+
+    
 
     public void focusGained(FocusEvent e) {
         try {
