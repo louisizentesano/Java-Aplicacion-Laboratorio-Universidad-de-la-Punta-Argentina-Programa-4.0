@@ -30,6 +30,7 @@ public class ControladorGestionAlumnos implements ActionListener {
     private final GestionAlumnos vista;
     private final AlumnoData data;
     private final MenuPrincipal menu;
+    private int idAlumno;
 
     public ControladorGestionAlumnos(GestionAlumnos vista, AlumnoData data, MenuPrincipal menu) {
         this.vista = vista;
@@ -67,8 +68,10 @@ public class ControladorGestionAlumnos implements ActionListener {
                 vista.jtxApellido.setText(alum.getApellido());
                 vista.jrbEstado.setSelected(alum.isEstado());
                 vista.jdcFechadeNacimiento.setDate(Date.valueOf(alum.getFechaNacimiento()));
+                this.idAlumno=alum.getIdAlumno();
             } else {
                 JOptionPane.showMessageDialog(null, "El alumno no existe");
+                this.idAlumno=-1;
             }
         }
         if (ae.getSource() == vista.jbtEliminar) {
@@ -84,6 +87,7 @@ public class ControladorGestionAlumnos implements ActionListener {
                 vista.jtxApellido.setText("");
                 vista.jrbEstado.setSelected(true); // Puedes establecer el estado a false si deseas
                 vista.jdcFechadeNacimiento.setDate(null); // También puedes borrar la fecha si lo deseas
+                data.eliminarAlumno(this.idAlumno);
             } else {
                 JOptionPane.showMessageDialog(null, "No se puede eliminar un alumno con un DNI inválido.");
             }
@@ -99,6 +103,7 @@ public class ControladorGestionAlumnos implements ActionListener {
             vista.jtxNombre.setText("");
             vista.jtxApellido.setText("");
             vista.jtxDocumento.requestFocus();
+            this.idAlumno=-1;
 
         }
         if (ae.getSource() == vista.jbtGuardar) {
