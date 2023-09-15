@@ -43,7 +43,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jComboBListAlum = new javax.swing.JComboBox<>();
+        jComboBListAlum = new javax.swing.JComboBox();
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel2.setText("Codigo:");
@@ -200,7 +200,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox<Alumno> jComboBListAlum;
+    public javax.swing.JComboBox jComboBListAlum;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
