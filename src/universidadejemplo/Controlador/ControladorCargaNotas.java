@@ -72,32 +72,56 @@ public void actionPerformed(ActionEvent e) {
 
             AlumnoData alumData = new AlumnoData(); // instancia de AlumnoData
             Alumno alumno = alumnoData.listarAlumnos(idAlumno);   // Llamo al metodo listarAlumnos de la clase AlumnoData
-
             // Ahora  tengo la instancia del alumno con la información
-            // Puedo acceder a sus propiedades, como DNI, apellido, nombre, etc.
+            // Puedo acceder a sus propiedades, como DNI, apellido, nombre, etc
+            
             if (alumno != null) {
-                System.out.println("DNI: " + alumno.getDni());
-                System.out.println("Apellido: " + alumno.getApellido());
-                System.out.println("Nombre: " + alumno.getNombre());
-                System.out.println("ID Alumno: " + alumno.getIdAlumno());
+              // Mostrar información del alumno en la jTableCargaNotas
+                DefaultTableModel model = (DefaultTableModel) vistacarganotas.jTableCargaNotas.getModel();
+                model.setRowCount(0); // Limpiar la tabla
+           // Agregar fila con los datos del alumno
+                model.addRow(new Object[] {
+                    alumno.getDni(),
+                    alumno.getApellido(),
+                    alumno.getNombre(),
+                    alumno.getIdAlumno()
+                });
+                
             }
+           }  
+   }        
            
      } else if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
         if (e.getSource() == vista.jButtonSalirCargaNotas){
             vistacarganotas.dispose();
-          
+            }
+   
+  // Código para manejar el evento del botón "Guardar" una nueva nota en una celda de la tercera columna 
+  // de jTableCargaNotas:
     }else if (e.getSource() == vistacarganotas.jButtonGuardar) {
-        // Código para manejar el evento del botón "Guardar" en una celda de la tabla????
+    DefaultTableModel model = (DefaultTableModel) vistacarganotas.jTableCargaNotas.getModel();
+    int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); //  obtener la fila seleccionada
+
+    if (filaSeleccionada >= 0) {
+        // Obtener la nueva nota desde un JTextField???nope   jTextFieldNuevaNota
+        //double nuevaNota = Double.parseDouble(jTextFieldNuevaNota.getText());
+
+        // Actualizar el valor de la celda en la tercera columna (índice 2) de la fila seleccionada
+        model.setValueAt(nuevaNota, filaSeleccionada, 2);//o siempre model.setValueAt(nuevaNota, 0, 2); si fuera 1 fila nomas
+
+         vistacarganotas.jTableCargaNotas.repaint();
+         
+    } else {
+             System.out.println("No selecciono ninguna fila no es posible guardar una nota");
     }
-  
-    
 }
+     
 
 public void modeloTabla() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
         modelo.addColumn("Nota");
-        vista.jTableCargaNotas.setModel(modelo);
+        vistacarganotas.jTableCargaNotas.setModel(modelo); //Establecer el modelo de tabla creado en modeloTabla
     }
 
  public void cargarCombo(){
