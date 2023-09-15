@@ -68,26 +68,32 @@ public class ControladorGestionAlumnos implements ActionListener {
                 vista.jtxApellido.setText(alum.getApellido());
                 vista.jrbEstado.setSelected(alum.isEstado());
                 vista.jdcFechadeNacimiento.setDate(Date.valueOf(alum.getFechaNacimiento()));
-                this.idAlumno=alum.getIdAlumno();
+                this.idAlumno = alum.getIdAlumno();
             } else {
                 JOptionPane.showMessageDialog(null, "El alumno no existe");
-                this.idAlumno=-1;
+                this.idAlumno = -1;
             }
         }
         if (ae.getSource() == vista.jbtEliminar) {
             int dni = Integer.parseInt(vista.jtxDocumento.getText());
             if (dni > 0) {
-                // Llamamos al método para eliminar el alumno
-                data.eliminarAlumno(dni);
-                JOptionPane.showMessageDialog(null, "Alumno eliminado con éxito.");
+                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar al alumno?");
 
-                // Luego puedes limpiar los campos de la vista si lo deseas
-                vista.jtxDocumento.setText("");
-                vista.jtxNombre.setText("");
-                vista.jtxApellido.setText("");
-                vista.jrbEstado.setSelected(true); // Puedes establecer el estado a false si deseas
-                vista.jdcFechadeNacimiento.setDate(null); // También puedes borrar la fecha si lo deseas
-                data.eliminarAlumno(this.idAlumno);
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    // El usuario confirmó eliminar, procede a eliminar el alumno
+                    data.eliminarAlumno(dni);
+                    JOptionPane.showMessageDialog(null, "Alumno eliminado con éxito.");
+
+                    // Luego puedes limpiar los campos de la vista si lo deseas
+                    vista.jtxDocumento.setText("");
+                    vista.jtxNombre.setText("");
+                    vista.jtxApellido.setText("");
+                    vista.jrbEstado.setSelected(true); // Puedes establecer el estado a false si deseas
+                    vista.jdcFechadeNacimiento.setDate(null); // También puedes borrar la fecha si lo deseas
+                    data.eliminarAlumno(this.idAlumno);
+                } else {
+                    // El usuario canceló la eliminación, no hagas nada
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No se puede eliminar un alumno con un DNI inválido.");
             }
@@ -103,7 +109,7 @@ public class ControladorGestionAlumnos implements ActionListener {
             vista.jtxNombre.setText("");
             vista.jtxApellido.setText("");
             vista.jtxDocumento.requestFocus();
-            this.idAlumno=-1;
+            this.idAlumno = -1;
 
         }
         if (ae.getSource() == vista.jbtGuardar) {
