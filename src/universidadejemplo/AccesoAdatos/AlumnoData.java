@@ -128,7 +128,7 @@ public class AlumnoData {
     public void eliminarAlumno(int id) {
         con = Conexion.getConexion();
         try {
-            String sql = "DELETE FROM alumno WHERE idAlumno = ? ";
+            String sql = "UPDATE alumno SET estado = 0 WHERE idAlumno = ? ";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int fila = ps.executeUpdate();
