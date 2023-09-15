@@ -133,11 +133,11 @@ public class ControladorGestionAlumnos implements ActionListener {
                     // Convierte el Instant a LocalDate utilizando una zona horaria específica
                     LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
                     if (dni > 0) {
-                        // Código para modificar el alumno existente
+                        // Código para guardar el alumno existente
                         Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
                         data.guardarAlumno(a);
                     } else {
-                        // Código para guardar un nuevo alumno
+                        // Código para modificar un nuevo alumno
                         Alumno b = new Alumno(dni, apellido, nombre, fecha, true);
                         data.modificarAlumno(b);
                     }
