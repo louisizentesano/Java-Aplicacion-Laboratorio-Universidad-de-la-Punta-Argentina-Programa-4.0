@@ -1,9 +1,9 @@
 package universidadejemplo.Controlador;
-/**
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.AccesoAdatos.InscripcionData;
@@ -13,6 +13,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
 
 //@author louisinette
 public class ControladorCargaNotas implements ActionListener {
+
     public AlumnoData alumdata;
     public InscripcionData inscdata;
     public CargaNotas vistacarganotas;
@@ -55,8 +56,10 @@ public class ControladorCargaNotas implements ActionListener {
     //getSource() se utiliza para determinar que componente genero el evento
     @Override
     public void actionPerformed(ActionEvent e) {
+        
+        
         if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) { // verifico si el evento proviene del JComboBox 
-            if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
+          /**  if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
                 //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
                 String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
 
@@ -65,55 +68,47 @@ public class ControladorCargaNotas implements ActionListener {
                 int idAlumno = Integer.parseInt(partes[3]); //el indice 3 contiene el id del alumno se convierte a entero
 
                 AlumnoData alumData = new AlumnoData(); // instancia de AlumnoData
-                Alumno alumno = alumnoData.listarAlumnos(idAlumno);   // Llamo al metodo listarAlumnos de la clase AlumnoData
+//                List<Materia> materia = inscdata.obtenerMateriasCursadas(idAlumno);   // Llamo al metodo listarAlumnos de la clase AlumnoData
                 // Ahora  tengo la instancia del alumno con la información
                 // Puedo acceder a sus propiedades, como DNI, apellido, nombre, etc
 
-                if (alumno != null) {
+                if (materia != null) {
                     // Mostrar información del alumno en la jTableCargaNotas
                     DefaultTableModel model = (DefaultTableModel) vistacarganotas.jTableCargaNotas.getModel();
                     model.setRowCount(0); // Limpiar la tabla
                     // Agregar fila con los datos del alumno
                     model.addRow(new Object[]{
-                        alumno.getDni(),
-                        alumno.getApellido(),
-                        alumno.getNombre(),
-                        alumno.getIdAlumno()
-                    });
-                }
-            }
+                        materia.getIdMateria(),
+                        materia.getNombre(),
+                        materia.getNombre(),});
+                }*/
+          
+            
         } else if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
             //  }  if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas){
             vistacarganotas.dispose();
-        }
 
-        /**
-         * // Código para manejar el evento del botón "Guardar" una nueva nota
-         * en una celda de la tercera columna // de jTableCargaNotas: }else if
-         * (e.getSource() == vistacarganotas.jButtonGuardar) { DefaultTableModel
-         * model = (DefaultTableModel)
-         * vistacarganotas.jTableCargaNotas.getModel(); int filaSeleccionada =
-         * vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila
-         * seleccionada
-         *
-         * if (filaSeleccionada >= 0) { // Obtener la nueva nota desde un
-         * JTextField???nope jTextFieldNuevaNota //double nuevaNota =
-         * Double.parseDouble(jTextFieldNuevaNota.getText());
-         *
-         * // Actualizar el valor de la celda en la tercera columna (índice 2)
-         * de la fila seleccionada model.setValueAt(nuevaNota, filaSeleccionada,
-         * 2);//o siempre model.setValueAt(nuevaNota, 0, 2); si fuera 1 fila
-         * nomas
-         *
-         * vistacarganotas.jTableCargaNotas.repaint();
-         *
-         * } else { System.out.println("No selecciono ninguna fila no es posible
-         * guardar una nota"); }
-         *
-         * }
-         
-    } */
-/**
+            //Código para manejar el evento del botón "Guardar" para actualizar la nota
+            //en una celda de la tercera columna // de jTableCargaNotas: 
+        } else if (e.getSource() == vistacarganotas.jButtonGuardar) {
+           int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada
+            Object idMateria=modelo.getValueAt(filaSeleccionada, 0);
+            Object nota=modelo.getValueAt(filaSeleccionada, 2);
+             String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
+                //Divido la cadena seleccionada para obtener el ID del alumno
+                String[] partes = selectedItem.split(" - ");
+                int idAlumno = Integer.parseInt(partes[3]); 
+                
+            if (filaSeleccionada >= 0) {
+                inscdata.actualizarNota(idAlumno,(int)idMateria,(double)nota);
+                JOptionPane.showMessageDialog(null,"Se ha actualizado la nota del alumno");
+                    
+            } else {
+                System.out.println("No selecciono ninguna fila no es posible guardar una nota");
+            }
+        }
+    }
+
     public void ModeloTablaCargaNotas() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
@@ -126,13 +121,11 @@ public class ControladorCargaNotas implements ActionListener {
         vistacarganotas.jComboBListAlumCargaNotas.removeAllItems();
         for (Alumno alumno : alumnos) {
             if (alumno.isEstado()) {
-                String alumnodelcombo = alumno.getDni() + " - " + alumno.getApellido() + ", " + alumno.getNombre() + " - " + alumno.getIdAlumno();
-                vistacarganotas.jComboBListAlumCargaNotas.addItem(alumnodelcombo);
+                String alumc = alumno.getDni() + " - " + alumno.getApellido() + ", " + alumno.getNombre() + " - " + alumno.getIdAlumno();
+                vistacarganotas.jComboBListAlumCargaNotas.addItem(alumc);
                 //probar  sino vistacarganotas.jComboBListAlumCargaNotas.addItem(alumno.getNombreCompleto());
                 //no puedo usar alumnodelcombo.toString porque no existe el override to.String en Alumno
             }
         }
     }
-
 }
-*/

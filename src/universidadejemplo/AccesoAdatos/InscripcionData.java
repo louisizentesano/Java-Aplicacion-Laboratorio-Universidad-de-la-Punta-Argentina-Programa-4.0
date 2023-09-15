@@ -271,7 +271,7 @@ public class InscripcionData {
          con = Conexion.getConexion();
         try {
 
-            String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? OR idMateria = ?";
+            String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             {
 

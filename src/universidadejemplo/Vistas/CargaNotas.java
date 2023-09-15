@@ -27,7 +27,7 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jButtonGuardar = new javax.swing.JButton();
         jButtonSalirCargaNotas = new javax.swing.JButton();
-        jComboBListAlumCargaNotas = new javax.swing.JComboBox<>();
+        jComboBListAlumCargaNotas = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCargaNotas = new javax.swing.JTable();
 
@@ -133,7 +133,7 @@ public class CargaNotas extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButtonGuardar;
     public javax.swing.JButton jButtonSalirCargaNotas;
-    public javax.swing.JComboBox<Alumno> jComboBListAlumCargaNotas;
+    public javax.swing.JComboBox jComboBListAlumCargaNotas;
     private javax.swing.JLabel jLCargaNotas;
     private javax.swing.JLabel jLSelectAlumn;
     private javax.swing.JPanel jPanel1;
