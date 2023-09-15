@@ -60,6 +60,12 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
             a.iniciar();
         }
         if(e.getSource() == menu.jmiManejoInscripciones){
+            AlumnoData adata = new AlumnoData();
+            InscripcionData idata = new InscripcionData();
+            Inscripciones vista = new Inscripciones();
+            ControladorInscripciones a = new ControladorInscripciones(vista, adata, idata, menu);
+            a.iniciar();
+                  
             
         }
         if(e.getSource() == menu.jmiManipulacionNotas){
