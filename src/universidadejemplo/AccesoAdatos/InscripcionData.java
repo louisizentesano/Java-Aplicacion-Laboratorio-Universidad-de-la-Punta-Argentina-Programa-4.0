@@ -141,37 +141,44 @@ public class InscripcionData {
         return inscripciones;
     }
 
-    // Método para obtener todas las materias cursadas con el ID especificado
-    public List<Materia> obtenerMateriasCursadas(int id) {
-         con = Conexion.getConexion();
-        List<Materia> materias = new ArrayList<>();
-        try {
-            String sql = "SELECT inscripcion.idMateria,nombre,año FROM inscripcion,materia"
-                    + "WHERE inscripcion.idMateria=materia.idMateria "
-                    + " AND inscripcion.idAlumno = ?";
-            //JOIN entre las tablas inscripcion y materia en función del idMateria y idAlumno         
-            // si llega a haber algun error de consulta probar:
-            //String sql = "SELECT materia.idMateria,nombre,año FROM inscripcion, "
-            //        + "materia WHERE inscripcion.idMateria=materia.idMateria "
-            //        + " AND inscripcion.idAlumno = ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet resultSet = ps.executeQuery();
-
-            while (resultSet.next()) {
-                Materia materia = new Materia();
-                materia.setIdMateria(resultSet.getInt("idMateria"));
-                materia.setNombre(resultSet.getString("nombre"));
-                materia.setAnioMateria(resultSet.getInt("año"));
-                materias.add(materia);
-            }
-            cerrarRecursos(ps, resultSet);
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se encontraron materias cursadas " + ex.getMessage());
-        }
-        return materias;
-    }
+    
+//    // Método para obtener todas las materias cursadas  y la nota con el ID especificado
+//        public List<Materia> obtenerMateriasCursadas(int id) {
+//         con = Conexion.getConexion();
+//        List<Materia> materias = new ArrayList<>();
+//        try {
+//            String sql = "SELECT inscripcion.idMateria,materia.nombre,inscripcion.nota FROM inscripcion,materia"
+//                    + "WHERE inscripcion.idMateria=materia.idMateria "
+//                    + " AND inscripcion.idAlumno = ?";
+//            //JOIN entre las tablas inscripcion y materia en función del idMateria buscando por idAlumno         
+//           
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, id);
+//            ResultSet resultSet = ps.executeQuery();
+//
+//            while (resultSet.next()) {
+//                
+//              Inscripcion inscripcion = new Inscripcion();  
+//               inscripcion.setIdMateria(resultSet.getInt("idMateria"));//no tengo setidMateria en inscripcion
+////              inscripcion.setNombre(resultSet.getString("nombre"));
+//              inscripcion.setNota(resultSet.getInt("nota"));
+//                 
+//               // Materia materia = new Materia();
+//                //materia.setIdMateria(resultSet.getInt("idMateria"));
+//                //materia.setNombre(resultSet.getString("nombre"));
+//                //Inscripcion inscripcion = new Inscripcion();
+//               // inscripcion.setNota(resultSet.getInt("nota"));
+//                //materia.setInscripcion(inscripcion); //no tengo un setter en Materia para asignar la inscripcion
+//                
+//                materias.add(inscripcion);
+//            }
+//            cerrarRecursos(ps, resultSet);
+//
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "No se encontraron materias cursadas " + ex.getMessage());
+//        }
+//        return materias;
+//    }
 
     // Método para obtener todas las materias no cursadas con id especificado 
     //a consulta se enfoca en la tabla "materia" y busca las materias que no están en la lista de inscripciones del alumno.

@@ -58,8 +58,8 @@ public class Inscripcion {
     public String toString() {
         return "Inscripcion{" + "idInscripcion=" + idInscripcion + ", alumno=" + alumno + ", materia=" + materia + ", nota=" + nota + '}';
     }
+
    
-    
     
   
     }
