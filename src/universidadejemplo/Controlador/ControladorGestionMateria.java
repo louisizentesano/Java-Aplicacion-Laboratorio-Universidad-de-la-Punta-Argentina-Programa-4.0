@@ -60,6 +60,9 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
         vista.setVisible(true);
         menu.jFondo.moveToFront(vista);
         vista.requestFocus(); //le da el foco al formulario
+        vista.jtxCodigo.setText("0");
+        vista.jtxAño.setText("1");
+        vista.jtxCodigo.requestFocus();
         
         
     }
@@ -79,6 +82,9 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
                 
             }else{
                 JOptionPane.showMessageDialog(null, "Se consulto pero no regreso ningun dato");
+                vista.jtxAño.setText("1");
+                vista.jtxNombre.setText("");
+                vista.jtxCodigo.requestFocus();
             }
         }
         
@@ -105,25 +111,29 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
             vista.jbtEliminar.setEnabled(true);
             vista.jtxCodigo.setEnabled(true);
             if (!vista.jtxCodigo.getText().equals("-1") && !vista.jtxCodigo.getText().equals("0")) {
-                Materia m = new Materia(Integer.parseInt(vista.jtxCodigo.getText()), vista.jtxNombre.getText(), Integer.parseInt(vista.jtxAño.getText()), vista.isSelected());
-                data.modificarMateria(m);
-
+                int vresp = JOptionPane.showConfirmDialog(null, "Guardar los Cambios?","Advertencia",JOptionPane.YES_NO_OPTION);
+                if (vresp == 0) { // tambien podria ser vresp == JOptionPane.YES_OPTION
+                    Materia m = new Materia(Integer.parseInt(vista.jtxCodigo.getText()), vista.jtxNombre.getText(), Integer.parseInt(vista.jtxAño.getText()), vista.isSelected());
+                    data.modificarMateria(m);
+                }
             } else {
-                Materia m = new Materia(-1, vista.jtxNombre.getText(), Integer.parseInt(vista.jtxAño.getText()), true);
-                //m.setNombre(vista.jtxNombre.getText());
-                //m.setAnioMateria(Integer.parseInt(vista.jtxAño.getText()));
-                data.guardarMateria(m); // de error!!
-                // m.setActivo(vista.jchEstado.isSelected()); // no existe la opcion de SetActivo en la Entidad materia
-
+                int vresp = JOptionPane.showConfirmDialog(null, "Crear la nueva Materia?","Advertencia",JOptionPane.YES_NO_OPTION);
+                if (vresp == JOptionPane.YES_OPTION) {
+                    Materia m = new Materia(-1, vista.jtxNombre.getText(), Integer.parseInt(vista.jtxAño.getText()), true);
+                    data.guardarMateria(m);
+                }
             }
-
         }
         if (e.getSource() == vista.jbtEliminar) {
             if (!vista.jtxCodigo.getText().equals("0")) {
-                int vResp = JOptionPane.showConfirmDialog(null, "Seguro de Eliminar la materia " + vista.jtxCodigo.getText() + " - " + vista.jtxNombre.getText());
+                int vResp = JOptionPane.showConfirmDialog(null, "Seguro de Eliminar la materia " + vista.jtxCodigo.getText() + " - " + vista.jtxNombre.getText(),"Advertencia",JOptionPane.YES_NO_OPTION);
                 if (vResp == 0) {
                     data.eliminarMateria(Integer.parseInt(vista.jtxCodigo.getText()));
-
+                    vista.jtxCodigo.setText("0");
+                    vista.jtxNombre.setText("");
+                    vista.jtxAño.setText("1");
+                    vista.jchEstado.setEnabled(true);
+                    vista.jtxCodigo.requestFocus();
                 }
             }
         }

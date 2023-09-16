@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import universidadejemplo.AccesoAdatos.InscripcionData;
 import universidadejemplo.AccesoAdatos.MateriaData;
@@ -59,24 +60,29 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
             vista.dispose();
         }
         if (e.getSource() == vista.jcbMateria){ // Actualiza la Tabla con los datos de la consulta de InscripcionData
-            System.out.println("Cargando Tabla ");
-            String combobox = vista.jcbMateria.getSelectedItem().toString();
-            String partes[] = combobox.split("-");
-            int idMateria = Integer.parseInt(partes[0].trim());
-            System.out.println(" ID Materia " + idMateria);
+            int idMateria = extraerIdMateria();
             List<Alumno> alumnos = new ArrayList<Alumno>();
             alumnos = idata.obtenerAlumnosxMateria(idMateria);
-            System.out.println("Alumnos " + alumnos.size());
             modelo.setRowCount(0); // Borra todas las filas
             for (Alumno alumno : alumnos) {
                 modelo.addRow(new Object[]{alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre()});
-                System.out.println("Agregando - " + alumno.toString());
             }
             vista.jTabla.setModel(modelo);
         }
         
     }
-    
+    private int extraerIdMateria(){
+        int idMateria = -1;
+        try{
+            String combobox = vista.jcbMateria.getSelectedItem().toString();
+            String partes[] = combobox.split("-");
+            idMateria = Integer.parseInt(partes[0].trim()); // pensar en si necesita un Try cach para la conversion pero pareciera que no!!!
+        }catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "A ocurrido un error al cargar los indices en el combobox, revices la posicion del idMateria");
+        }
+        
+        return idMateria;
+    }
     public void modelaTabla() {
         modelo.addColumn("ID");
         modelo.addColumn("DNI");

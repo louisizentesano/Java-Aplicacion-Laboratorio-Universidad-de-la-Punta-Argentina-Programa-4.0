@@ -42,7 +42,7 @@ public class AlumnoData {
           //  ResultSet rs = ps.getGeneratedKeys();  // Regresa los ID generados por la insercion anterior
           //  if (rs.next()) { // 
           //      alumno.setIdAlumno(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Alumno añadido con exito.");
+                //JOptionPane.showMessageDialog(null, "Alumno añadido con exito.");
           //  }
             ps.close();
         } catch (SQLException ex) {
@@ -69,7 +69,7 @@ public class AlumnoData {
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setEstado(rs.getBoolean("estado"));
             } else {
-                JOptionPane.showMessageDialog(null, "No existe el alumno");
+               // JOptionPane.showMessageDialog(null, "No existe el alumno");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -117,9 +117,9 @@ public class AlumnoData {
             ps.setInt(6, alumno.getIdAlumno());
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
+              //  JOptionPane.showMessageDialog(null, "Modificado Exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "El alumno no existe");
+               // JOptionPane.showMessageDialog(null, "El alumno no existe");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno " + ex.getMessage());
@@ -134,7 +134,7 @@ public class AlumnoData {
             ps.setInt(1, id);
             int fila = ps.executeUpdate();
             if (fila == 1) {
-                JOptionPane.showMessageDialog(null, " Se eliminó el alumno.");
+              //  JOptionPane.showMessageDialog(null, " Se eliminó el alumno.");
             }
             ps.close();
         } catch (SQLException e) {
