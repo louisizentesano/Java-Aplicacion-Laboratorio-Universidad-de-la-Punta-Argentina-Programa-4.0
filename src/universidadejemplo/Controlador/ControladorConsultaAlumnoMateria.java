@@ -28,7 +28,8 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
     public InscripcionData idata;
     public MenuPrincipal menu;
     public ConsultaAlumnoMateria vista;
-    DefaultTableModel modelo = new DefaultTableModel();
+    MyTableModel modelo = new MyTableModel();
+    
 
     public ControladorConsultaAlumnoMateria(MateriaData mdata, InscripcionData idata, MenuPrincipal menu, ConsultaAlumnoMateria vista) {
         this.mdata = mdata;
@@ -50,7 +51,7 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
         vista.requestFocus(); //le da el foco al formulario
         cargaCombo();
         modelaTabla();
-        vista.jTabla.setEnabled(false);
+        //vista.jTabla.setEnabled(false);
         
     }
 
@@ -100,6 +101,15 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
                 String cadena = materia.getIdMateria() + " - " + materia.getNombre() + " de " + materia.getAnioMateria() + " año.";
                 vista.jcbMateria.addItem(cadena);
             }
+        }
+    }
+
+    public class MyTableModel extends DefaultTableModel {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Aquí puedes personalizar la edición de celdas según tus necesidades
+            // En este ejemplo, solo permitimos editar la columna número 4 (nombre)
+            return column == 2; // Columna número 4 (columna 3 en índice base 0)
         }
     }
 }

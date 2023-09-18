@@ -15,7 +15,7 @@ import universidadejemplo.Vistas.CargaNotas;
 import universidadejemplo.Vistas.ConsultaAlumnoMateria;
 import universidadejemplo.Vistas.GestionAlumnos;
 import universidadejemplo.Vistas.GestionMateria;
-import universidadejemplo.Vistas.Inscripciones1;
+import universidadejemplo.Vistas.Inscripciones;
 import universidadejemplo.Vistas.MenuPrincipal;
 
 /**
@@ -63,8 +63,9 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
         if(e.getSource() == menu.jmiManejoInscripciones){
             AlumnoData adata = new AlumnoData();
             InscripcionData idata = new InscripcionData();
-            Inscripciones1 vista = new Inscripciones1();
+            Inscripciones vista = new Inscripciones();
             ControladorInscripciones a = new ControladorInscripciones(vista, adata, idata, menu);
+           
             a.iniciar();
             
         }
