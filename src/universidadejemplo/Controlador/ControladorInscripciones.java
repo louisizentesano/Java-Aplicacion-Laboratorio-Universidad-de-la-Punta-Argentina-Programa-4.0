@@ -18,12 +18,12 @@ import universidadejemplo.AccesoAdatos.MateriaData;
 import universidadejemplo.Entidades.Alumno;
 import universidadejemplo.Entidades.Inscripcion;
 import universidadejemplo.Entidades.Materia;
-import universidadejemplo.Vistas.Inscripciones1;
+import universidadejemplo.Vistas.Inscripciones;
 import universidadejemplo.Vistas.MenuPrincipal;
 
 public class ControladorInscripciones implements ActionListener, ListSelectionListener {
 
-    private final Inscripciones1 vista;
+    private final Inscripciones vista;
     private final AlumnoData alumnoData1;
     private final InscripcionData inscripcionData;
     private final MenuPrincipal menu;
@@ -33,7 +33,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
     private List<Materia> materiasInscriptas;
     private Alumno alumnoSeleccionado;
 
-    public ControladorInscripciones(Inscripciones1 vista, AlumnoData alumnoData, InscripcionData inscripcionData, MenuPrincipal menu) {
+    public ControladorInscripciones(Inscripciones vista, AlumnoData alumnoData, InscripcionData inscripcionData, MenuPrincipal menu) {
         this.vista = vista;
         this.alumnoData1 = alumnoData;
         this.inscripcionData = inscripcionData;
@@ -83,7 +83,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
             JOptionPane.showMessageDialog(null, "Error al salir");
         }
 
-        if (e.getSource() == vista.jbtEliminar) {
+        if (e.getSource() == vista.jbtAnularInscripcion) {
             anularInscripcionAlumno();
         } else {
             JOptionPane.showMessageDialog(null, "no se pudo anular la incripción");
@@ -148,17 +148,18 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         modelo.addColumn("año");
 
         vista.jTable1.setModel(modelo);//seteando 
-
     }
 
     private void inscribirAlumnoEnMateria() {
         int filaSeleccionada = vista.jTable1.getSelectedRow();
         if (filaSeleccionada != -1) {
             Materia materiaSeleccionada = obtenerMateriaSeleccionada(filaSeleccionada);
+            
+            
+            
             if (materiaSeleccionada != null) {
                // inscripcionData.inscribirAlumnoEnMateria(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
-                cargarMateriasNoCursadas();
-                cargarMateriasCursadas();
+              
             }
         }
     }
