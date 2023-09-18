@@ -1,15 +1,15 @@
 package universidadejemplo.Controlador;
-/*
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.AccesoAdatos.InscripcionData;
-import universidadejemplo.AccesoAdatos.MateriaData;
 import universidadejemplo.Entidades.Alumno;
+import universidadejemplo.Entidades.Inscripcion;
 import universidadejemplo.Entidades.Materia;
 import universidadejemplo.Vistas.CargaNotas;
 import universidadejemplo.Vistas.MenuPrincipal;
@@ -19,6 +19,7 @@ public class ControladorCargaNotas implements ActionListener {
 
     public AlumnoData alumdata;
     public InscripcionData inscdata;
+    public Materia matData;
     public CargaNotas vistacarganotas;
     public MenuPrincipal menu;
     DefaultTableModel modelo = new DefaultTableModel();
@@ -50,7 +51,8 @@ public class ControladorCargaNotas implements ActionListener {
         menu.jFondo.moveToFront(vistacarganotas);// Coloca la vista actual en la parte delantera del contenedor jFondo u otro componentes
         vistacarganotas.requestFocus(); //le da el foco al formulario la vista estará lista para recibir eventos de entrada
         cargarComboCargaNotas(); //metodo cargar datos en un JComboBox u otro componente de selección en la vista
-        ModeloTablaCargaNotas(); //configurar y mostrar una tabla en la vista,  para mostrar datos relacionados con las notas
+        ModeloTablaCargaNotas();
+        //configurar y mostrar una tabla en la vista,  para mostrar datos relacionados con las notas
         vistacarganotas.jTableCargaNotas.setEnabled(false);
 //Deshabilita la tabla en la vista (jTabla). Esto significa que el usuario no podrá interactuar directamente con la tabla 
 //hasta que se habilite nuevamente.
@@ -59,51 +61,53 @@ public class ControladorCargaNotas implements ActionListener {
     //getSource() se utiliza para determinar que componente genero el evento
     @Override
     public void actionPerformed(ActionEvent e) {
-                
-        if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) { // verifico si el evento proviene del JComboBox 
-           if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
+
+        if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) {
+           // verifico si el evento proviene del JComboBox 
+            if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
+              
                 //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
                 String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
 
-                //Divido la cadena seleccionada para obtener el ID del alumno
-                String[] partes = selectedItem.split(" - ");
-                int idAlumno = Integer.parseInt(partes[3]); //el indice 3 contiene el id del alumno se convierte a entero
-
-                List<Materia> materia = inscdata.obtenerMateriasCursadas(idAlumno);   
-              // Llamo al metodo obtenerMateriasCursadas de la clase InscripcionData por id Alumno
-            
-                // Mostrar información del idAlumno en la jTableCargaNotas
-                    DefaultTableModel model = (DefaultTableModel) vistacarganotas.jTableCargaNotas.getModel();
-//                    modelo.setRowCount(0); // Limpiar la tabla
-                    // Agregar fila con los datos del alumno
-                    modelo.addRow(new Object[]{
-                        materia.getIdMateria(),
-                        materia.getNombre(),
-                        materia.getNota(),});
+                //Divido la cadena seleccionada  para obtener el ID del alumno
+                String[] partes = selectedItem.split("-");
+                int idAlumno = Integer.parseInt(partes[2].trim()); 
+                System.out.println("idalumno" +idAlumno);//el indice 0 contiene el id del alumno se convierte a entero
+                // trim() se utiliza para eliminar los espacios en blanco al principio y al final de la cadena almacenada en partes[0] 
+                //antes de intentar convertirla a un entero utiliza  ndo Integer.parseInt()
+                List<Materia> materias = inscdata.obtenerMateriasCursadas(idAlumno);
+                modelo.setRowCount(0);
+                System.out.println("cantidad de materias"+ materias.size());
+                for (Materia materia : materias) {
+                    modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), inscdata.notadeMateria(idAlumno, materia.getIdMateria())});
+                    System.out.println("CARGANDO" + materia.getIdMateria());
                 }
-          
-            
-        } else if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
-            //  }  if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas){
-            vistacarganotas.dispose();
+                vistacarganotas.jTableCargaNotas.setModel(modelo);
 
-            //Código para manejar el evento del botón "Guardar" para actualizar la nota
-            //en una celda de la tercera columna // de jTableCargaNotas: 
-        } else if (e.getSource() == vistacarganotas.jButtonGuardar) {
-           int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada
-            Object idMateria=modelo.getValueAt(filaSeleccionada, 0);
-            Object nota=modelo.getValueAt(filaSeleccionada, 2);
-             String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
+            }
+            if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
+                //  }  if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas){
+                vistacarganotas.dispose();
+
+                //Código para manejar el evento del botón "Guardar" para actualizar la nota
+                //en una celda de la tercera columna // de jTableCargaNotas: 
+            }
+            if (e.getSource() == vistacarganotas.jButtonGuardar) {
+                int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada
+                Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
+                Object nota = modelo.getValueAt(filaSeleccionada, 2);
+                String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
                 //Divido la cadena seleccionada para obtener el ID del alumno
                 String[] partes = selectedItem.split(" - ");
-                int idAlumno = Integer.parseInt(partes[3]); 
-                
-            if (filaSeleccionada >= 0) {
-                inscdata.actualizarNota(idAlumno,(int)idMateria,(double)nota);
-                JOptionPane.showMessageDialog(null,"Se ha actualizado la nota del alumno");
-                
-            } else {
-                System.out.println("No selecciono ninguna fila no es posible guardar una nota");
+                int idAlumno = Integer.parseInt(partes[3]);
+
+                if (filaSeleccionada >= 0) {
+                    inscdata.actualizarNota(idAlumno, (int) idMateria, (double) nota);
+                    JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
+
+                } else {
+                    System.out.println("No selecciono ninguna fila no es posible guardar una nota");
+                }
             }
         }
     }
@@ -123,9 +127,14 @@ public class ControladorCargaNotas implements ActionListener {
                 String alumc = alumno.getDni() + " - " + alumno.getApellido() + ", " + alumno.getNombre() + " - " + alumno.getIdAlumno();
                 vistacarganotas.jComboBListAlumCargaNotas.addItem(alumc);
                 //probar  sino vistacarganotas.jComboBListAlumCargaNotas.addItem(alumno.getNombreCompleto());
-                //no puedo usar alumnodelcombo.toString porque no existe el override to.String en Alumno
+                //no puedo usar alumnodelcombo.toString porque no existe el override to.String en Alumno, el error era que en el diseño
+                //estana el type de tabla alumno se saco todo
             }
         }
     }
+    
+
+    private void cargarTablaCargaNotas(int idAlumno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
-*/

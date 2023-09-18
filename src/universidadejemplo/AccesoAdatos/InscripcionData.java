@@ -1,5 +1,6 @@
 package universidadejemplo.AccesoAdatos;
 
+import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import universidadejemplo.Entidades.Alumno;
 import universidadejemplo.Entidades.Inscripcion;
@@ -22,10 +25,10 @@ public class InscripcionData {
     private AlumnoData aludata;
 
     public InscripcionData() {
-           }
+    }
 
     public void guardarInscripcion(Inscripcion insc) {
-         con = Conexion.getConexion();
+        con = Conexion.getConexion();
         try {
             String sql = "INSERT INTO inscripcion (idInscripto, nota, idAlumno, idMateria) VALUES (?, ?, ?, ?)";
             //El valor del parámetro insc en la siguiente consulta SQL proviene del argumento que se pasa al método
@@ -51,7 +54,7 @@ public class InscripcionData {
     }
 
     public List<Inscripcion> obtenerInscripciones() {
-         con = Conexion.getConexion();
+        con = Conexion.getConexion();
         //Se crea una lista vacía llamada inscripciones para almacenar los objetos Inscripcion que se recuperarán de la base de datos.
         List<Inscripcion> inscripciones = new ArrayList<>();
 
@@ -109,7 +112,7 @@ public class InscripcionData {
     }
 
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
-                  con = Conexion.getConexion();
+        con = Conexion.getConexion();
         List<Inscripcion> inscripciones = new ArrayList<>();
 
         try {
@@ -140,50 +143,90 @@ public class InscripcionData {
         }
         return inscripciones;
     }
+//    // Método para obtener todas las materias cursadas  y la nota con el ID Alumno especificado
 
-    
-//    // Método para obtener todas las materias cursadas  y la nota con el ID especificado
-//        public List<Materia> obtenerMateriasCursadas(int id) {
-//         con = Conexion.getConexion();
-//        List<Materia> materias = new ArrayList<>();
-//        try {
-//            String sql = "SELECT inscripcion.idMateria,materia.nombre,inscripcion.nota FROM inscripcion,materia"
-//                    + "WHERE inscripcion.idMateria=materia.idMateria "
-//                    + " AND inscripcion.idAlumno = ?";
-//            //JOIN entre las tablas inscripcion y materia en función del idMateria buscando por idAlumno         
-//           
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setInt(1, id);
-//            ResultSet resultSet = ps.executeQuery();
-//
-//            while (resultSet.next()) {
-//                
-//              Inscripcion inscripcion = new Inscripcion();  
-//               inscripcion.setIdMateria(resultSet.getInt("idMateria"));//no tengo setidMateria en inscripcion
-////              inscripcion.setNombre(resultSet.getString("nombre"));
-//              inscripcion.setNota(resultSet.getInt("nota"));
-//                 
-//               // Materia materia = new Materia();
-//                //materia.setIdMateria(resultSet.getInt("idMateria"));
-//                //materia.setNombre(resultSet.getString("nombre"));
-//                //Inscripcion inscripcion = new Inscripcion();
-//               // inscripcion.setNota(resultSet.getInt("nota"));
-//                //materia.setInscripcion(inscripcion); //no tengo un setter en Materia para asignar la inscripcion
-//                
-//                materias.add(inscripcion);
+    public List<Materia> obtenerMateriasCursadas(int id) {
+        con = Conexion.getConexion();
+        List<Materia> materiasCursadas = new ArrayList<>();
+        try {
+            String sql = "SELECT inscripcion.idMateria, materia.nombre, materia.año FROM inscripcion,materia WHERE inscripcion.idMateria=materia.idMateria AND inscripcion.idAlumno = ?";
+//            JOIN entre las tablas inscripcion y materia buscando por idAlumno         
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Materia materia = new Materia();
+                materia.setIdMateria(resultSet.getInt("idMateria"));
+                materia.setNombre(resultSet.getString("nombre"));
+                materia.setAnioMateria(resultSet.getInt("año"));
+                materiasCursadas.add(materia);
+
+                     }
+            cerrarRecursos(ps, resultSet);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontraron materias cursadas " + ex.getMessage());
+        }
+        return materiasCursadas;
+    }
+
+//    // Método para obtener todas las materias cursadas  y la nota con el ID Alumno especificado
+    public List<Object> obtenerMateriasCursadas2(int id) {
+        con = Conexion.getConexion();
+        List<Object> materiasCursadas = new ArrayList<>();
+        try {
+            String sql = "SELECT inscripcion.idMateria, materia.nombre, materia.año, inscripcion.nota FROM inscripcion,materia WHERE inscripcion.idMateria=materia.idMateria AND inscripcion.idAlumno = ?";
+//            JOIN entre las tablas inscripcion y materia buscando por idAlumno         
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                int idMateria = resultSet.getInt("idMateria");
+                String nombre = resultSet.getString("nombre");
+                int nota = resultSet.getInt("nota");
+
+                Object materiaObject = new Object();
+                materiasCursadas.add(materiaObject);
+
+//        Materia unidos = new Materia(String.valueOf(idMateria), nombre, nota);
+//        materiasCursadas.add(unidos);
+//    
+            }
+            cerrarRecursos(ps, resultSet);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontraron materias cursadas " + ex.getMessage());
+        }
+        return materiasCursadas;
+    }
+
+//otra forma materias cursadas:    
+//public InscripcionData(MateriaData matdata) {
+// this.matdata = matdata;q
+// }
+//Iterable<Inscripcion> inscripciones = null;
+//         // tengo una lista de inscripciones con  objetos Inscripcion
+//        // Itero sobre las inscripciones y verifico si el alumno está inscrito en una materia
+//        for (Inscripcion inscripcion : inscripciones) {
+//            if (inscripcion.getAlumno().getId() == id) {
+//                // Si el alumno está inscrito en una materia, obtener la materia utilizando el método de MateriaData.
+//         List<Materia> materiasinsc = matdata.listarMaterias();
+//                for (Materia materia : materias) {
+//                    if (materia.getId() == inscripcion.getMateria().getId()) {
+//                        materias.add(materia);
+//                        break;  //Termina el bucle al encontrar la materia.
+//                    }
+//                }
 //            }
-//            cerrarRecursos(ps, resultSet);
-//
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "No se encontraron materias cursadas " + ex.getMessage());
 //        }
-//        return materias;
-//    }
-
     // Método para obtener todas las materias no cursadas con id especificado 
     //a consulta se enfoca en la tabla "materia" y busca las materias que no están en la lista de inscripciones del alumno.
     public List<Materia> obtenerMateriasNoCursadas(int id) {
-         con = Conexion.getConexion();
+        con = Conexion.getConexion();
         List<Materia> materiasNoCursadas = new ArrayList<>();
         try {
             String sql = "SELECT materia.idMateria, nombre, año FROM materia "
@@ -210,27 +253,8 @@ public class InscripcionData {
         return materiasNoCursadas;
     }
 
-//otra forma materias cursadas:    
-//public InscripcionData(MateriaData matdata) {
-// this.matdata = matdata;
-// }
-//Iterable<Inscripcion> inscripciones = null;
-//         // tengo una lista de inscripciones con  objetos Inscripcion
-//        // Itero sobre las inscripciones y verifico si el alumno está inscrito en una materia
-//        for (Inscripcion inscripcion : inscripciones) {
-//            if (inscripcion.getAlumno().getId() == id) {
-//                // Si el alumno está inscrito en una materia, obtener la materia utilizando el método de MateriaData.
-//         List<Materia> materiasinsc = matdata.listarMaterias();
-//                for (Materia materia : materias) {
-//                    if (materia.getId() == inscripcion.getMateria().getId()) {
-//                        materias.add(materia);
-//                        break;  //Termina el bucle al encontrar la materia.
-//                    }
-//                }
-//            }
-//        }
     public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
-         con = Conexion.getConexion();
+        con = Conexion.getConexion();
         try {
 
             String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
@@ -275,7 +299,7 @@ public class InscripcionData {
 //        }
 //        }
     public void actualizarNota(int idAlumno, int idMateria, double nota) {
-         con = Conexion.getConexion();
+        con = Conexion.getConexion();
         try {
 
             String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
@@ -296,13 +320,12 @@ public class InscripcionData {
 
 // Método para obtener una lista de alumnos inscritos en una materia específica
     public List<Alumno> obtenerAlumnosxMateria(int idMateria) {
-         con = Conexion.getConexion();
+        con = Conexion.getConexion();
         List<Alumno> alumnosInscritos = new ArrayList<>();
         try {
 
-            String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.apellido FROM Alumno JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno WHERE inscripcion.idMateria = ? ";
-                  
-            
+            String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.dni, alumno.apellido FROM Alumno JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno WHERE inscripcion.idMateria = ? ";
+
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
 
@@ -312,6 +335,7 @@ public class InscripcionData {
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(resultSet.getInt("idAlumno"));
                 alumno.setNombre(resultSet.getString("nombre"));
+                alumno.setDni(resultSet.getInt("dni"));
                 alumno.setApellido(resultSet.getString("apellido"));
                 // Establece otros campos del objeto Alumno según tu modelo
                 alumnosInscritos.add(alumno);
@@ -333,6 +357,7 @@ public class InscripcionData {
      * ps.close()..
      */
     // metodo auxiliar para cerrar tanto resultSet como prepare statement
+
     private void cerrarRecursos(PreparedStatement ps, ResultSet resultSet) throws SQLException {
         if (resultSet != null) {
             resultSet.close();
@@ -340,5 +365,25 @@ public class InscripcionData {
         if (ps != null) {
             ps.close();
         }
+    }
+
+    public Object notadeMateria(int idAlumno,int idMateria) {
+        int Nota = 0;
+        try {
+            con = Conexion.getConexion();
+            String sql= "SELECT * FROM inscripcion WHERE idAlumno=? AND idMateria=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ps.setInt(2, idMateria);
+            ResultSet resultSet = ps.executeQuery();
+           while (resultSet.next()) {
+            Nota = resultSet.getInt("nota");
+            }
+            
+                } catch (SQLException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (Object) Nota;
+        
     }
 }

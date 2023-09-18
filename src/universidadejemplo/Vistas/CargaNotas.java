@@ -1,6 +1,5 @@
 package universidadejemplo.Vistas;
 
-import universidadejemplo.Entidades.Alumno;
 
 /**
  * louisinette
