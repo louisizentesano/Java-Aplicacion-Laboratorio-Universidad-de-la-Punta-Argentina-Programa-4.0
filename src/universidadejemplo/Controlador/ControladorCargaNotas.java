@@ -71,16 +71,17 @@ public class ControladorCargaNotas implements ActionListener {
 
                 //Divido la cadena seleccionada  para obtener el ID del alumno
                 String[] partes = selectedItem.split("-");
-                int idAlumno = Integer.parseInt(partes[2].trim()); 
-                System.out.println("idalumno" +idAlumno);//el indice 0 contiene el id del alumno se convierte a entero
+                int idAlumno = Integer.parseInt(partes[2].trim()); //el indice 0 contiene el id del alumno se convierte a entero
+                   //antes de intentar convertirla a un entero utiliza  ndo Integer.parseInt()
+                System.out.println("idalumno" +idAlumno);
                 // trim() se utiliza para eliminar los espacios en blanco al principio y al final de la cadena almacenada en partes[0] 
-                //antes de intentar convertirla a un entero utiliza  ndo Integer.parseInt()
                 List<Materia> materias = inscdata.obtenerMateriasCursadas(idAlumno);
                 modelo.setRowCount(0);
                 System.out.println("cantidad de materias"+ materias.size());
                 for (Materia materia : materias) {
                     modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), inscdata.notadeMateria(idAlumno, materia.getIdMateria())});
                     System.out.println("CARGANDO" + materia.getIdMateria());
+                                       
                 }
                 vistacarganotas.jTableCargaNotas.setModel(modelo);
 
