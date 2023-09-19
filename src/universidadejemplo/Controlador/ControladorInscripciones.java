@@ -24,7 +24,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
 public class ControladorInscripciones implements ActionListener, ListSelectionListener {
 
     private final Inscripciones vista;
-    private final AlumnoData alumnoData1;
+    private final AlumnoData alumnoData;
     private final InscripcionData inscripcionData;
     private final MenuPrincipal menu;
     DefaultTableModel modelo = new DefaultTableModel();
@@ -35,7 +35,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
     public ControladorInscripciones(Inscripciones vista, AlumnoData alumnoData, InscripcionData inscripcionData, MenuPrincipal menu) {
         this.vista = vista;
-        this.alumnoData1 = alumnoData;
+        this.alumnoData = alumnoData;
         this.inscripcionData = inscripcionData;
         this.menu = menu;
 
@@ -43,14 +43,13 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         this.vista.jbtAnularInscripcion.addActionListener(this);    //escucha al boton anular inscripcion
         this.vista.jbtSalir.addActionListener(this);                //escucha boton salir
         this.vista.jComboBListAlum.addActionListener(this);         //escucha al combo
-
+        this.vista.jRadioButtonMateriasInscriptas.addActionListener(this);
+        this.vista.jRadioButtonMateriaNoInscriptas.addActionListener(this);
         this.vista.jTable1.getSelectionModel().addListSelectionListener(this);
     }
 
     public void iniciar() {
         vista.setTitle("Inscripciones");
-        cargarMateriasNoCursadas();
-        cargarMateriasCursadas();
 
         menu.jFondo.removeAll();        //remueve todas las vistas anteriores
         menu.jFondo.repaint();          // repinta
@@ -58,7 +57,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         vista.setVisible(true);         //lo hace visible
         menu.jFondo.moveToFront(vista); //mueve el fondo al frente
         vista.requestFocus();           //le da el foco al formulario
-        rellenar();                     //
+        rellenarCombo();                     //
         modelaTabla();                  //
 
     }
@@ -68,27 +67,48 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == vista.jComboBListAlum) {
-            alumnoSeleccionado = (Alumno) vista.jComboBListAlum.getSelectedItem();
-            cargarMateriasNoCursadas();
-            cargarMateriasCursadas();
-        } else if (e.getSource() == vista.jbtInscribir) {  //Buscar incripcion el alumno a incribir en 
-            inscribirAlumnoEnMateria();
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo incribir al alumno");
+            rellenarTabla();
+        }
+
+        if (e.getSource() == vista.jbtInscribir) {  //Buscar incripcion el alumno a incribir en 
+            Inscripcion inscribir = new Inscripcion();
+            Materia materiasNueva = new Materia();
+            Alumno alumn = new Alumno();
+
+            int filaSelect = vista.jTable1.getSelectedRow(); //obtener fila seleccionada
+            int idMateriaSelect = (int) modelo.getValueAt(filaSelect, 0);
+
+            materiasNueva.setIdMateria(idMateriaSelect);
+            alumn.setIdAlumno(traerID());
+
+            inscribir.setAlumno(alumn);
+            inscribir.setMateria(materiasNueva);
+            inscribir.setNota(0);
+            
+            inscripcionData.guardarInscripcion(inscribir); //al alumno lo isncribe en esa materia
+
+            
+            //  JOptionPane.showMessageDialog(null, "No se pudo incribir al alumno");
         }
 
         if (e.getSource() == vista.jbtSalir) { // sale del jInternalFrame
             vista.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al salir");
         }
 
         if (e.getSource() == vista.jbtAnularInscripcion) {
             anularInscripcionAlumno();
-        } else {
-            JOptionPane.showMessageDialog(null, "no se pudo anular la incripción");
+            //            JOptionPane.showMessageDialog(null, "no se pudo anular la incripción");
         }
 
+        if (e.getSource() == vista.jRadioButtonMateriasInscriptas) {
+            vista.jRadioButtonMateriaNoInscriptas.setSelected(false);
+            rellenarTabla();
+        }
+
+        if (e.getSource() == vista.jRadioButtonMateriaNoInscriptas) {
+            vista.jRadioButtonMateriasInscriptas.setSelected(false);
+            rellenarTabla();
+        }
     }
 
     @Override
@@ -128,15 +148,47 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         }
     }
 
-    private void rellenar() {
+    private void rellenarTabla() {
+
+        List<Materia> materias = new ArrayList<Materia>(); //array list vacio para cargar los datos que provienen del metodo inscripcion data obtener materias cursadas
+        if (vista.jRadioButtonMateriasInscriptas.isSelected()) {
+            materias = inscripcionData.obtenerMateriasCursadas(traerID());
+        } else {
+            materias = inscripcionData.obtenerMateriasNoCursadas(traerID());
+        }
+
+        System.out.println(
+                "Rellenar tabla funciona. Alumnos: " + materias.size());
+
+        modelo.setRowCount(
+                0); //borra el modelo
+
+        for (Materia materia : materias) {
+            modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.getAnioMateria()});//rellena el modelo
+        }
+
+        vista.jTable1.setModel(modelo); //asignamos el modelo a la vista
+
+    }
+
+    private int traerID() {
+        String varTemp = vista.jComboBListAlum.getSelectedItem().toString(); //trae el texto que está en el combo
+        String[] partes = varTemp.split("-"); // particiona la cadena usando el guón como punto de partida y genera el vector
+        int idAlumno = Integer.parseInt(partes[0].trim()); // selecciona la primer parte de l vector indice 0, lo extrae el dato que está en caracteres y lo parsea a entero
+
+        return idAlumno;
+    }
+
+    private void rellenarCombo() {
         List<Alumno> alumnos = new ArrayList<>();
         //List<Alumno> materias = new ArrayList<Alumno>(); cualquiera funciona
 
-        alumnos = alumnoData1.listarAlumnos();
+        alumnos = alumnoData.listarAlumnos();
         vista.jComboBListAlum.removeAllItems();
+        System.out.println("tamaño de alumno " + alumnos.size());
         for (Alumno alumno : alumnos) {
             if (alumno.isEstado()) {
-                String cadena = alumno.getDni() + "- " + alumno.getApellido();
+                String cadena = alumno.getIdAlumno() + " - " + alumno.getDni() + " - " + alumno.getApellido();
                 vista.jComboBListAlum.addItem(cadena);
             }
         }
@@ -154,12 +206,10 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         int filaSeleccionada = vista.jTable1.getSelectedRow();
         if (filaSeleccionada != -1) {
             Materia materiaSeleccionada = obtenerMateriaSeleccionada(filaSeleccionada);
-            
-            
-            
+
             if (materiaSeleccionada != null) {
-               // inscripcionData.inscribirAlumnoEnMateria(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
-              
+                // inscripcionData.inscribirAlumnoEnMateria(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
+
             }
         }
     }
@@ -169,7 +219,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         if (filaSeleccionada != -1) {
             Materia materiaSeleccionada = obtenerMateriaSeleccionada(filaSeleccionada);
             if (materiaSeleccionada != null) {
-           //    inscripcionData.anularInscripcionAlumno(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
+                //    inscripcionData.anularInscripcionAlumno(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
                 cargarMateriasNoCursadas();
                 cargarMateriasCursadas();
             }
@@ -178,6 +228,8 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
     private Materia obtenerMateriaSeleccionada(int fila) {
         int idMateria = (int) vista.jTable1.getValueAt(fila, 0);
-        return IncripcionesData.obtenerMateriaPorID(idMateria);
+        // return universidadejemplo.AccesoAdatos.IncripcionData.obtenerMateriaPorID(idMateria);
+        return new Materia();
+
     }
 }
