@@ -30,22 +30,21 @@ public class InscripcionData {
     public void guardarInscripcion(Inscripcion insc) {
         con = Conexion.getConexion();
         try {
-            String sql = "INSERT INTO inscripcion (idInscripto, nota, idAlumno, idMateria) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO inscripcion (nota, idAlumno, idMateria) VALUES ( ?, ?, ?)";
             //El valor del parámetro insc en la siguiente consulta SQL proviene del argumento que se pasa al método
             //guardarInscripcion(Inscripcion insc)
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 //El valor del parámetro insc en la siguiente consulta SQL proviene del argumento que se pasa al método
                 //guardarInscripcion(Inscripcion insc)
-                ps.setInt(1, insc.getIdInscripcion());//idInscripto??
-                ps.setDouble(2, insc.getNota());
-                ps.setInt(3, insc.getAlumno().getIdAlumno());
-                ps.setInt(4, insc.getMateria().getIdMateria());
+                ps.setDouble(1, insc.getNota());
+                ps.setInt(2, insc.getAlumno().getIdAlumno());
+                ps.setInt(3, insc.getMateria().getIdMateria());
                 ps.executeUpdate();
-                ResultSet rs = ps.getGeneratedKeys();
-                if (rs.next()) {
-                    insc.setIdInscripcion(rs.getInt("idInscripto"));
+                //ResultSet rs = ps.getGeneratedKeys();
+               // if (rs.next()) {
+               //     insc.setIdInscripcion(rs.getInt("idInscripto"));
                     JOptionPane.showMessageDialog(null, "Inscripcion exitosa");
-                }
+              //  }
             } //idInscripto??
 
         } catch (SQLException ex) {
@@ -204,7 +203,7 @@ public class InscripcionData {
         return materiasCursadas;
     }
 
-//otra forma materias cursadas:    
+//otras pruebas de materias cursadas:    
 //public InscripcionData(MateriaData matdata) {
 // this.matdata = matdata;q
 // }
