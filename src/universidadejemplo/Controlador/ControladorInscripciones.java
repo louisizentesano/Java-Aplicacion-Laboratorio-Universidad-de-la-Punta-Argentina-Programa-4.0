@@ -59,7 +59,8 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         vista.requestFocus();           //le da el foco al formulario
         rellenarCombo();                     //
         modelaTabla();                  //
-
+        vista.jRadioButtonMateriasInscriptas.setSelected(true);
+        rellenarTabla();
     }
 
     @Override
@@ -71,23 +72,29 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         }
 
         if (e.getSource() == vista.jbtInscribir) {  //Buscar incripcion el alumno a incribir en 
-            Inscripcion inscribir = new Inscripcion();
-            Materia materiasNueva = new Materia();
-            Alumno alumn = new Alumno();
 
-            int filaSelect = vista.jTable1.getSelectedRow(); //obtener fila seleccionada
-            int idMateriaSelect = (int) modelo.getValueAt(filaSelect, 0);
+            if (vista.jTable1.getSelectedRow() != -1) {
 
-            materiasNueva.setIdMateria(idMateriaSelect);
-            alumn.setIdAlumno(traerID());
+                Inscripcion inscribir = new Inscripcion();
+                Materia materiasNueva = new Materia();
+                Alumno alumn = new Alumno();
 
-            inscribir.setAlumno(alumn);
-            inscribir.setMateria(materiasNueva);
-            inscribir.setNota(0);
-            
-            inscripcionData.guardarInscripcion(inscribir); //al alumno lo isncribe en esa materia
+                int filaSelect = vista.jTable1.getSelectedRow(); //obtener fila seleccionada
+                int idMateriaSelect = (int) modelo.getValueAt(filaSelect, 0);
 
-            
+                materiasNueva.setIdMateria(idMateriaSelect);
+                alumn.setIdAlumno(traerID());
+
+                inscribir.setAlumno(alumn);
+                inscribir.setMateria(materiasNueva);
+                inscribir.setNota(0);
+
+                inscripcionData.guardarInscripcion(inscribir); //al alumno lo isncribe en esa materia
+                rellenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "El alumno ya está inscrito en esta materia.");
+                //System.out.println("Para inscribir debe seleccionar primero una materia");
+            }
             //  JOptionPane.showMessageDialog(null, "No se pudo incribir al alumno");
         }
 
@@ -151,6 +158,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
     private void rellenarTabla() {
 
         List<Materia> materias = new ArrayList<Materia>(); //array list vacio para cargar los datos que provienen del metodo inscripcion data obtener materias cursadas
+
         if (vista.jRadioButtonMateriasInscriptas.isSelected()) {
             materias = inscripcionData.obtenerMateriasCursadas(traerID());
         } else {
@@ -160,8 +168,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         System.out.println(
                 "Rellenar tabla funciona. Alumnos: " + materias.size());
 
-        modelo.setRowCount(
-                0); //borra el modelo
+        modelo.setRowCount(0); //borra el modelo
 
         for (Materia materia : materias) {
             modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.getAnioMateria()});//rellena el modelo
@@ -175,17 +182,17 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         String varTemp = vista.jComboBListAlum.getSelectedItem().toString(); //trae el texto que está en el combo
         String[] partes = varTemp.split("-"); // particiona la cadena usando el guón como punto de partida y genera el vector
         int idAlumno = Integer.parseInt(partes[0].trim()); // selecciona la primer parte de l vector indice 0, lo extrae el dato que está en caracteres y lo parsea a entero
-
         return idAlumno;
     }
 
     private void rellenarCombo() {
         List<Alumno> alumnos = new ArrayList<>();
-        //List<Alumno> materias = new ArrayList<Alumno>(); cualquiera funciona
+        //o List<Alumno> materias = new ArrayList<Alumno>(); cualquiera funciona
 
         alumnos = alumnoData.listarAlumnos();
         vista.jComboBListAlum.removeAllItems();
         System.out.println("tamaño de alumno " + alumnos.size());
+
         for (Alumno alumno : alumnos) {
             if (alumno.isEstado()) {
                 String cadena = alumno.getIdAlumno() + " - " + alumno.getDni() + " - " + alumno.getApellido();
