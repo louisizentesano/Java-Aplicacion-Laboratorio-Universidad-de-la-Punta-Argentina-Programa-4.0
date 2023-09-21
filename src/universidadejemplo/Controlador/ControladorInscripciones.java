@@ -44,7 +44,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         this.vista.jbtSalir.addActionListener(this);                //escucha boton salir
         this.vista.jComboBListAlum.addActionListener(this);         //escucha al combo
         this.vista.jRadioButtonMateriasInscriptas.addActionListener(this);
-        this.vista.jRadioButtonMateriaNoInscriptas.addActionListener(this);
+        this.vista.jRadioButtonMateriasNoInscriptas.addActionListener(this);
         this.vista.jTable1.getSelectionModel().addListSelectionListener(this);
     }
 
@@ -59,15 +59,40 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         vista.requestFocus();           //le da el foco al formulario
         rellenarCombo();                     //
         modelaTabla();                  //
-        vista.jRadioButtonMateriasInscriptas.setSelected(true);
-        rellenarTabla();
-    }
+        vista.jRadioButtonMateriasInscriptas.setSelected(true); //muestra por defecto materias inscriptas inicializada
+        rellenarTabla(); //rellena la tabla de materias incriptas inicializada
+        vista.jbtInscribir.setEnabled(false); //desactiva el boton Inscribir (ya que muestra por defecto materias inscriptas)
+       }
 
     @Override
     //acciones cuando cada boton se activa
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == vista.jComboBListAlum) {
+            rellenarTabla();
+        }
+
+        if (e.getSource() == vista.jRadioButtonMateriasInscriptas) {
+            // Deshabilita el botón "Inscribir" cuando se selecciona "Materias Inscriptas"
+            vista.jbtInscribir.setEnabled(false);
+            vista.jRadioButtonMateriasNoInscriptas.setSelected(false);
+
+            // habilita el botón "Anular Inscripción" cuando se selecciona "Materias No Inscriptas"
+            vista.jbtAnularInscripcion.setEnabled(true);
+            vista.jRadioButtonMateriasInscriptas.setSelected(true);
+
+            rellenarTabla();
+        }
+
+        if (e.getSource() == vista.jRadioButtonMateriasNoInscriptas) {
+            // Habilita el botón "Inscribir" cuando se selecciona "Materias No Inscriptas"
+            vista.jbtInscribir.setEnabled(true);
+            vista.jRadioButtonMateriasInscriptas.setSelected(false);
+
+            // Deshabilita el botón "Anular Inscripción" cuando se selecciona "Materias No Inscriptas"
+            vista.jbtAnularInscripcion.setEnabled(false);
+            vista.jRadioButtonMateriasNoInscriptas.setSelected(true);
+
             rellenarTabla();
         }
 
@@ -108,19 +133,18 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         }
 
         if (e.getSource() == vista.jRadioButtonMateriasInscriptas) {
-            vista.jRadioButtonMateriaNoInscriptas.setSelected(false);
+            vista.jRadioButtonMateriasNoInscriptas.setSelected(false);
             rellenarTabla();
         }
 
-        if (e.getSource() == vista.jRadioButtonMateriaNoInscriptas) {
+        if (e.getSource() == vista.jRadioButtonMateriasNoInscriptas) {
             vista.jRadioButtonMateriasInscriptas.setSelected(false);
             rellenarTabla();
         }
     }
 
     @Override
-    public void valueChanged(ListSelectionEvent e
-    ) {
+    public void valueChanged(ListSelectionEvent e) {
     }
 
     private void cargarMateriasNoCursadas() {
@@ -226,9 +250,14 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         if (filaSeleccionada != -1) {
             Materia materiaSeleccionada = obtenerMateriaSeleccionada(filaSeleccionada);
             if (materiaSeleccionada != null) {
-                //    inscripcionData.anularInscripcionAlumno(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
+                int idAlumno = traerID();
+                int idMateria = materiaSeleccionada.getIdMateria();
+
+                inscripcionData.borrarInscripcionMateriaAlumno(idAlumno, idMateria);
+
                 cargarMateriasNoCursadas();
                 cargarMateriasCursadas();
+                JOptionPane.showMessageDialog(null, "Inscripción anulada con éxito.");
             }
         }
     }

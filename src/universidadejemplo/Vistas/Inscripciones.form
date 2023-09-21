@@ -72,7 +72,7 @@
                                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                           <Component id="jRadioButtonMateriasInscriptas" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                          <Component id="jRadioButtonMateriaNoInscriptas" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jRadioButtonMateriasNoInscriptas" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -102,7 +102,7 @@
                   <EmptySpace pref="38" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jRadioButtonMateriasInscriptas" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButtonMateriaNoInscriptas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButtonMateriasNoInscriptas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="195" max="-2" attributes="0"/>
@@ -191,12 +191,12 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButtonMateriaNoInscriptas">
+        <Component class="javax.swing.JRadioButton" name="jRadioButtonMateriasNoInscriptas">
           <Properties>
             <Property name="text" type="java.lang.String" value="Materias no inscriptas"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMateriaNoInscriptasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMateriasNoInscriptasActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

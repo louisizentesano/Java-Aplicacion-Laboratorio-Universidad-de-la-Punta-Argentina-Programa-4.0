@@ -38,7 +38,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
         jbtAnularInscripcion = new javax.swing.JButton();
         jbtSalir = new javax.swing.JButton();
         jRadioButtonMateriasInscriptas = new javax.swing.JRadioButton();
-        jRadioButtonMateriaNoInscriptas = new javax.swing.JRadioButton();
+        jRadioButtonMateriasNoInscriptas = new javax.swing.JRadioButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jComboBListAlum = new javax.swing.JComboBox();
@@ -76,10 +76,10 @@ public class Inscripciones extends javax.swing.JInternalFrame {
             }
         });
 
-        jRadioButtonMateriaNoInscriptas.setText("Materias no inscriptas");
-        jRadioButtonMateriaNoInscriptas.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonMateriasNoInscriptas.setText("Materias no inscriptas");
+        jRadioButtonMateriasNoInscriptas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonMateriaNoInscriptasActionPerformed(evt);
+                jRadioButtonMateriasNoInscriptasActionPerformed(evt);
             }
         });
 
@@ -129,7 +129,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
                                         .addGap(51, 51, 51)
                                         .addComponent(jRadioButtonMateriasInscriptas)
                                         .addGap(38, 38, 38)
-                                        .addComponent(jRadioButtonMateriaNoInscriptas)
+                                        .addComponent(jRadioButtonMateriasNoInscriptas)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
@@ -149,7 +149,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonMateriasInscriptas)
-                    .addComponent(jRadioButtonMateriaNoInscriptas))
+                    .addComponent(jRadioButtonMateriasNoInscriptas))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -194,9 +194,9 @@ public class Inscripciones extends javax.swing.JInternalFrame {
         //        jTCargaNotas
     }//GEN-LAST:event_jComboBListAlumActionPerformed
 
-    private void jRadioButtonMateriaNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMateriaNoInscriptasActionPerformed
+    private void jRadioButtonMateriasNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMateriasNoInscriptasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonMateriaNoInscriptasActionPerformed
+    }//GEN-LAST:event_jRadioButtonMateriasNoInscriptasActionPerformed
 
     private void jbtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalirActionPerformed
         // TODO add your handling code here:
@@ -209,8 +209,8 @@ public class Inscripciones extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     public javax.swing.JPanel jPanel1;
-    public javax.swing.JRadioButton jRadioButtonMateriaNoInscriptas;
     public javax.swing.JRadioButton jRadioButtonMateriasInscriptas;
+    public javax.swing.JRadioButton jRadioButtonMateriasNoInscriptas;
     private javax.swing.JScrollPane jScrollPane3;
     public javax.swing.JTable jTable1;
     public javax.swing.JButton jbtAnularInscripcion;
