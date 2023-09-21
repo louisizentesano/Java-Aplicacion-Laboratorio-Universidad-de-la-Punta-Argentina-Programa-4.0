@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import universidadejemplo.Entidades.Materia;
 
 public class MateriaData {
@@ -64,7 +65,7 @@ public class MateriaData {
             statement.setInt(4, materia.getIdMateria());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            
             
         }
          cerrarConexion();
@@ -78,7 +79,8 @@ public class MateriaData {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"no se pudo eliminar la materia debido a "+ e.getMessage()+ "o existen alumnos inscriptos a esa materia.");
+                   
         }
          cerrarConexion();
     }
