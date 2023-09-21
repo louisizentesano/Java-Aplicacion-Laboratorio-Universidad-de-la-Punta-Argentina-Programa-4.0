@@ -95,6 +95,7 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
         if (e.getSource() == vista.jbtNuevo){
             vista.jbtNuevo.setEnabled(false);
             vista.jbtEliminar.setEnabled(false);
+            vista.jbtBuscar.setEnabled(false);
             vista.jtxCodigo.setText("-1");
             vista.jtxCodigo.setEnabled(false);
             vista.jtxNombre.setText("");
@@ -108,8 +109,9 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
                 caso contrario lo que hace es modificar segun el codigo actual siempre y cuando este no sea 0.
              */
             vista.jbtNuevo.setEnabled(true);
-            vista.jbtEliminar.setEnabled(true);
+            vista.jbtEliminar.setEnabled(true); // modificacion para comint
             vista.jtxCodigo.setEnabled(true);
+            vista.jbtBuscar.setEnabled(true);
             if (!vista.jtxCodigo.getText().equals("-1") && !vista.jtxCodigo.getText().equals("0")) {
                 int vresp = JOptionPane.showConfirmDialog(null, "Guardar los Cambios?","Advertencia",JOptionPane.YES_NO_OPTION);
                 if (vresp == 0) { // tambien podria ser vresp == JOptionPane.YES_OPTION
@@ -124,7 +126,7 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
                 }
             }
         }
-        if (e.getSource() == vista.jbtEliminar) {
+        if (e.getSource() == vista.jbtEliminar) { // revicion de porque no elimima
             if (!vista.jtxCodigo.getText().equals("0")) {
                 int vResp = JOptionPane.showConfirmDialog(null, "Seguro de Eliminar la materia " + vista.jtxCodigo.getText() + " - " + vista.jtxNombre.getText(),"Advertencia",JOptionPane.YES_NO_OPTION);
                 if (vResp == 0) {
