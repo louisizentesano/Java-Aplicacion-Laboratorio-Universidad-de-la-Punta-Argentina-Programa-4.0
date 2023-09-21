@@ -19,10 +19,10 @@ public class ControladorCargaNotas implements ActionListener {
 
     public AlumnoData alumdata;
     public InscripcionData inscdata;
-    public Materia matData;
+    // public Materia matData;
     public CargaNotas vistacarganotas;
     public MenuPrincipal menu;
-    DefaultTableModel modelo = new DefaultTableModel();
+    MyTableModel modelo = new MyTableModel();
 
     public ControladorCargaNotas(AlumnoData alumdata, InscripcionData inscdata, CargaNotas vistacarganotas, MenuPrincipal menu) {
         this.alumdata = alumdata;
@@ -53,7 +53,7 @@ public class ControladorCargaNotas implements ActionListener {
         cargarComboCargaNotas(); //metodo cargar datos en un JComboBox u otro componente de selección en la vista
         ModeloTablaCargaNotas();
         //configurar y mostrar una tabla en la vista,  para mostrar datos relacionados con las notas
-        vistacarganotas.jTableCargaNotas.setEnabled(false);
+        // vistacarganotas.jTableCargaNotas.setEnabled(false);
 //Deshabilita la tabla en la vista (jTabla). Esto significa que el usuario no podrá interactuar directamente con la tabla 
 //hasta que se habilite nuevamente.
     }
@@ -63,54 +63,69 @@ public class ControladorCargaNotas implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) {
-           // verifico si el evento proviene del JComboBox 
+            // verifico si el evento proviene del JComboBox 
             if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
-              
+
                 //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
                 String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
 
                 //Divido la cadena seleccionada  para obtener el ID del alumno
                 String[] partes = selectedItem.split("-");
                 int idAlumno = Integer.parseInt(partes[2].trim()); //el indice 0 contiene el id del alumno se convierte a entero
-                   //antes de intentar convertirla a un entero utiliza  ndo Integer.parseInt()
-                System.out.println("idalumno" +idAlumno);
+                //antes de intentar convertirla a un entero utiliza  ndo Integer.parseInt()
+                System.out.println("idalumno" + idAlumno);
                 // trim() se utiliza para eliminar los espacios en blanco al principio y al final de la cadena almacenada en partes[0] 
                 List<Materia> materias = inscdata.obtenerMateriasCursadas(idAlumno);
                 modelo.setRowCount(0);
-                System.out.println("cantidad de materias"+ materias.size());
+                System.out.println("cantidad de materias" + materias.size());
                 for (Materia materia : materias) {
                     modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), inscdata.notadeMateria(idAlumno, materia.getIdMateria())});
                     System.out.println("CARGANDO" + materia.getIdMateria());
-                                       
+
                 }
                 vistacarganotas.jTableCargaNotas.setModel(modelo);
 
             }
-            if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
-                //  }  if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas){
-                vistacarganotas.dispose();
+        }
 
-                //Código para manejar el evento del botón "Guardar" para actualizar la nota
-                //en una celda de la tercera columna // de jTableCargaNotas: 
-            }
-            if (e.getSource() == vistacarganotas.jButtonGuardar) {
-                int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada
-                Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
-                Object nota = modelo.getValueAt(filaSeleccionada, 2);
-                String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
-                //Divido la cadena seleccionada para obtener el ID del alumno
-                String[] partes = selectedItem.split(" - ");
-                int idAlumno = Integer.parseInt(partes[3]);
+        if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
+            System.out.println("antes de salir");
+            //  }  if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas){
+            vistacarganotas.dispose();
+            System.out.println("despues de salir");
 
-                if (filaSeleccionada >= 0) {
-                    inscdata.actualizarNota(idAlumno, (int) idMateria, (double) nota);
-                    JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
+            //Código para manejar el evento del botón "Guardar" para actualizar la nota
+            //en una celda de la tercera columna // de jTableCargaNotas: 
+        }
+        if (e.getSource() == vistacarganotas.jButtonGuardar) {
+            int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada
+            Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
+            Object nota = modelo.getValueAt(filaSeleccionada, 2);
+            String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
+            //Divido la cadena seleccionada para obtener el ID del alumno:
+            String[] partes = selectedItem.split(" - ");
+            int idAlumno = Integer.parseInt(partes[2]);
 
-                } else {
-                    System.out.println("No selecciono ninguna fila no es posible guardar una nota");
+            double notad = 0;
+            if (filaSeleccionada >= 0) {
+                if (nota instanceof Number) {
+                    System.out.println("es un numero" + "");
+                    notad = ((Number) nota).doubleValue();
+                } else if (nota instanceof String) {
+                    System.out.println(" es un string");
+                    notad = (Double.parseDouble((String) nota));
                 }
+
+                System.out.println(notad + "antes del double");
+                inscdata.actualizarNota(idAlumno, (int) idMateria, notad);
+                System.out.println(notad + "despues del double");
+                JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
+
+            } else {
+                System.out.println("No selecciono ninguna fila no es posible guardar una nota");
             }
         }
+
     }
 
     public void ModeloTablaCargaNotas() {
@@ -133,9 +148,21 @@ public class ControladorCargaNotas implements ActionListener {
             }
         }
     }
-    
 
     private void cargarTablaCargaNotas(int idAlumno) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public class MyTableModel extends DefaultTableModel {
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            // Aquí puedes personalizar la edición de celdas según tus necesidades
+            // En este ejemplo, solo permitimos editar la columna número 4 (nombre)
+            //   int filaSeleccionada = vistacarganotas.getSelectedRow();
+//int columnaSeleccionada = tabla.convertColumnIndexToModel(tabla.getSelectedColumn());
+            return column == 2; // Columna número 4 (columna 3 en índice base 0)
+        }
+    }
+
 }
