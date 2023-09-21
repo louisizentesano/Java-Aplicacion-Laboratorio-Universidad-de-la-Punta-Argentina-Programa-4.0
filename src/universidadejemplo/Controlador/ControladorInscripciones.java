@@ -118,6 +118,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
         if (e.getSource() == vista.jbtAnularInscripcion) {
             anularInscripcionAlumno();
+            rellenarTabla();
         }
 
         if (e.getSource() == vista.jRadioButtonMateriasInscriptas) {
@@ -215,34 +216,20 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         // return universidadejemplo.AccesoAdatos.IncripcionData.obtenerMateriaPorID(idMateria);
         return new Materia();
     }
-    
-    private void inscribirAlumnoEnMateria() {
-        int filaSeleccionada = vista.jTable1.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            Materia materiaSeleccionada = obtenerMateriaSeleccionada(filaSeleccionada);
-            JOptionPane.showMessageDialog(null, "Inscripción anulada con éxito.");
-            if (materiaSeleccionada != null) {
-                // inscripcionData.inscribirAlumnoEnMateria(alumnoSeleccionado.getId(), materiaSeleccionada.getIdMateria());
-
-            }
-        }
-    }
 
     private void anularInscripcionAlumno() {
         int filaSeleccionada = vista.jTable1.getSelectedRow();
         if (filaSeleccionada != -1) {
 
-            Materia materiaSeleccionada = obtenerMateriaSeleccionada(filaSeleccionada);
+            int filaSelect = vista.jTable1.getSelectedRow();        //obtener fila seleccionada
+            int idMateriaSelect = (int) modelo.getValueAt(filaSelect, 0);
+
             // inscripcionData.borrarInscripcionMateriaAlumno(traerID(), obtenerMateriaSeleccionada(filaSeleccionada);
+            int idAlumno = traerID();
+  
+            inscripcionData.borrarInscripcionMateriaAlumno(idAlumno, idMateriaSelect);
 
-            if (materiaSeleccionada != null) {
-                int idAlumno = traerID();
-                int idMateria = materiaSeleccionada.getIdMateria();
-
-                inscripcionData.borrarInscripcionMateriaAlumno(idAlumno, idMateria);
-
-                JOptionPane.showMessageDialog(null, "Inscripción anulada con éxito.");
-            }
+            JOptionPane.showMessageDialog(null, "Inscripción anulada con éxito.");
         }
     }
 }
