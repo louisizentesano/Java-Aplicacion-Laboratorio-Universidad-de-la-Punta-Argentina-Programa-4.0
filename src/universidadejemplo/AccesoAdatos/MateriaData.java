@@ -11,14 +11,15 @@ import javax.swing.JOptionPane;
 import universidadejemplo.Entidades.Materia;
 
 public class MateriaData {
+
     private Connection conexion;
 
     public MateriaData() {
-            }
+    }
 
     public void guardarMateria(Materia materia) {
         try {
-            conexion=Conexion.getConexion();
+            conexion = Conexion.getConexion();
             String sql = "INSERT INTO materia (nombre, año, estado) VALUES (?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setString(1, materia.getNombre());
@@ -28,83 +29,86 @@ public class MateriaData {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-         cerrarConexion();
+        cerrarConexion();
     }
 
     public Materia buscarMateria(int id) {
         Materia materia = null;
         try {
-            conexion=Conexion.getConexion();
+            conexion = Conexion.getConexion();
             String sql = "SELECT * FROM materia WHERE idMateria = ?";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 materia = new Materia(
-                    resultSet.getInt("idMateria"),
-                    resultSet.getString("nombre"),
-                    resultSet.getInt("año"),
-                    resultSet.getBoolean("estado")
+                        resultSet.getInt("idMateria"),
+                        resultSet.getString("nombre"),
+                        resultSet.getInt("año"),
+                        resultSet.getBoolean("estado")
                 );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-         cerrarConexion();
+        cerrarConexion();
         return materia;
     }
 
     public void modificarMateria(Materia materia) {
         try {
-            conexion=Conexion.getConexion();
+            conexion = Conexion.getConexion();
             String sql = "UPDATE materia SET nombre = ?, año = ?, estado = ? WHERE idMateria = ?";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setString(1, materia.getNombre());
             statement.setInt(2, materia.getAnioMateria());
-           statement.setBoolean(3, materia.isActivo());
+            statement.setBoolean(3, materia.isActivo());
             statement.setInt(4, materia.getIdMateria());
             statement.executeUpdate();
         } catch (SQLException e) {
-            
-            
+
         }
-         cerrarConexion();
+        cerrarConexion();
     }
 
     public void eliminarMateria(int id) {
         try {
-            conexion=Conexion.getConexion();
+            conexion = Conexion.getConexion();
             String sql = "DELETE FROM materia WHERE idMateria = ?";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"no se pudo eliminar la materia debido a "+ e.getMessage()+ "o existen alumnos inscriptos a esa materia.");
-                   
+            if (e.getSQLState().equals("23000") && e.getErrorCode() == 1451) {
+                JOptionPane.showMessageDialog(null, "Existen alumnos inscriptos en esta materia. Para eliminar la materia no deben existir alumnos inscriptos!");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "error: " + e.getMessage());
+            }
         }
-         cerrarConexion();
+        cerrarConexion();
     }
 
     public List<Materia> listarMaterias() {
         List<Materia> materias = new ArrayList<>();
         try {
-            conexion=Conexion.getConexion();
+            conexion = Conexion.getConexion();
             String sql = "SELECT * FROM materia";
             PreparedStatement statement = conexion.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Materia materia = new Materia(
-                    resultSet.getInt("idMateria"),
-                    resultSet.getString("nombre"),
-                    resultSet.getInt("año"),
-                    resultSet.getBoolean("estado")
+                        resultSet.getInt("idMateria"),
+                        resultSet.getString("nombre"),
+                        resultSet.getInt("año"),
+                        resultSet.getBoolean("estado")
                 );
                 materias.add(materia);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         cerrarConexion();
         return materias;
     }
