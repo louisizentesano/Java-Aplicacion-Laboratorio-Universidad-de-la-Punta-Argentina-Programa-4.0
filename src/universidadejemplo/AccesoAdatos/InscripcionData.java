@@ -148,7 +148,7 @@ public class InscripcionData {
         con = Conexion.getConexion();
         List<Materia> materiasCursadas = new ArrayList<>();
         try {
-            String sql = "SELECT inscripcion.idMateria, materia.nombre, materia.año FROM inscripcion,materia WHERE inscripcion.idMateria=materia.idMateria AND inscripcion.idAlumno = ?";
+            String sql = "SELECT inscripcion.idMateria, materia.nombre, materia.año FROM inscripcion,materia WHERE inscripcion.idMateria=materia.idMateria AND inscripcion.idAlumno = ? AND materia.estado=1";
 //            JOIN entre las tablas inscripcion y materia buscando por idAlumno         
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -230,7 +230,7 @@ public class InscripcionData {
         try {
             String sql = "SELECT materia.idMateria, nombre, año FROM materia "
                     + "WHERE materia.idMateria NOT IN (SELECT inscripcion.idMateria FROM inscripcion"
-                    + " WHERE inscripcion.idAlumno = ?)";
+                    + " WHERE inscripcion.idAlumno = ? AND materia.estado=1)";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -323,7 +323,7 @@ public class InscripcionData {
         List<Alumno> alumnosInscritos = new ArrayList<>();
         try {
 
-            String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.dni, alumno.apellido FROM Alumno JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno WHERE inscripcion.idMateria = ? AND alumno.estado=1 ";
+            String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.dni, alumno.apellido FROM Alumno JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno WHERE inscripcion.idMateria = ? AND alumno.estado=1";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
