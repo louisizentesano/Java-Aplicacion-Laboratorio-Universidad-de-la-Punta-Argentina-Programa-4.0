@@ -66,10 +66,10 @@ private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>()
         if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) {
             // verifico si el evento proviene del JComboBox 
             if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
-
-                //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
+                
+                 //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
                 String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
-
+               
                 //Divido la cadena seleccionada  para obtener el ID del alumno
                 String[] partes = selectedItem.split("-");
                 int idAlumno = Integer.parseInt(partes[2].trim()); //el indice 0 contiene el id del alumno se convierte a entero
@@ -109,20 +109,20 @@ private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>()
 
                 if (filaSeleccionada >= 0) {
                 double notad = 0;
+                
                 if (nota instanceof Number) {
-                    System.out.println("es un numero" + "");
-                    notad = ((Number) nota).doubleValue();
+                notad = ((Number) nota).doubleValue();
                 } else if (nota instanceof String) {
-                    System.out.println(" es un string");
-                    notad = (Double.parseDouble((String) nota));
+             try{
+                   notad = Double.parseDouble((String) nota);
+                } catch (NumberFormatException ex){
+               JOptionPane.showMessageDialog(null, "La nota ingresada no es un numero");
+               return;
                 }
-
+                }
              // if (fila >= 0 && filaHaSidoModificada(fila)) {
-                    System.out.println(notad + "antes del double");
                     inscdata.actualizarNota(idAlumno, (int) idMateria, notad);
-                    System.out.println(notad + "despues del double");
-                    JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
-
+                   JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
                 } else {
                     System.out.println("No selecciono ninguna fila no es posible guardar una nota");
                 }
