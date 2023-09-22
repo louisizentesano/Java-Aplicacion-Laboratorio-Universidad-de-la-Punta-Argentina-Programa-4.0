@@ -86,7 +86,7 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
         return idMateria;
     }
     public void modelaTabla() {
-        modelo.addColumn("ID");
+        modelo.addColumn("ID Alumno");
         modelo.addColumn("DNI");
         modelo.addColumn("Apellido");
         modelo.addColumn("Nombre");
