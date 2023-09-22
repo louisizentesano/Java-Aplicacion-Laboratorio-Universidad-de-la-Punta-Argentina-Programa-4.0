@@ -28,7 +28,8 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
     public InscripcionData idata;
     public MenuPrincipal menu;
     public ConsultaAlumnoMateria vista;
-    MyTableModel modelo = new MyTableModel();
+    // MyTableModel modelo = new MyTableModel();
+    DefaultTableModel modelo = new DefaultTableModel();
     
 
     public ControladorConsultaAlumnoMateria(MateriaData mdata, InscripcionData idata, MenuPrincipal menu, ConsultaAlumnoMateria vista) {
@@ -51,7 +52,7 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
         vista.requestFocus(); //le da el foco al formulario
         cargaCombo();
         modelaTabla();
-        //vista.jTabla.setEnabled(false);
+        vista.jTabla.setEnabled(false);
         
     }
 
