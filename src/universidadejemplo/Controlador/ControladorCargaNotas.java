@@ -2,14 +2,14 @@ package universidadejemplo.Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.AccesoAdatos.InscripcionData;
 import universidadejemplo.Entidades.Alumno;
-import universidadejemplo.Entidades.Inscripcion;
 import universidadejemplo.Entidades.Materia;
 import universidadejemplo.Vistas.CargaNotas;
 import universidadejemplo.Vistas.MenuPrincipal;
@@ -23,7 +23,8 @@ public class ControladorCargaNotas implements ActionListener {
     public CargaNotas vistacarganotas;
     public MenuPrincipal menu;
     MyTableModel modelo = new MyTableModel();
-
+private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>();
+    
     public ControladorCargaNotas(AlumnoData alumdata, InscripcionData inscdata, CargaNotas vistacarganotas, MenuPrincipal menu) {
         this.alumdata = alumdata;
         this.inscdata = inscdata;
@@ -90,7 +91,6 @@ public class ControladorCargaNotas implements ActionListener {
 
         if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
             System.out.println("antes de salir");
-            //  }  if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas){
             vistacarganotas.dispose();
             System.out.println("despues de salir");
 
@@ -98,16 +98,17 @@ public class ControladorCargaNotas implements ActionListener {
             //en una celda de la tercera columna // de jTableCargaNotas: 
         }
         if (e.getSource() == vistacarganotas.jButtonGuardar) {
-            int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada
-            Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
-            Object nota = modelo.getValueAt(filaSeleccionada, 2);
-            String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
-            //Divido la cadena seleccionada para obtener el ID del alumno:
-            String[] partes = selectedItem.split(" - ");
-            int idAlumno = Integer.parseInt(partes[2]);
+            //for (int fila = 0; fila < vistacarganotas.jTableCargaNotas.getSelectedRowCount(); fila++) { // obtener la fila seleccionada
+             int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada 
+                  Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
+                    Object nota = modelo.getValueAt(filaSeleccionada, 2);
+                String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
+                //Divido la cadena seleccionada para obtener el ID del alumno:
+                String[] partes = selectedItem.split(" - ");
+                int idAlumno = Integer.parseInt(partes[2]);
 
-            double notad = 0;
-            if (filaSeleccionada >= 0) {
+                if (filaSeleccionada >= 0) {
+                double notad = 0;
                 if (nota instanceof Number) {
                     System.out.println("es un numero" + "");
                     notad = ((Number) nota).doubleValue();
@@ -116,18 +117,20 @@ public class ControladorCargaNotas implements ActionListener {
                     notad = (Double.parseDouble((String) nota));
                 }
 
-                System.out.println(notad + "antes del double");
-                inscdata.actualizarNota(idAlumno, (int) idMateria, notad);
-                System.out.println(notad + "despues del double");
-                JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
+             // if (fila >= 0 && filaHaSidoModificada(fila)) {
+                    System.out.println(notad + "antes del double");
+                    inscdata.actualizarNota(idAlumno, (int) idMateria, notad);
+                    System.out.println(notad + "despues del double");
+                    JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
 
-            } else {
-                System.out.println("No selecciono ninguna fila no es posible guardar una nota");
+                } else {
+                    System.out.println("No selecciono ninguna fila no es posible guardar una nota");
+                }
             }
         }
+    
 
-    }
-
+// modelo de la tabla columnas
     public void ModeloTablaCargaNotas() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
@@ -135,6 +138,7 @@ public class ControladorCargaNotas implements ActionListener {
         vistacarganotas.jTableCargaNotas.setModel(modelo); //Establecer el modelo de tabla creado en modeloTabla
     }
 
+    //cargar combo box
     public void cargarComboCargaNotas() {
         List<Alumno> alumnos = alumdata.listarAlumnos();
         vistacarganotas.jComboBListAlumCargaNotas.removeAllItems();
@@ -150,19 +154,26 @@ public class ControladorCargaNotas implements ActionListener {
     }
 
     private void cargarTablaCargaNotas(int idAlumno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
+
+    }
+
+    private boolean filaHaSidoModificada(int fila) {
+    Object notaActual = modelo.getValueAt(fila, 2);    
+    HashMap<String, Object> filaOriginal = valoresOriginales.get(fila);
+    Object notaOriginal = filaOriginal.get("Nota");
+    return  !notaOriginal.equals(notaActual);
     }
 
     public class MyTableModel extends DefaultTableModel {
 
+        //para habilitar la modificacion de la columna 3( indice 2) en jTableCargaNotas
         @Override
         public boolean isCellEditable(int row, int column) {
-            // Aquí puedes personalizar la edición de celdas según tus necesidades
-            // En este ejemplo, solo permitimos editar la columna número 4 (nombre)
-            //   int filaSeleccionada = vistacarganotas.getSelectedRow();
+            //   probando solo sleccionado: int filaSeleccionada = vistacarganotas.getSelectedRow();
 //int columnaSeleccionada = tabla.convertColumnIndexToModel(tabla.getSelectedColumn());
             return column == 2; // Columna número 4 (columna 3 en índice base 0)
         }
-    }
 
+    }
 }
