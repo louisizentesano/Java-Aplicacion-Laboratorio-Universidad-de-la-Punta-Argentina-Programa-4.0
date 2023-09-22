@@ -96,6 +96,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
 
         jbtBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbtBuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Matias\\Documents\\NetBeansProjects\\Guia5\\UniversidadEjemplo\\&IconButtons\\Lupa-buscar.png")); // NOI18N
+        jbtBuscar.setText("Buscar");
         jbtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtBuscarActionPerformed(evt);
@@ -146,7 +147,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                                     .addComponent(jtxDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbtBuscar)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
