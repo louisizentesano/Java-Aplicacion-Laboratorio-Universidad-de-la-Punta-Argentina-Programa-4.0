@@ -136,6 +136,7 @@ public class ControladorGestionAlumnos implements ActionListener {
 
                 if (confirmacion == JOptionPane.YES_OPTION) {
                     data.guardarAlumno(a);
+                    JOptionPane.showMessageDialog(null, "Alumno guardado con éxito.");
 
                 }
             } else {
