@@ -323,7 +323,7 @@ public class InscripcionData {
         List<Alumno> alumnosInscritos = new ArrayList<>();
         try {
 
-            String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.dni, alumno.apellido FROM Alumno JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno WHERE inscripcion.idMateria = ? ";
+            String sql = "SELECT alumno.idAlumno, alumno.nombre, alumno.dni, alumno.apellido FROM Alumno JOIN inscripcion ON alumno.idAlumno = inscripcion.idAlumno WHERE inscripcion.idMateria = ? AND alumno.estado=1 ";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
