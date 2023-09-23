@@ -6,8 +6,10 @@ package universidadejemplo.Controlador;
  */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -62,6 +64,12 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         vista.jRadioButtonMateriasInscriptas.setSelected(true); //muestra por defecto materias inscriptas inicializada
         rellenarTabla(); //rellena la tabla de materias incriptas inicializada
         vista.jbtInscribir.setEnabled(false); //desactiva el boton Inscribir (ya que muestra por defecto materias inscriptas)
+
+        // ruta relativa a la ubicación de la clase Controlador (carpeta SRC del proyecto "carpeta de inicio")
+        ClassLoader directorio = getClass().getClassLoader();// Crea la ruta al recurso icono de salir
+        URL SalirIconUbicacion = directorio.getResource("&IconButtons/Salir1.png"); // Crea un ImageIcon utilizando la URL de la imagen
+        ImageIcon SalirIcono = new ImageIcon(SalirIconUbicacion); // crea la magen Icono para asignarsela al contenedor
+        vista.jbtSalir.setIcon(SalirIcono); // asignamos al boton jbtSalir el icono Salir1.png
     }
 
     @Override
@@ -226,7 +234,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
             // inscripcionData.borrarInscripcionMateriaAlumno(traerID(), obtenerMateriaSeleccionada(filaSeleccionada);
             int idAlumno = traerID();
-  
+
             inscripcionData.borrarInscripcionMateriaAlumno(idAlumno, idMateriaSelect);
 
             JOptionPane.showMessageDialog(null, "Inscripción anulada con éxito.");
