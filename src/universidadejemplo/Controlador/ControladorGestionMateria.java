@@ -11,17 +11,19 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 //import java.sql.Connection;
 import javax.swing.JOptionPane;
+import static jdk.nashorn.internal.objects.NativeDebug.getClass;
 import universidadejemplo.AccesoAdatos.MateriaData;
 import universidadejemplo.Entidades.Materia;
 import universidadejemplo.Vistas.GestionMateria;
 import universidadejemplo.Vistas.MenuPrincipal;
 
 /**
- *
  * @author Dario
  */
 public class ControladorGestionMateria implements ActionListener, FocusListener, KeyListener {
@@ -67,6 +69,12 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
         vista.jbtEliminar.setEnabled(false);
         vista.jbtGuardar.setEnabled(false);
         vista.jtxCodigo.requestFocus();
+        // Obtén la ruta relativa a la ubicación de la clase Controlador eso es la carpeta SRC del proyecto ese seria la carpeta de inicio
+        ClassLoader directorio = getClass().getClassLoader();
+        URL lupaIconUbicacion = directorio.getResource("&IconButtons/Lupa-buscar.png"); // Creamos la ruta al recurso en este caso el icono de lupa
+        // Crea un ImageIcon utilizando la URL de la imagen
+        ImageIcon lupaIcono = new ImageIcon(lupaIconUbicacion); // creamos la Imagen Icono para asignarsela al contenerdor
+        vista.jbtBuscar.setIcon(lupaIcono); // asignamos al boton el icono
 
     }
 
@@ -106,6 +114,7 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
             vista.jchEstado.setSelected(true);
             vista.jbtGuardar.setEnabled(true);
             vista.jtxNombre.requestFocus();
+
         }
         if (e.getSource() == vista.jbtGuardar) {
             /* este boton tiene que guardar si es nuevo o modificar si ya existe para esto nos valemos del valor de jxCodigo
