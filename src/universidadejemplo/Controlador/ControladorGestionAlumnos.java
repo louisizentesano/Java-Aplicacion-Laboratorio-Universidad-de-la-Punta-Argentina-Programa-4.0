@@ -117,35 +117,40 @@ public class ControladorGestionAlumnos implements ActionListener {
             vista.jbtEliminar.setEnabled(true);
             vista.jtxDocumento.setEnabled(true);
 
-            int dni = Integer.parseInt(vista.jtxDocumento.getText());
-            String nombre = vista.jtxNombre.getText();
-            String apellido = vista.jtxApellido.getText();
-            boolean estado = true; // Asumiendo que siempre quieres establecer el estado en verdadero
-            java.util.Date nac = vista.jdcFechadeNacimiento.getDate();
-
-            // Convierte el objeto Date a Instant
-            Instant instant = nac.toInstant();
-
-            // Convierte el Instant a LocalDate utilizando una zona horaria específica
-            LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-            if (idAlumno == -1) {
-                Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
-                // Código para guardar el alumno existente
-                // Pregunta al usuario si quiere guardar el nuevo alumno
-                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de guardar el nuevo alumno?", "Confirmación", JOptionPane.YES_NO_OPTION);
-
-                if (confirmacion == JOptionPane.YES_OPTION) {
-                    data.guardarAlumno(a);
-                    JOptionPane.showMessageDialog(null, "Alumno guardado con éxito.");
-
-                }
+            if (idAlumno == 0) {
+                JOptionPane.showMessageDialog(null, "El número de documento no puede ser cero. Ingrese un valor válido.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                // Código para modificar un nuevo alumno
-                Alumno b = new Alumno(idAlumno , dni, apellido, nombre, fecha, true);
-                data.modificarAlumno(b);
+                int dni = Integer.parseInt(vista.jtxDocumento.getText());
+                String nombre = vista.jtxNombre.getText();
+                String apellido = vista.jtxApellido.getText();
+                boolean estado = true; // Asumiendo que siempre quieres establecer el estado en verdadero
+                java.util.Date nac = vista.jdcFechadeNacimiento.getDate();
+
+                // Convierte el objeto Date a Instant
+                Instant instant = nac.toInstant();
+
+                // Convierte el Instant a LocalDate utilizando una zona horaria específica
+                LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+                if (idAlumno == -1) {
+                    Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
+                    // Código para guardar el alumno existente
+                    // Pregunta al usuario si quiere guardar el nuevo alumno
+                    int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de guardar el nuevo alumno?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                    if (confirmacion == JOptionPane.YES_OPTION) {
+                        data.guardarAlumno(a);
+                        JOptionPane.showMessageDialog(null, "Alumno guardado con éxito.");
+
+                    }
+                } else {
+                    // Código para modificar un nuevo alumno
+                    Alumno b = new Alumno(idAlumno, dni, apellido, nombre, fecha, true);
+                    data.modificarAlumno(b);
+                }
             }
         }
     }
+    
 
     public void focusGained(FocusEvent e) {
         try {
