@@ -35,8 +35,7 @@ public class ControladorCargaNotas implements ActionListener {
         this.menu = menu;
         this.vistacarganotas = vistacarganotas;
 
-        ImageIcon imageIcon = new ImageIcon("&Images/bckgcn.jpg");
-        carganotasbackground = imageIcon.getImage();
+       
 
         vistacarganotas.jComboBListAlumCargaNotas.addActionListener(this);
         vistacarganotas.jButtonSalirCargaNotas.addActionListener(this);
@@ -64,6 +63,9 @@ public class ControladorCargaNotas implements ActionListener {
         // vistacarganotas.jTableCargaNotas.setEnabled(false);
 //Deshabilita la tabla en la vista (jTabla). Esto significa que el usuario no podrá interactuar directamente con la tabla 
 //hasta que se habilite nuevamente.
+
+ ImageIcon imageIcon = new ImageIcon("&Images/bckgcn.jpg");
+        carganotasbackground = imageIcon.getImage();
         ImagePanel imagePanel = new ImagePanel(carganotasbackground);
         vistacarganotas.add(imagePanel);
         //es donde se inicializa el panel y se configura para tener la imagen de fondo
@@ -192,8 +194,8 @@ public class ControladorCargaNotas implements ActionListener {
             super.paintComponent(g);
             if (carganotasbackground != null) {
                 g.drawImage(carganotasbackground, 0, 0, getWidth(), getHeight(), this);
-                setOpaque(false);
-                super.paint(g);
+                //setOpaque(false);
+               // super.paint(g);
             }
         }
     }
