@@ -50,23 +50,23 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
 
-        jlAlumno.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jlAlumno.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jlAlumno.setText("Alumno");
 
-        jlDocumento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlDocumento.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jlDocumento.setText("Documento:");
 
-        jlApellido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlApellido.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jlApellido.setText("Apellido:");
         jlApellido.setToolTipText("");
 
-        jlNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlNombre.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jlNombre.setText("Nombre:");
 
-        jlEstado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlEstado.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jlEstado.setText("Estado:");
 
-        jlFechaDeNacimiento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jlFechaDeNacimiento.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jlFechaDeNacimiento.setText("Fecha de Nacimiento:");
         jlFechaDeNacimiento.setToolTipText("");
 
@@ -76,16 +76,16 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             }
         });
 
-        jbtNuevo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtNuevo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jbtNuevo.setText("Nuevo");
 
-        jbtEliminar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtEliminar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jbtEliminar.setText("Eliminar");
 
-        jbtGuardar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtGuardar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jbtGuardar.setText("Guardar");
 
-        jbtSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtSalir.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jbtSalir.setText("Salir");
         jbtSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,7 +93,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
             }
         });
 
-        jbtBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtBuscar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jbtBuscar.setText("Buscar");
         jbtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +177,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlFechaDeNacimiento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbtEliminar)
                             .addComponent(jbtGuardar)
