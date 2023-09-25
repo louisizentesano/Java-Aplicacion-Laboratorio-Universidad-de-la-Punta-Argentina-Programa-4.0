@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.AccesoAdatos.InscripcionData;
@@ -13,6 +14,8 @@ import universidadejemplo.Entidades.Alumno;
 import universidadejemplo.Entidades.Materia;
 import universidadejemplo.Vistas.CargaNotas;
 import universidadejemplo.Vistas.MenuPrincipal;
+import java.awt.*;
+import javax.swing.ImageIcon;
 
 //@author louisinette
 public class ControladorCargaNotas implements ActionListener {
@@ -21,15 +24,19 @@ public class ControladorCargaNotas implements ActionListener {
     public InscripcionData inscdata;
     // public Materia matData;
     public CargaNotas vistacarganotas;
+    private Image carganotasbackground;
     public MenuPrincipal menu;
     MyTableModel modelo = new MyTableModel();
-private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>();
-    
+    private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>();
+
     public ControladorCargaNotas(AlumnoData alumdata, InscripcionData inscdata, CargaNotas vistacarganotas, MenuPrincipal menu) {
         this.alumdata = alumdata;
         this.inscdata = inscdata;
         this.menu = menu;
         this.vistacarganotas = vistacarganotas;
+
+        ImageIcon imageIcon = new ImageIcon("&Images/bckgcn.jpg");
+        carganotasbackground = imageIcon.getImage();
 
         vistacarganotas.jComboBListAlumCargaNotas.addActionListener(this);
         vistacarganotas.jButtonSalirCargaNotas.addActionListener(this);
@@ -57,6 +64,9 @@ private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>()
         // vistacarganotas.jTableCargaNotas.setEnabled(false);
 //Deshabilita la tabla en la vista (jTabla). Esto significa que el usuario no podrá interactuar directamente con la tabla 
 //hasta que se habilite nuevamente.
+        ImagePanel imagePanel = new ImagePanel(carganotasbackground);
+        vistacarganotas.add(imagePanel);
+        //es donde se inicializa el panel y se configura para tener la imagen de fondo
     }
 
     //getSource() se utiliza para determinar que componente genero el evento
@@ -66,10 +76,10 @@ private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>()
         if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) {
             // verifico si el evento proviene del JComboBox 
             if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
-                
-                 //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
+
+                //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
                 String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
-               
+
                 //Divido la cadena seleccionada  para obtener el ID del alumno
                 String[] partes = selectedItem.split("-");
                 int idAlumno = Integer.parseInt(partes[2].trim()); //el indice 0 contiene el id del alumno se convierte a entero
@@ -82,53 +92,64 @@ private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>()
                 for (Materia materia : materias) {
                     modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), inscdata.notadeMateria(idAlumno, materia.getIdMateria())});
                     System.out.println("CARGANDO" + materia.getIdMateria());
-
                 }
                 vistacarganotas.jTableCargaNotas.setModel(modelo);
-
             }
         }
 
         if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
-            System.out.println("antes de salir");
-            vistacarganotas.dispose();
-            System.out.println("despues de salir");
-
-            //Código para manejar el evento del botón "Guardar" para actualizar la nota
+                 vistacarganotas.dispose();
+                          }
+        
+           //Código para manejar el evento del botón "Guardar" para actualizar la nota
             //en una celda de la tercera columna // de jTableCargaNotas: 
-        }
         if (e.getSource() == vistacarganotas.jButtonGuardar) {
-            //for (int fila = 0; fila < vistacarganotas.jTableCargaNotas.getSelectedRowCount(); fila++) { // obtener la fila seleccionada
-             int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada 
-                  Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
-                    Object nota = modelo.getValueAt(filaSeleccionada, 2);
-                String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
-                //Divido la cadena seleccionada para obtener el ID del alumno:
-                String[] partes = selectedItem.split(" - ");
-                int idAlumno = Integer.parseInt(partes[2]);
-
+            int selectedIndex = vistacarganotas.jComboBListAlumCargaNotas.getSelectedIndex();
+            if (selectedIndex == -1 || (selectedIndex == 0)) {
+                // verifica si el usuario ha seleccionado un alumno válido (índice no es -1) o si ha seleccionado el primer elemento
+                //(índice 0) y también ha seleccionado una fila en la tabla. Si ninguna de estas condiciones se cumple, se muestra
+                //el mensaje "No ha seleccionado un alumno válido". De lo contrario, se permite modificar o guardar datos en la tabla
+                  JOptionPane.showMessageDialog(null, "No ha seleccionado un alumno válido");
+                       //for (int fila = 0; fila < vistacarganotas.jTableCargaNotas.getSelectedRowCount(); fila++) { // obtener la fila seleccionada
+                 } else {
+                       int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada 
                 if (filaSeleccionada >= 0) {
-                double notad = 0;
-                
-                if (nota instanceof Number) {
-                notad = ((Number) nota).doubleValue();
-                } else if (nota instanceof String) {
-             try{
-                   notad = Double.parseDouble((String) nota);
-                } catch (NumberFormatException ex){
-               JOptionPane.showMessageDialog(null, "La nota ingresada no es un numero");
-               return;
-                }
-                }
-             // if (fila >= 0 && filaHaSidoModificada(fila)) {
-                    inscdata.actualizarNota(idAlumno, (int) idMateria, notad);
-                   JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
+                    Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
+                    Object nota = modelo.getValueAt(filaSeleccionada, 2);
+                    String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
+                    //Divido la cadena seleccionada para obtener el ID del alumno:
+                    String[] partes = selectedItem.split(" - ");
+                    int idAlumno = Integer.parseInt(partes[2]);
+
+                    double notad = 0;
+
+                    if (nota instanceof Number) {
+                        notad = ((Number) nota).doubleValue();
+                    } else if (nota instanceof String) {
+                        try {
+                            notad = Double.parseDouble((String) nota);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "No debe ingresar texto solo se aceptan Notas del 1 al 10");
+                            return;
+                        }
+                    }
+                    if (notad == 0.0 || notad == 0 || notad == 00) {
+                        JOptionPane.showMessageDialog(null, "No se permite guardar una nota igual a cero");
+                    }
+                    else if (notad > 10) {
+                        JOptionPane.showMessageDialog(null, "Solo se aceptan Notas del 1 al 10");
+                    } else {
+                        inscdata.actualizarNota(idAlumno, (int) idMateria, notad);
+                        JOptionPane.showMessageDialog(null, "Se ha actualizado la nota del alumno");
+                    }
                 } else {
-                    System.out.println("No selecciono ninguna fila no es posible guardar una nota");
+                    JOptionPane.showMessageDialog(null, "Debe modificar una nota y seleccionar la fila correspondiente para guardar");
                 }
+           
             }
         }
-    
+        
+    }
 
 // modelo de la tabla columnas
     public void ModeloTablaCargaNotas() {
@@ -158,11 +179,31 @@ private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>()
 
     }
 
+    public class ImagePanel extends JPanel {
+
+        private Image carganotasbackground;
+
+        public ImagePanel(Image carganotasbackground) {
+            this.carganotasbackground = carganotasbackground;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (carganotasbackground != null) {
+                g.drawImage(carganotasbackground, 0, 0, getWidth(), getHeight(), this);
+                setOpaque(false);
+                super.paint(g);
+            }
+        }
+    }
+
     private boolean filaHaSidoModificada(int fila) {
-    Object notaActual = modelo.getValueAt(fila, 2);    
-    HashMap<String, Object> filaOriginal = valoresOriginales.get(fila);
-    Object notaOriginal = filaOriginal.get("Nota");
-    return  !notaOriginal.equals(notaActual);
+        Object notaActual = modelo.getValueAt(fila, 2);
+        HashMap<String, Object> filaOriginal = valoresOriginales.get(fila);
+        Object notaOriginal = filaOriginal.get("Nota");
+        return !notaOriginal.equals(notaActual);
+
     }
 
     public class MyTableModel extends DefaultTableModel {
@@ -171,9 +212,8 @@ private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>()
         @Override
         public boolean isCellEditable(int row, int column) {
             //   probando solo sleccionado: int filaSeleccionada = vistacarganotas.getSelectedRow();
-//int columnaSeleccionada = tabla.convertColumnIndexToModel(tabla.getSelectedColumn());
+            //int columnaSeleccionada = tabla.convertColumnIndexToModel(tabla.getSelectedColumn());
             return column == 2; // Columna número 4 (columna 3 en índice base 0)
         }
-
     }
 }
