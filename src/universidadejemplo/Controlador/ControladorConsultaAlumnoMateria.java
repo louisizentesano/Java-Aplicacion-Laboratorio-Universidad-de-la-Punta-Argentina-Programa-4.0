@@ -118,10 +118,12 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
         }
     }
     private void agregarIconos(){
+        int alto = 20;
+        int ancho = 20;
         ClassLoader directorio = getClass().getClassLoader();
         URL guardarIconUbicacion = directorio.getResource("&IconButtons/salir1.png");
         ImageIcon salirIcon = new ImageIcon(guardarIconUbicacion);
-        Image imagenRedimensionada = salirIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        Image imagenRedimensionada = salirIcon.getImage().getScaledInstance(alto, ancho, Image.SCALE_SMOOTH);
         salirIcon = new ImageIcon(imagenRedimensionada);
         vista.jbtSalir.setIcon(salirIcon);
                 
