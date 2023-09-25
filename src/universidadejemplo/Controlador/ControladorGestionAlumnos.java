@@ -5,15 +5,18 @@
  */
 package universidadejemplo.Controlador;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.Entidades.Alumno;
@@ -192,6 +195,43 @@ public class ControladorGestionAlumnos implements ActionListener {
             // Manejar la excepción aquí
             ex.printStackTrace(); // Esto es solo un ejemplo, puedes hacer algo más adecuado en tu aplicación.
         }
+    }
+    
+    public void agregarIconos () {
+        ClassLoader directorio = getClass().getClassLoader();
+        URL lupaIconUbicacion = directorio.getResource("&IconButtons/Lupa-Buscar.png");
+        ImageIcon lupaIcono = new ImageIcon(lupaIconUbicacion);
+        Image imagenRedimensionada = lupaIcono.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        lupaIcono = new ImageIcon(imagenRedimensionada);
+        vista.jbtBuscar.setIcon(lupaIcono);
+        
+        URL xIconUbicacion = directorio.getResource("&IconButtons/inactivo.png");
+        ImageIcon xIcono = new ImageIcon(xIconUbicacion);
+        imagenRedimensionada = xIcono.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        xIcono = new ImageIcon(imagenRedimensionada);
+        vista.jbtEliminar.setIcon(xIcono);
+        
+        URL guardarIconUbicacion = directorio.getResource("&IconButtons/guardarAlum.png");
+        ImageIcon guardarIcon = new ImageIcon(guardarIconUbicacion);
+        imagenRedimensionada = guardarIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        guardarIcon = new ImageIcon(imagenRedimensionada);
+        vista.jbtGuardar.setIcon(guardarIcon);
+        
+        guardarIconUbicacion = directorio.getResource("&IconButtons/nuevoAlum.png");
+        ImageIcon nuevoIcon = new ImageIcon(guardarIconUbicacion);
+        imagenRedimensionada = nuevoIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        nuevoIcon = new ImageIcon(imagenRedimensionada);
+        vista.jbtNuevo.setIcon(nuevoIcon);
+        
+        guardarIconUbicacion = directorio.getResource("&IconButtons/salida3.png");
+        ImageIcon salirIcon = new ImageIcon(guardarIconUbicacion);
+        imagenRedimensionada = nuevoIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        salirIcon = new ImageIcon(imagenRedimensionada);
+        vista.jbtSalir.setIcon(salirIcon);
+        
+        vista.setClosable(true);
+        vista.setIconifiable(true);
+        vista.setMaximizable(true);
     }
 
 }

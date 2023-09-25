@@ -77,15 +77,19 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         });
 
         jbtNuevo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jbtNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&IconButtons/nuevoAlum.png"))); // NOI18N
         jbtNuevo.setText("Nuevo");
 
         jbtEliminar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jbtEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&IconButtons/inactivo.png"))); // NOI18N
         jbtEliminar.setText("Eliminar");
 
         jbtGuardar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jbtGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&IconButtons/guardarAlum.png"))); // NOI18N
         jbtGuardar.setText("Guardar");
 
         jbtSalir.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jbtSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&IconButtons/salida3.png"))); // NOI18N
         jbtSalir.setText("Salir");
         jbtSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +98,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         });
 
         jbtBuscar.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jbtBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&IconButtons/Lupa-buscar.png"))); // NOI18N
         jbtBuscar.setText("Buscar");
         jbtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,24 +111,9 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlFechaDeNacimiento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jdcFechadeNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jlDocumento)
-                                .addGap(18, 18, 18)
-                                .addComponent(jtxDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(115, 115, 115)
-                                .addComponent(jlAlumno)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtBuscar))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,24 +122,40 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jrbEstado))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(jbtNuevo)
+                                        .addComponent(jbtNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jbtEliminar)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jbtGuardar)
+                                        .addComponent(jbtEliminar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbtGuardar)))
                                 .addGap(18, 18, 18)
                                 .addComponent(jbtSalir))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlApellido)
-                                .addGap(18, 18, 18)
-                                .addComponent(jtxApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlNombre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlApellido)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jtxApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlNombre)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jlFechaDeNacimiento)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jdcFechadeNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                .addComponent(jlDocumento)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jtxDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(jlAlumno)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +183,7 @@ public class GestionAlumnos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlFechaDeNacimiento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbtEliminar)
                             .addComponent(jbtGuardar)
