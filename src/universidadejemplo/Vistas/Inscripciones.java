@@ -53,7 +53,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
         jLabel1.setText("Formulario de Inscripciones");
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 255, 153));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Seleccione un alumno:");
 
         jbtInscribir.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
@@ -125,8 +125,8 @@ public class Inscripciones extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(jTable1);
         jTable1.getAccessibleContext().setAccessibleParent(jTable1);
 
-        jComboBListAlum.setBackground(new java.awt.Color(0, 204, 204));
-        jComboBListAlum.setForeground(new java.awt.Color(51, 0, 153));
+        jComboBListAlum.setBackground(new java.awt.Color(153, 0, 255));
+        jComboBListAlum.setForeground(new java.awt.Color(255, 255, 255));
         jComboBListAlum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBListAlumActionPerformed(evt);
