@@ -6,10 +6,13 @@
 package universidadejemplo.Controlador;
 
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import universidadejemplo.AccesoAdatos.InscripcionData;
@@ -53,6 +56,7 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
         cargaCombo();
         modelaTabla();
         vista.jTabla.setEnabled(false);
+        agregarIconos();
         
     }
 
@@ -112,5 +116,17 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
             // En este ejemplo, solo permitimos editar la columna número 4 (nombre)
             return column == 2; // Columna número 4 (columna 3 en índice base 0)
         }
+    }
+    private void agregarIconos(){
+        ClassLoader directorio = getClass().getClassLoader();
+        URL guardarIconUbicacion = directorio.getResource("&IconButtons/salir1.png");
+        ImageIcon salirIcon = new ImageIcon(guardarIconUbicacion);
+        Image imagenRedimensionada = salirIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        salirIcon = new ImageIcon(imagenRedimensionada);
+        vista.jbtSalir.setIcon(salirIcon);
+                
+        vista.setClosable(true);
+        vista.setIconifiable(true);
+        vista.setMaximizable(true);
     }
 }

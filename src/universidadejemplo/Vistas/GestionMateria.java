@@ -53,7 +53,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel2.setText("Codigo:");
 
-        jtxCodigo.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        jtxCodigo.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
         jbtBuscar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jbtBuscar.setText("Buscar");
@@ -61,12 +61,12 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel3.setText("Nombre:");
 
-        jtxNombre.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        jtxNombre.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel4.setText("Año:");
 
-        jtxAño.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        jtxAño.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel5.setText("Estado:");
@@ -94,7 +94,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jtxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jbtBuscar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -106,8 +106,8 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtxAño, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jchEstado)))
+                            .addComponent(jchEstado)
+                            .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jbtNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -119,7 +119,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(jLabel1)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +148,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
                     .addComponent(jbtEliminar)
                     .addComponent(jbtSalir)
                     .addComponent(jbtNuevo))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

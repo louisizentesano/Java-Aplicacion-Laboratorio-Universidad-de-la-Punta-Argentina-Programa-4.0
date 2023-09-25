@@ -52,7 +52,7 @@
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jtxCodigo" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="jtxCodigo" min="-2" pref="128" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jbtBuscar" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -66,8 +66,8 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jtxAño" min="-2" pref="96" max="-2" attributes="0"/>
-                              <Component id="jtxNombre" min="-2" pref="257" max="-2" attributes="0"/>
                               <Component id="jchEstado" min="-2" max="-2" attributes="0"/>
+                              <Component id="jtxNombre" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -84,7 +84,7 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <EmptySpace pref="69" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -120,7 +120,7 @@
                       <Component id="jbtSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbtNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="45" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -145,7 +145,7 @@
         <Component class="javax.swing.JTextField" name="jtxCodigo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="15" style="0"/>
+              <Font name="Dialog" size="16" style="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -174,7 +174,7 @@
         <Component class="javax.swing.JTextField" name="jtxNombre">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="15" style="0"/>
+              <Font name="Dialog" size="16" style="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -192,7 +192,7 @@
         <Component class="javax.swing.JTextField" name="jtxA&#xf1;o">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="15" style="0"/>
+              <Font name="Dialog" size="16" style="0"/>
             </Property>
           </Properties>
           <AuxValues>
