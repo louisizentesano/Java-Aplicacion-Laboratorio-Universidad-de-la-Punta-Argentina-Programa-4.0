@@ -216,37 +216,39 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
     }
 
     public void agregaIconos() {
+        int alto = 20;
+        int ancho = 20;
         // Obtén la ruta relativa a la ubicación de la clase Controlador eso es la carpeta SRC del proyecto ese seria la carpeta de inicio
         ClassLoader directorio = getClass().getClassLoader();
         URL lupaIconUbicacion = directorio.getResource("&IconButtons/Lupa-buscar.png"); // Creamos la ruta al recurso en este caso el icono de lupa
         // Crea un ImageIcon utilizando la URL de la imagen
         ImageIcon lupaIcono = new ImageIcon(lupaIconUbicacion); // creamos la Imagen Icono para asignarsela al contenerdor
         // Redimensionar el icono pasandolo a imagen con el nuevo tamaño y luego convirtiendolo en icono XD
-        Image imagenRedimensionada = lupaIcono.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        Image imagenRedimensionada = lupaIcono.getImage().getScaledInstance(alto, ancho, Image.SCALE_SMOOTH);
         lupaIcono = new ImageIcon(imagenRedimensionada);
         vista.jbtBuscar.setIcon(lupaIcono); // asignamos al boton el icono
 
         URL xIconUbicacion = directorio.getResource("&IconButtons/inactivo.png");
         ImageIcon xIcono = new ImageIcon(xIconUbicacion);
-        imagenRedimensionada = xIcono.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        imagenRedimensionada = xIcono.getImage().getScaledInstance(alto, ancho, Image.SCALE_SMOOTH);
         xIcono = new ImageIcon(imagenRedimensionada);
         vista.jbtEliminar.setIcon(xIcono);
 
         URL guardarIconUbicacion = directorio.getResource("&IconButtons/salvado.png");
         ImageIcon guardarIcon = new ImageIcon(guardarIconUbicacion);
-        imagenRedimensionada = guardarIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        imagenRedimensionada = guardarIcon.getImage().getScaledInstance(alto, ancho, Image.SCALE_SMOOTH);
         guardarIcon = new ImageIcon(imagenRedimensionada);
         vista.jbtGuardar.setIcon(guardarIcon);
 
         guardarIconUbicacion = directorio.getResource("&IconButtons/nuevo.png");
         ImageIcon nuevoIcon = new ImageIcon(guardarIconUbicacion);
-        imagenRedimensionada = nuevoIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        imagenRedimensionada = nuevoIcon.getImage().getScaledInstance(alto, ancho, Image.SCALE_SMOOTH);
         nuevoIcon = new ImageIcon(imagenRedimensionada);
         vista.jbtNuevo.setIcon(nuevoIcon);
 
         guardarIconUbicacion = directorio.getResource("&IconButtons/salir1.png");
         ImageIcon salirIcon = new ImageIcon(guardarIconUbicacion);
-        imagenRedimensionada = nuevoIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        imagenRedimensionada = salirIcon.getImage().getScaledInstance(alto, ancho, Image.SCALE_SMOOTH);
         salirIcon = new ImageIcon(imagenRedimensionada);
         vista.jbtSalir.setIcon(salirIcon);
         
