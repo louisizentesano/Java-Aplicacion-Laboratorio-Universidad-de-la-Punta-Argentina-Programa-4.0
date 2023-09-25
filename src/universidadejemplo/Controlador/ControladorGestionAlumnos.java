@@ -60,7 +60,6 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
         vista.requestFocus();
         vista.jtxDocumento.setText("0");
         vista.jbtGuardar.setEnabled(false);
-        
 
     }
 
@@ -144,25 +143,32 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
 
                 // Convierte el Instant a LocalDate utilizando una zona horaria específica
                 LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
-                if (idAlumno == -1) {
-                    Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
-                    // Código para guardar el alumno existente
-                    // Pregunta al usuario si quiere guardar el nuevo alumno
-                    int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de guardar el nuevo alumno?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
-                    if (confirmacion == JOptionPane.YES_OPTION) {
-                        data.guardarAlumno(a);
-                        JOptionPane.showMessageDialog(null, "Alumno guardado con éxito.");
-
-                    }
+                Alumno existente = data.buscarAlumnoPorDni(dni);
+                if (existente != null) {
+                    JOptionPane.showMessageDialog(null, "El alumno ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    // Código para modificar un nuevo alumno
-                    Alumno b = new Alumno(idAlumno, dni, apellido, nombre, fecha, true);
-                    data.modificarAlumno(b);
+                    if (idAlumno == -1) {
+                        Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
+                        // Código para guardar el alumno existente
+                        // Pregunta al usuario si quiere guardar el nuevo alumno
+                        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de guardar el nuevo alumno?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                        if (confirmacion == JOptionPane.YES_OPTION) {
+                            data.guardarAlumno(a);
+                            JOptionPane.showMessageDialog(null, "Alumno guardado con éxito.");
+
+                        }
+                    } else {
+                        // Código para modificar un nuevo alumno
+                        Alumno b = new Alumno(idAlumno, dni, apellido, nombre, fecha, true);
+                        data.modificarAlumno(b);
+                    }
                 }
             }
         }
     }
+    
 
     public void focusGained(FocusEvent e) {
         try {
