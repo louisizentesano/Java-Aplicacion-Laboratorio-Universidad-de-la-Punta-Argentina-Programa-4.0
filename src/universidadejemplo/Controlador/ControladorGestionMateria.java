@@ -93,6 +93,8 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
                 vista.jtxAño.setText("1");
                 vista.jtxNombre.setText("");
                 vista.jtxCodigo.requestFocus();
+                vista.jbtEliminar.setEnabled(false);
+                vista.jbtGuardar.setEnabled(false);
             }
         }
 
