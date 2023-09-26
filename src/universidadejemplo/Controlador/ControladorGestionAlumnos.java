@@ -234,7 +234,7 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
         imagenRedimensionada = nuevoIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         salirIcon = new ImageIcon(imagenRedimensionada);
         vista.jbtSalir.setIcon(salirIcon);
-
+       
         vista.setClosable(true);
         vista.setIconifiable(true);
         vista.setMaximizable(true);
