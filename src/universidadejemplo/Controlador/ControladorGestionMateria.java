@@ -266,7 +266,7 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
 
     private void ponerFondo() {
         ClassLoader directorio = getClass().getClassLoader();
-        URL rutaImagenFondo = directorio.getResource("&Images/bckgcn.jpg");
+        URL rutaImagenFondo = directorio.getResource("&Images/bckg3.jpg");
         // Crea un ImageIcon a partir de la imagen de fondo
         ImageIcon imagenFondoIcon = new ImageIcon(rutaImagenFondo);
         // Obtiene la imagen de fondo
