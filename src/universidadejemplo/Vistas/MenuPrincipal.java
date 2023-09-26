@@ -87,6 +87,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jmConsultas);
 
         jMenu3.setText("                      ");
+        jMenu3.setContentAreaFilled(false);
+        jMenu3.setEnabled(false);
         jMenuBar1.add(jMenu3);
 
         jmSalir.setText("Salir");
