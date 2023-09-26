@@ -5,6 +5,9 @@
  */
 package universidadejemplo.Controlador;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +19,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 //import java.sql.Connection;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import static jdk.nashorn.internal.objects.NativeDebug.getClass;
 import universidadejemplo.AccesoAdatos.MateriaData;
 import universidadejemplo.Entidades.Materia;
@@ -59,8 +64,8 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
 
     public void iniciar() {
 
-        menu.jFondo.removeAll();
-        menu.jFondo.repaint();
+        //menu.jFondo.removeAll();
+        //menu.jFondo.repaint();
         menu.jFondo.add(vista);
         vista.setVisible(true);
         menu.jFondo.moveToFront(vista);
@@ -71,6 +76,7 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
         vista.jbtGuardar.setEnabled(false);
         vista.jtxCodigo.requestFocus();
         agregaIconos(); // se cargan los iconos en la vista 
+        ponerFondo();
 
     }
 
@@ -251,11 +257,74 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
         imagenRedimensionada = salirIcon.getImage().getScaledInstance(alto, ancho, Image.SCALE_SMOOTH);
         salirIcon = new ImageIcon(imagenRedimensionada);
         vista.jbtSalir.setIcon(salirIcon);
-        
+
         vista.setClosable(true);
         vista.setIconifiable(true);
         vista.setMaximizable(true);
 
     }
 
+    private void ponerFondo1() {
+        ClassLoader directorio = getClass().getClassLoader();
+        URL rutaImagenFondo = directorio.getResource("&Images/bckgcn.jpg");
+
+        // Crea un ImageIcon a partir de la imagen de fondo
+        ImageIcon imagenFondoIcon = new ImageIcon(rutaImagenFondo);
+        // Obtiene la imagen de fondo
+        Image imagenFondo = imagenFondoIcon.getImage();
+        // Redimensiona la imagen de fondo al tamaño del JPanel
+        imagenFondo = imagenFondo.getScaledInstance(vista.jPanel1.getWidth(), vista.jPanel1.getHeight(), Image.SCALE_SMOOTH);
+        // Crea un nuevo ImageIcon con la imagen redimensionada
+        ImageIcon imagenFondoRedimensionadaIcon = new ImageIcon(imagenFondo);
+        // Crea una etiqueta JLabel para mostrar la imagen de fondo en el JPanel
+        //JLabel imagenFondoLabel = new JLabel(imagenFondoRedimensionadaIcon);
+        // Establece la ubicación y el tamaño de la imagen de fondo
+        vista.jLbFondo.setIcon(imagenFondoIcon);
+        
+        //imagenFondoLabel.setBounds(0, 0, vista.jPanel1.getWidth(), vista.jPanel1.getHeight());
+        vista.jLbFondo.setBounds(0, 0, vista.jPanel1.getWidth(), vista.jPanel1.getHeight());
+        // Agrega la imagen de fondo al JPanel
+        //vista.jPanel1.add(imagenFondoLabel);
+        // Asegúrate de que la imagen de fondo esté en la parte posterior para no ocultar otros componentes
+        //vista.jPanel1.setComponentZOrder(imagenFondoLabel, 0);
+        //vista.jPanel1.setComponentZOrder(vista.jLbFondo, 0);
+        // Establece el orden Z de todos los componentes en el JPanel
+        Component[] components = vista.jPanel1.getComponents();
+        for (Component component : components) {
+            vista.jPanel1.setComponentZOrder(component, vista.jPanel1.getComponentCount() - 1);
+        }
+        // Actualiza el JPanel para mostrar la imagen
+        vista.jPanel1.revalidate();
+        vista.jPanel1.repaint();
+
+    }
+    
+    private void ponerFondo() {
+      // Carga la imagen de fondo
+    ClassLoader classLoader = getClass().getClassLoader();
+    URL imageUrl = classLoader.getResource("&Images/bckgcn.jpg");
+    ImageIcon imageIcon = new ImageIcon(imageUrl);
+    Image backgroundImage = imageIcon.getImage();
+
+    // Establece el JPanel como no opaco para que se pueda ver la imagen de fondo
+    vista.jPanel1.setOpaque(false);
+
+    // Sobrescribe el método paintComponent para dibujar la imagen de fondo
+    vista.jPanel1 = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    };
+
+    vista.jPanel1.setLayout(new BorderLayout());
+
+    // Agrega los demás componentes al JPanel
+    // ...
+
+    // Actualiza el JPanel para mostrar la imagen
+    vista.jPanel1.revalidate();
+    vista.jPanel1.repaint();
+}
 }
