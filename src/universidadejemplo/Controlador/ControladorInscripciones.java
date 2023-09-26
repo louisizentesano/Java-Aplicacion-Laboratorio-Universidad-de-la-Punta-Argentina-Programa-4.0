@@ -53,8 +53,8 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
     public void iniciar() {
         vista.setTitle("Inscripciones");
 
-        menu.jFondo.removeAll();        //remueve todas las vistas anteriores
-        menu.jFondo.repaint();          // repinta
+        //menu.jFondo.removeAll();        //remueve todas las vistas anteriores
+       // menu.jFondo.repaint();          // repinta
         menu.jFondo.add(vista);         //agrega fondo
         vista.setVisible(true);         //lo hace visible
         menu.jFondo.moveToFront(vista); //mueve el fondo al frente
@@ -158,7 +158,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
         alumnos = alumnoData.listarAlumnos();
         vista.jComboBListAlum.removeAllItems();
-        System.out.println("tamaño de alumno " + alumnos.size());
+       // System.out.println("tamaño de alumno " + alumnos.size());
 
         for (Alumno alumno : alumnos) {
             if (alumno.isEstado()) {

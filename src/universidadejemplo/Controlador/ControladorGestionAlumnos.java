@@ -52,8 +52,8 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
 
     public void iniciar() {
 
-        menu.jFondo.removeAll();
-        menu.jFondo.repaint();
+        //menu.jFondo.removeAll();
+        //menu.jFondo.repaint();
         menu.jFondo.add(vista);
         vista.setVisible(true);
         menu.jFondo.moveToFront(vista);
@@ -78,6 +78,7 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
                     vista.jrbEstado.setSelected(alum.isEstado());
                     vista.jdcFechadeNacimiento.setDate(Date.valueOf(alum.getFechaNacimiento()));
                     this.idAlumno = alum.getIdAlumno();
+                    vista.jbtGuardar.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "El alumno no existe");
                     this.idAlumno = -1;
@@ -144,31 +145,26 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
                 // Convierte el Instant a LocalDate utilizando una zona horaria específica
                 LocalDate fecha = instant.atZone(ZoneId.systemDefault()).toLocalDate();
 
-                Alumno existente = data.buscarAlumnoPorDni(dni);
-                if (existente != null) {
-                    JOptionPane.showMessageDialog(null, "El alumno ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    if (idAlumno == -1) {
-                        Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
-                        // Código para guardar el alumno existente
-                        // Pregunta al usuario si quiere guardar el nuevo alumno
-                        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de guardar el nuevo alumno?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                if (idAlumno == -1) {
+                    Alumno a = new Alumno(dni, apellido, nombre, fecha, estado);
+                    // Código para guardar el alumno existente
+                    // Pregunta al usuario si quiere guardar el nuevo alumno
+                    int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de guardar el nuevo alumno?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
-                        if (confirmacion == JOptionPane.YES_OPTION) {
-                            data.guardarAlumno(a);
-                            JOptionPane.showMessageDialog(null, "Alumno guardado con éxito.");
+                    if (confirmacion == JOptionPane.YES_OPTION) {
+                        data.guardarAlumno(a);
+                        JOptionPane.showMessageDialog(null, "Alumno guardado con éxito.");
 
-                        }
-                    } else {
-                        // Código para modificar un nuevo alumno
-                        Alumno b = new Alumno(idAlumno, dni, apellido, nombre, fecha, true);
-                        data.modificarAlumno(b);
                     }
+                } else {
+                    // Código para modificar un nuevo alumno
+                    Alumno b = new Alumno(idAlumno, dni, apellido, nombre, fecha, true);
+                    data.modificarAlumno(b);
+                    JOptionPane.showMessageDialog(null, "Se ha guardado la modificación.");
                 }
             }
         }
     }
-    
 
     public void focusGained(FocusEvent e) {
         try {
@@ -234,7 +230,7 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
         imagenRedimensionada = nuevoIcon.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
         salirIcon = new ImageIcon(imagenRedimensionada);
         vista.jbtSalir.setIcon(salirIcon);
-       
+
         vista.setClosable(true);
         vista.setIconifiable(true);
         vista.setMaximizable(true);
