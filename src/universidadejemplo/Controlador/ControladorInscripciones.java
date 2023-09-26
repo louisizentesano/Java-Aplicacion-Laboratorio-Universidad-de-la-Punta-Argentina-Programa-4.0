@@ -145,9 +145,9 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
     }
 
     public void modelaTabla() {
-        modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("año");
+        modelo.addColumn("Id Materia");
+        modelo.addColumn("Materia");
+        modelo.addColumn("Año");
 
         vista.jTable1.setModel(modelo);//seteando 
     }
