@@ -5,9 +5,12 @@
  */
 package universidadejemplo.Controlador;
 
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -27,7 +30,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
  *
  * @author Dario
  */
-public class ControladorMenuPrincipal implements ActionListener, MenuListener {
+public class ControladorMenuPrincipal implements ActionListener, MenuListener,ComponentListener {
 
     private final MenuPrincipal menu;
 
@@ -42,12 +45,14 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener {
         // con AddMenuListener se escuchan a los jMenu en los metodos menuSelected, MenuDeselected y menuCanceled
         // Para Git
         this.menu.jmSalir.addMenuListener(this);
+        this.menu.jFondo.addComponentListener(this);
 
     }
 
     public void iniciar() {
         menu.setTitle("Universidad de la Punta");
         menu.setLocationRelativeTo(null);
+        menu.setResizable(false);
         ponerFondo();
 
     }
@@ -138,4 +143,27 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener {
         menu.jFondo.repaint();
 
     }
+    
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       ponerFondo();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
