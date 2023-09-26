@@ -23,7 +23,6 @@ public class ControladorCargaNotas implements ActionListener {
 
     public AlumnoData alumdata;
     public InscripcionData inscdata;
-    // public Materia matData;
     public CargaNotas vistacarganotas;
     private Image carganotasbackground;
     public MenuPrincipal menu;
@@ -45,12 +44,13 @@ public class ControladorCargaNotas implements ActionListener {
 // this se refiere a la instancia actual de la clase que actua como oyente de
 // los eventos generados por los componentes jcbMateria etc y ejecuta en esta clase
 // el metodo actionPerformed de la interfaz ActionListener que implementa
+        UIManager.put("OptionPane.messageFont", UIManager.getFont("Label.font").deriveFont(20.0f));
 
-UIManager.put("OptionPane.messageFont", UIManager.getFont("Label.font").deriveFont(20.0f));
-
-
-ImageIcon imageIcon = new ImageIcon("/universidadejemplo/&Images/bckgcn.jpg");
-carganotasbackground = imageIcon.getImage();
+        ImageIcon imageIcon = new ImageIcon("/universidadejemplo/&Images/bckg2.jpg");
+        carganotasbackground = imageIcon.getImage();
+        //Esto asegurará que la imagen se cargue cuando se crea una instancia de la clase ControladorCargaNotas
+        //asigno la imagen cargada a la variable carganotasbackground
+        // Luego, puedo usar esta imagen en otros métodos, como inicia(), para configurar el fondo personalizado del JPanel.
     }
 
     public ControladorCargaNotas() {
@@ -68,18 +68,17 @@ carganotasbackground = imageIcon.getImage();
         menu.jFondo.moveToFront(vistacarganotas);// Coloca la vista actual en la parte delantera del contenedor jFondo u otro componentes
         vistacarganotas.requestFocus(); //le da el foco al formulario la vista estará lista para recibir eventos de entrada
         cargarComboCargaNotas(); //metodo cargar datos en un JComboBox u otro componente de selección en la vista
-        ModeloTablaCargaNotas();
-        //configurar y mostrar una tabla en la vista,  para mostrar datos relacionados con las notas
-        // vistacarganotas.jTableCargaNotas.setEnabled(false);
+        ModeloTablaCargaNotas();//configurar y mostrar una tabla en la vista,  para mostrar datos relacionados con las notas
+        
+  // vistacarganotas.jTableCargaNotas.setEnabled(false);
 //Deshabilita la tabla en la vista (jTabla). Esto significa que el usuario no podrá interactuar directamente con la tabla 
 //hasta que se habilite nuevamente.
 
-
-        
         ImagePanel imagePanel = new ImagePanel(carganotasbackground);
         vistacarganotas.add(imagePanel);
+        //creación y adición un objeto ImagePanel a vistacarganotas pasando carganotasbackground como argumento.
         //es donde se inicializa el panel y se configura para tener la imagen de fondo
-
+        //Agrego este panel personalizado a la vistacarganotas para que funcione como el fondo de la vista
     }
 
     //getSource() se utiliza para determinar que componente genero el evento
@@ -197,6 +196,8 @@ carganotasbackground = imageIcon.getImage();
 
         public ImagePanel(Image carganotasbackground) {
             this.carganotasbackground = carganotasbackground;
+            //ImagePanel se encarga de dibujar la imagen de fondo en 
+            //el método paintComponent, lo que permite mostrar la imagen como fondo en la vista
         }
 
         @Override
@@ -212,7 +213,7 @@ carganotasbackground = imageIcon.getImage();
 
     public void mostrarMensajePersonalizado() {
         // Mostrar el mensaje utilizando JOptionPane.showMessageDialog con el tamaño de fuente configurado
-        JOptionPane.showMessageDialog(null, "Este es un mensaje con un tamaño de texto personalizado.", "Mensaje Personalizado", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, JOptionPane.INFORMATION_MESSAGE);
     }
 
     private boolean filaHaSidoModificada(int fila) {

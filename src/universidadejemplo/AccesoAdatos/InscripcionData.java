@@ -1,6 +1,5 @@
 package universidadejemplo.AccesoAdatos;
 
-import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
