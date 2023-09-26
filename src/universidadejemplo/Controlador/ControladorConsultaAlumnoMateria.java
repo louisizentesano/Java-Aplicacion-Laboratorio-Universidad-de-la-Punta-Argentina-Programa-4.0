@@ -47,8 +47,8 @@ public class ControladorConsultaAlumnoMateria implements ActionListener{
     }
     
     public void inicia(){
-        menu.jFondo.removeAll();
-        menu.jFondo.repaint();
+        //menu.jFondo.removeAll();
+        //menu.jFondo.repaint();
         menu.jFondo.add(vista);
         vista.setVisible(true);
         menu.jFondo.moveToFront(vista);

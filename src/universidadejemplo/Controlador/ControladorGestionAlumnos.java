@@ -52,8 +52,8 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
 
     public void iniciar() {
 
-        menu.jFondo.removeAll();
-        menu.jFondo.repaint();
+        //menu.jFondo.removeAll();
+        //menu.jFondo.repaint();
         menu.jFondo.add(vista);
         vista.setVisible(true);
         menu.jFondo.moveToFront(vista);
