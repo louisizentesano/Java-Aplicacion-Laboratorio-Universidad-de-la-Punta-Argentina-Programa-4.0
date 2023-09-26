@@ -69,11 +69,10 @@ public class ControladorCargaNotas implements ActionListener {
         vistacarganotas.requestFocus(); //le da el foco al formulario la vista estará lista para recibir eventos de entrada
         cargarComboCargaNotas(); //metodo cargar datos en un JComboBox u otro componente de selección en la vista
         ModeloTablaCargaNotas();//configurar y mostrar una tabla en la vista,  para mostrar datos relacionados con las notas
-        
-  // vistacarganotas.jTableCargaNotas.setEnabled(false);
+
+        // vistacarganotas.jTableCargaNotas.setEnabled(false);
 //Deshabilita la tabla en la vista (jTabla). Esto significa que el usuario no podrá interactuar directamente con la tabla 
 //hasta que se habilite nuevamente.
-
         ImagePanel imagePanel = new ImagePanel(carganotasbackground);
         vistacarganotas.add(imagePanel);
         //creación y adición un objeto ImagePanel a vistacarganotas pasando carganotasbackground como argumento.
@@ -96,14 +95,11 @@ public class ControladorCargaNotas implements ActionListener {
                 String[] partes = selectedItem.split("-");
                 int idAlumno = Integer.parseInt(partes[2].trim()); //el indice 0 contiene el id del alumno se convierte a entero
                 //antes de intentar convertirla a un entero utiliza  ndo Integer.parseInt()
-                System.out.println("idalumno" + idAlumno);
                 // trim() se utiliza para eliminar los espacios en blanco al principio y al final de la cadena almacenada en partes[0] 
                 List<Materia> materias = inscdata.obtenerMateriasCursadas(idAlumno);
                 modelo.setRowCount(0);
-                System.out.println("cantidad de materias" + materias.size());
                 for (Materia materia : materias) {
                     modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), inscdata.notadeMateria(idAlumno, materia.getIdMateria())});
-                    System.out.println("CARGANDO" + materia.getIdMateria());
                 }
                 vistacarganotas.jTableCargaNotas.setModel(modelo);
             }
@@ -117,7 +113,7 @@ public class ControladorCargaNotas implements ActionListener {
         //en una celda de la tercera columna // de jTableCargaNotas: 
         if (e.getSource() == vistacarganotas.jButtonGuardar) {
             int selectedIndex = vistacarganotas.jComboBListAlumCargaNotas.getSelectedIndex();
-            if (selectedIndex == -1 || (selectedIndex == 0)) {
+            if (selectedIndex == -1 || (selectedIndex == 0 && vistacarganotas.jTableCargaNotas.getSelectedRow() == -1)) {
                 // verifica si el usuario ha seleccionado un alumno válido (índice no es -1) o si ha seleccionado el primer elemento
                 //(índice 0) y también ha seleccionado una fila en la tabla. Si ninguna de estas condiciones se cumple, se muestra
                 //el mensaje "No ha seleccionado un alumno válido". De lo contrario, se permite modificar o guardar datos en la tabla
@@ -205,8 +201,8 @@ public class ControladorCargaNotas implements ActionListener {
             super.paintComponent(g);
             if (carganotasbackground != null) {
                 g.drawImage(carganotasbackground, 0, 0, getWidth(), getHeight(), this);
-                //setOpaque(false);
-                // super.paint(g);
+                setOpaque(false);
+                 super.paint(g);
             }
         }
     }

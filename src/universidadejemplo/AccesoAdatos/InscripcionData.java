@@ -34,7 +34,8 @@ public class InscripcionData {
             //guardarInscripcion(Inscripcion insc)
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 //El valor del parámetro insc en la siguiente consulta SQL proviene del argumento que se pasa al método
-                //guardarInscripcion(Inscripcion insc)
+                //guardarInscripcion(Inscripcion insc).
+                //seteamos los parametros dinamicos
                 ps.setDouble(1, insc.getNota());
                 ps.setInt(2, insc.getAlumno().getIdAlumno());
                 ps.setInt(3, insc.getMateria().getIdMateria());
