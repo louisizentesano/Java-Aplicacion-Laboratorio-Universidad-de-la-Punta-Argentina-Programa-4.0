@@ -59,7 +59,7 @@ public class Inscripciones extends javax.swing.JInternalFrame {
 
         jbtInscribir.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jbtInscribir.setForeground(new java.awt.Color(0, 204, 102));
-        jbtInscribir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ProyectoFinal/UniversidadEjemplo/src/&IconButtons/Inscribir.png"))); // NOI18N
+        jbtInscribir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&IconButtons/Inscribir.png"))); // NOI18N
         jbtInscribir.setText("Inscribir");
         jbtInscribir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

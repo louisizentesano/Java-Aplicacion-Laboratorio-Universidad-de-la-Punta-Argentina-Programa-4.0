@@ -48,7 +48,7 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener {
     public void iniciar() {
         menu.setTitle("Universidad de la Punta");
         menu.setLocationRelativeTo(null);
-        ponerFondo();
+        //ponerFondo();
 
     }
 
@@ -98,6 +98,7 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener {
     public void menuSelected(MenuEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (e.getSource() == menu.jmSalir) {
+            System.out.println("Se preciono Salir");
             menu.dispose();
         }
     }

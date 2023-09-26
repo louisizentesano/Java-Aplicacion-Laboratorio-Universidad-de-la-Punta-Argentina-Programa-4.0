@@ -39,6 +39,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmiManipulacionNotas = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
         jmiAlumnosPorMateria = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
         jmSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,6 +85,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmConsultas.add(jmiAlumnosPorMateria);
 
         jMenuBar1.add(jmConsultas);
+
+        jMenu3.setText("                      ");
+        jMenuBar1.add(jMenu3);
 
         jmSalir.setText("Salir");
         jMenuBar1.add(jmSalir);
@@ -141,6 +145,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane jFondo;
+    private javax.swing.JMenu jMenu3;
     public javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JMenu jmAdministracion;
     public javax.swing.JMenu jmAlumno;
