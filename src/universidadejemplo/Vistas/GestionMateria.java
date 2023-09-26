@@ -30,7 +30,6 @@ public class GestionMateria extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLbFondo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jtxCodigo = new javax.swing.JTextField();
@@ -45,124 +44,63 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jbtNuevo = new javax.swing.JButton();
         jbtEliminar = new javax.swing.JButton();
         jbtGuardar = new javax.swing.JButton();
+        jLbFondo = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
-
-        jLbFondo.setText("jLabel6");
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Materia");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel2.setText("Codigo:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 79, -1, -1));
 
         jtxCodigo.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jPanel1.add(jtxCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 74, 128, -1));
 
         jbtBuscar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jbtBuscar.setText("Buscar");
+        jPanel1.add(jbtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 71, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel3.setText("Nombre:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 118, -1, -1));
 
         jtxNombre.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jPanel1.add(jtxNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 113, 281, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel4.setText("Año:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 159, -1, -1));
 
         jtxAño.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jPanel1.add(jtxAño, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 154, 96, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel5.setText("Estado:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 199, -1, -1));
+        jPanel1.add(jchEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 199, -1, -1));
 
         jbtSalir.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jbtSalir.setText("Salir");
+        jPanel1.add(jbtSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
 
         jbtNuevo.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jbtNuevo.setText("Nuevo");
+        jPanel1.add(jbtNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
 
         jbtEliminar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jbtEliminar.setText("Eliminar");
+        jPanel1.add(jbtEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, -1, -1));
 
         jbtGuardar.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jbtGuardar.setText("Guardar");
+        jPanel1.add(jbtGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jbtNuevo)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jchEstado)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbtEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbtSalir))
-                            .addComponent(jtxAño, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(jLabel1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbtBuscar)))))
-                .addContainerGap(99, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(214, 214, 214)
-                    .addComponent(jLbFondo)
-                    .addContainerGap(214, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jtxCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jtxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jtxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jchEstado))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtGuardar)
-                    .addComponent(jbtEliminar)
-                    .addComponent(jbtSalir)
-                    .addComponent(jbtNuevo))
-                .addContainerGap(53, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(159, 159, 159)
-                    .addComponent(jLbFondo)
-                    .addContainerGap(160, Short.MAX_VALUE)))
-        );
+        jLbFondo.setText("jLabel6");
+        jPanel1.add(jLbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 340));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
