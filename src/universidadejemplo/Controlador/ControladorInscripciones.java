@@ -158,7 +158,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
         alumnos = alumnoData.listarAlumnos();
         vista.jComboBListAlum.removeAllItems();
-        System.out.println("tamaño de alumno " + alumnos.size());
+       // System.out.println("tamaño de alumno " + alumnos.size());
 
         for (Alumno alumno : alumnos) {
             if (alumno.isEstado()) {
