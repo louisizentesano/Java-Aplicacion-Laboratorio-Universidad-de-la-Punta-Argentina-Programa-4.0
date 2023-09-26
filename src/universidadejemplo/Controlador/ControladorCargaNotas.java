@@ -59,10 +59,10 @@ public class ControladorCargaNotas implements ActionListener {
     }
 
     public void inicia() {
-        menu.jFondo.removeAll();
-        //eliminando todos los componentes que estaban dentro del contenedor jFondo de la clase menu
-//para limpiar cualquier contenido previo antes de agregar la nueva vista
-        menu.jFondo.repaint();
+       // menu.jFondo.removeAll();
+       //eliminando todos los componentes que estaban dentro del contenedor jFondo de la clase menu
+       //para limpiar cualquier contenido previo antes de agregar la nueva vista
+       //menu.jFondo.repaint();
         menu.jFondo.add(vistacarganotas); // Agrega la vista actual (vistacarganotas) al contenedor jFondo de la clase menu
         vistacarganotas.setVisible(true); //hace visible se mostrará en la pantalla.
         menu.jFondo.moveToFront(vistacarganotas);// Coloca la vista actual en la parte delantera del contenedor jFondo u otro componentes

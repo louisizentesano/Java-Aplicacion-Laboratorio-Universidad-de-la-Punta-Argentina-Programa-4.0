@@ -15,7 +15,7 @@ import universidadejemplo.Entidades.Inscripcion;
 import universidadejemplo.Entidades.Materia;
 
 /**
- * louisinette
+ * lLouisinette
  */
 public class InscripcionData {
 
@@ -30,22 +30,13 @@ public class InscripcionData {
         con = Conexion.getConexion();
         try {
             String sql = "INSERT INTO inscripcion (nota, idAlumno, idMateria) VALUES ( ?, ?, ?)";
-            //El valor del parámetro insc en la siguiente consulta SQL proviene del argumento que se pasa al método
-            //guardarInscripcion(Inscripcion insc)
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                //El valor del parámetro insc en la siguiente consulta SQL proviene del argumento que se pasa al método
-                //guardarInscripcion(Inscripcion insc).
-                //seteamos los parametros dinamicos
                 ps.setDouble(1, insc.getNota());
                 ps.setInt(2, insc.getAlumno().getIdAlumno());
                 ps.setInt(3, insc.getMateria().getIdMateria());
                 ps.executeUpdate();
-                //ResultSet rs = ps.getGeneratedKeys();
-               // if (rs.next()) {
-               //     insc.setIdInscripcion(rs.getInt("idInscripto"));
-                    JOptionPane.showMessageDialog(null, "Inscripcion exitosa");
-              //  }
-            } //idInscripto??
+                JOptionPane.showMessageDialog(null, "Inscripcion exitosa");
+                }  
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error no se pudo realizar la inscripcion " + ex.getMessage());
@@ -54,7 +45,6 @@ public class InscripcionData {
 
     public List<Inscripcion> obtenerInscripciones() {
         con = Conexion.getConexion();
-        //Se crea una lista vacía llamada inscripciones para almacenar los objetos Inscripcion que se recuperarán de la base de datos.
         List<Inscripcion> inscripciones = new ArrayList<>();
 
         try {
@@ -162,7 +152,7 @@ public class InscripcionData {
                 materia.setAnioMateria(resultSet.getInt("año"));
                 materiasCursadas.add(materia);
 
-                     }
+            }
             cerrarRecursos(ps, resultSet);
 
         } catch (SQLException ex) {
@@ -356,7 +346,6 @@ public class InscripcionData {
      * ps.close()..
      */
     // metodo auxiliar para cerrar tanto resultSet como prepare statement
-
     private void cerrarRecursos(PreparedStatement ps, ResultSet resultSet) throws SQLException {
         if (resultSet != null) {
             resultSet.close();
@@ -366,23 +355,23 @@ public class InscripcionData {
         }
     }
 
-    public Object notadeMateria(int idAlumno,int idMateria) {
+    public Object notadeMateria(int idAlumno, int idMateria) {
         int Nota = 0;
         try {
             con = Conexion.getConexion();
-            String sql= "SELECT * FROM inscripcion WHERE idAlumno=? AND idMateria=?";
+            String sql = "SELECT * FROM inscripcion WHERE idAlumno=? AND idMateria=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
             ps.setInt(2, idMateria);
             ResultSet resultSet = ps.executeQuery();
-           while (resultSet.next()) {
-            Nota = resultSet.getInt("nota");
+            while (resultSet.next()) {
+                Nota = resultSet.getInt("nota");
             }
-            
-                } catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
         }
         return (Object) Nota;
-        
+
     }
 }
