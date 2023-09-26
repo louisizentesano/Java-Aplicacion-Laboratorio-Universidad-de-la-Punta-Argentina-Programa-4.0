@@ -16,6 +16,7 @@ import universidadejemplo.Vistas.CargaNotas;
 import universidadejemplo.Vistas.MenuPrincipal;
 import java.awt.*;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 //@author louisinette
 public class ControladorCargaNotas implements ActionListener {
@@ -35,9 +36,6 @@ public class ControladorCargaNotas implements ActionListener {
         this.menu = menu;
         this.vistacarganotas = vistacarganotas;
 
-        ImageIcon imageIcon = new ImageIcon("&Images/bckgcn.jpg");
-        carganotasbackground = imageIcon.getImage();
-
         vistacarganotas.jComboBListAlumCargaNotas.addActionListener(this);
         vistacarganotas.jButtonSalirCargaNotas.addActionListener(this);
         vistacarganotas.jButtonGuardar.addActionListener(this);
@@ -47,6 +45,17 @@ public class ControladorCargaNotas implements ActionListener {
 // this se refiere a la instancia actual de la clase que actua como oyente de
 // los eventos generados por los componentes jcbMateria etc y ejecuta en esta clase
 // el metodo actionPerformed de la interfaz ActionListener que implementa
+
+UIManager.put("OptionPane.messageFont", UIManager.getFont("Label.font").deriveFont(20.0f));
+
+
+ImageIcon imageIcon = new ImageIcon("/universidadejemplo/&Images/bckgcn.jpg");
+carganotasbackground = imageIcon.getImage();
+    }
+
+    public ControladorCargaNotas() {
+        ControladorCargaNotas controlador = new ControladorCargaNotas();
+        controlador.mostrarMensajePersonalizado();
     }
 
     public void inicia() {
@@ -64,9 +73,13 @@ public class ControladorCargaNotas implements ActionListener {
         // vistacarganotas.jTableCargaNotas.setEnabled(false);
 //Deshabilita la tabla en la vista (jTabla). Esto significa que el usuario no podrá interactuar directamente con la tabla 
 //hasta que se habilite nuevamente.
+
+
+        
         ImagePanel imagePanel = new ImagePanel(carganotasbackground);
         vistacarganotas.add(imagePanel);
         //es donde se inicializa el panel y se configura para tener la imagen de fondo
+
     }
 
     //getSource() se utiliza para determinar que componente genero el evento
@@ -98,21 +111,21 @@ public class ControladorCargaNotas implements ActionListener {
         }
 
         if (e.getSource() == vistacarganotas.jButtonSalirCargaNotas) {
-                 vistacarganotas.dispose();
-                          }
-        
-           //Código para manejar el evento del botón "Guardar" para actualizar la nota
-            //en una celda de la tercera columna // de jTableCargaNotas: 
+            vistacarganotas.dispose();
+        }
+
+        //Código para manejar el evento del botón "Guardar" para actualizar la nota
+        //en una celda de la tercera columna // de jTableCargaNotas: 
         if (e.getSource() == vistacarganotas.jButtonGuardar) {
             int selectedIndex = vistacarganotas.jComboBListAlumCargaNotas.getSelectedIndex();
             if (selectedIndex == -1 || (selectedIndex == 0)) {
                 // verifica si el usuario ha seleccionado un alumno válido (índice no es -1) o si ha seleccionado el primer elemento
                 //(índice 0) y también ha seleccionado una fila en la tabla. Si ninguna de estas condiciones se cumple, se muestra
                 //el mensaje "No ha seleccionado un alumno válido". De lo contrario, se permite modificar o guardar datos en la tabla
-                  JOptionPane.showMessageDialog(null, "No ha seleccionado un alumno válido");
-                       //for (int fila = 0; fila < vistacarganotas.jTableCargaNotas.getSelectedRowCount(); fila++) { // obtener la fila seleccionada
-                 } else {
-                       int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada 
+                JOptionPane.showMessageDialog(null, "No ha seleccionado un alumno válido");
+                //for (int fila = 0; fila < vistacarganotas.jTableCargaNotas.getSelectedRowCount(); fila++) { // obtener la fila seleccionada
+            } else {
+                int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada 
                 if (filaSeleccionada >= 0) {
                     Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
                     Object nota = modelo.getValueAt(filaSeleccionada, 2);
@@ -135,8 +148,7 @@ public class ControladorCargaNotas implements ActionListener {
                     }
                     if (notad == 0.0 || notad == 0 || notad == 00) {
                         JOptionPane.showMessageDialog(null, "No se permite guardar una nota igual a cero");
-                    }
-                    else if (notad > 10) {
+                    } else if (notad > 10) {
                         JOptionPane.showMessageDialog(null, "Solo se aceptan Notas del 1 al 10");
                     } else {
                         inscdata.actualizarNota(idAlumno, (int) idMateria, notad);
@@ -145,10 +157,10 @@ public class ControladorCargaNotas implements ActionListener {
                 } else {
                     JOptionPane.showMessageDialog(null, "Debe modificar una nota y seleccionar la fila correspondiente para guardar");
                 }
-           
+
             }
         }
-        
+
     }
 
 // modelo de la tabla columnas
@@ -192,10 +204,15 @@ public class ControladorCargaNotas implements ActionListener {
             super.paintComponent(g);
             if (carganotasbackground != null) {
                 g.drawImage(carganotasbackground, 0, 0, getWidth(), getHeight(), this);
-                setOpaque(false);
-                super.paint(g);
+                //setOpaque(false);
+                // super.paint(g);
             }
         }
+    }
+
+    public void mostrarMensajePersonalizado() {
+        // Mostrar el mensaje utilizando JOptionPane.showMessageDialog con el tamaño de fuente configurado
+        JOptionPane.showMessageDialog(null, "Este es un mensaje con un tamaño de texto personalizado.", "Mensaje Personalizado", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private boolean filaHaSidoModificada(int fila) {
