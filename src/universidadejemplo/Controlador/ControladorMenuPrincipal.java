@@ -4,8 +4,13 @@
  * and open the template in the editor.
  */
 package universidadejemplo.Controlador;
+
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import universidadejemplo.AccesoAdatos.AlumnoData;
@@ -22,7 +27,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
  *
  * @author Dario
  */
-public class ControladorMenuPrincipal implements ActionListener, MenuListener{
+public class ControladorMenuPrincipal implements ActionListener, MenuListener {
 
     private final MenuPrincipal menu;
 
@@ -43,16 +48,18 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
     public void iniciar() {
         menu.setTitle("Universidad de la Punta");
         menu.setLocationRelativeTo(null);
+        ponerFondo();
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == menu.jmiFormularioAlumno ){
+        if (e.getSource() == menu.jmiFormularioAlumno) {
             AlumnoData data = new AlumnoData();
             GestionAlumnos vista = new GestionAlumnos();
             ControladorGestionAlumnos a = new ControladorGestionAlumnos(vista, data, menu);
             a.iniciar();
+            
         }
         if (e.getSource() == menu.jmiFormularioMaterias) {
             MateriaData data = new MateriaData();
@@ -60,37 +67,37 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
             ControladorGestionMateria a = new ControladorGestionMateria(vista, data, menu);
             a.iniciar();
         }
-        if(e.getSource() == menu.jmiManejoInscripciones){
+        if (e.getSource() == menu.jmiManejoInscripciones) {
             AlumnoData adata = new AlumnoData();
             InscripcionData idata = new InscripcionData();
             Inscripciones vista = new Inscripciones();
             ControladorInscripciones a = new ControladorInscripciones(vista, adata, idata, menu);
-           
+
             a.iniciar();
-            
+
         }
-        if(e.getSource() == menu.jmiManipulacionNotas){
+        if (e.getSource() == menu.jmiManipulacionNotas) {
             AlumnoData adata = new AlumnoData();
             InscripcionData idata = new InscripcionData();
             CargaNotas vista = new CargaNotas();
             ControladorCargaNotas a = new ControladorCargaNotas(adata, idata, vista, menu);
             a.inicia();
-            
+
         }
-        if(e.getSource() == menu.jmiAlumnosPorMateria){
+        if (e.getSource() == menu.jmiAlumnosPorMateria) {
             MateriaData data = new MateriaData();
             InscripcionData data1 = new InscripcionData();
             ConsultaAlumnoMateria vista = new ConsultaAlumnoMateria();
             ControladorConsultaAlumnoMateria a = new ControladorConsultaAlumnoMateria(data, data1, menu, vista);
             a.inicia();
-            
+
         }
     }
 
     @Override
     public void menuSelected(MenuEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        if (e.getSource() == menu.jmSalir){
+        if (e.getSource() == menu.jmSalir) {
             menu.dispose();
         }
     }
@@ -103,5 +110,31 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener{
     @Override
     public void menuCanceled(MenuEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void ponerFondo() {
+        ClassLoader directorio = getClass().getClassLoader();
+        URL rutaImagenFondo = directorio.getResource("&Images/bckgcn.jpg");
+        
+        // Crea un ImageIcon a partir de la imagen de fondo
+        ImageIcon imagenFondoIcon = new ImageIcon(rutaImagenFondo);
+        // Obtiene la imagen de fondo
+        Image imagenFondo = imagenFondoIcon.getImage();
+        // Redimensiona la imagen de fondo al tamaño del JPanel
+        imagenFondo = imagenFondo.getScaledInstance(menu.jFondo.getWidth(), menu.jFondo.getHeight(), Image.SCALE_SMOOTH);
+        // Crea un nuevo ImageIcon con la imagen redimensionada
+        ImageIcon imagenFondoRedimensionadaIcon = new ImageIcon(imagenFondo);
+        // Crea una etiqueta JLabel para mostrar la imagen de fondo en el JPanel
+        JLabel imagenFondoLabel = new JLabel(imagenFondoRedimensionadaIcon);
+        // Establece la ubicación y el tamaño de la imagen de fondo
+        imagenFondoLabel.setBounds(0, 0, menu.jFondo.getWidth(), menu.jFondo.getHeight());
+        // Agrega la imagen de fondo al JPanel
+        menu.jFondo.add(imagenFondoLabel);
+        // Asegúrate de que la imagen de fondo esté en la parte posterior para no ocultar otros componentes
+        menu.jFondo.setComponentZOrder(imagenFondoLabel, 0);
+        // Actualiza el JPanel para mostrar la imagen
+        menu.jFondo.revalidate();
+        menu.jFondo.repaint();
+
     }
 }
