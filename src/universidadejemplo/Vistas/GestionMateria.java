@@ -50,10 +50,12 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
         jLabel1.setText("Materia");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 51));
         jLabel2.setText("Codigo:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 79, -1, -1));
 
@@ -65,6 +67,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jPanel1.add(jbtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 71, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 51));
         jLabel3.setText("Nombre:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 118, -1, -1));
 
@@ -72,6 +75,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jPanel1.add(jtxNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 113, 281, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 0, 51));
         jLabel4.setText("Año:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 159, -1, -1));
 
@@ -79,6 +83,7 @@ public class GestionMateria extends javax.swing.JInternalFrame {
         jPanel1.add(jtxAño, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 154, 96, -1));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 0, 51));
         jLabel5.setText("Estado:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 199, -1, -1));
         jPanel1.add(jchEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(89, 199, -1, -1));

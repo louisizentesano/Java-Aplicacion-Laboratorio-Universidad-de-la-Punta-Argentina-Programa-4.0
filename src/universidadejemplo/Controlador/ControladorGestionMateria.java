@@ -258,9 +258,11 @@ public class ControladorGestionMateria implements ActionListener, FocusListener,
         salirIcon = new ImageIcon(imagenRedimensionada);
         vista.jbtSalir.setIcon(salirIcon);
 
+        /*
         vista.setClosable(true);
         vista.setIconifiable(true);
         vista.setMaximizable(true);
+        */
 
     }
 
