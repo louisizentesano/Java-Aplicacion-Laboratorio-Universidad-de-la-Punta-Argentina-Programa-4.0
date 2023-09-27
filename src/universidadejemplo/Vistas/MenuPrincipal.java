@@ -5,6 +5,8 @@
  */
 package universidadejemplo.Vistas;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author PC1
@@ -16,7 +18,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
-        System.out.println("");
+        //System.out.println("");
+        setIconImage(new ImageIcon(getClass().getResource("/&Images/logo-universidad-de-la-punta.png")).getImage());
     }
 
     /**
