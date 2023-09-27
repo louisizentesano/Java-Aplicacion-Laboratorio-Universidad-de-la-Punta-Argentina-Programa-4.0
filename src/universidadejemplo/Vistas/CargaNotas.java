@@ -44,7 +44,7 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jLCargaNotas.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         jLCargaNotas.setForeground(java.awt.Color.orange);
         jLCargaNotas.setText("Carga de Notas");
-        jPanel1.add(jLCargaNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, -1, -1));
+        jPanel1.add(jLCargaNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, -1, -1));
 
         jComboBListAlumCargaNotas.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jComboBListAlumCargaNotas.setToolTipText("");
@@ -53,7 +53,7 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jLSelectAlumn.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLSelectAlumn.setForeground(new java.awt.Color(255, 255, 255));
         jLSelectAlumn.setText("Seleccione un alumno:");
-        jPanel1.add(jLSelectAlumn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
+        jPanel1.add(jLSelectAlumn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, -1));
 
         jLSelectAlumn1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLSelectAlumn1.setForeground(new java.awt.Color(255, 255, 255));
@@ -78,18 +78,18 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jTableCargaNotas.setRowHeight(24);
         jScrollPane1.setViewportView(jTableCargaNotas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 489, 558, 91));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 510, 558, 140));
 
         jButtonGuardar.setBackground(java.awt.Color.orange);
         jButtonGuardar.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButtonGuardar.setText("Guardar");
-        jPanel1.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 644, -1, -1));
+        jPanel1.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 680, -1, -1));
 
         jButtonSalirCargaNotas.setBackground(java.awt.Color.orange);
         jButtonSalirCargaNotas.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButtonSalirCargaNotas.setText("Salir");
         jButtonSalirCargaNotas.setToolTipText("");
-        jPanel1.add(jButtonSalirCargaNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 644, -1, -1));
+        jPanel1.add(jButtonSalirCargaNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 680, -1, -1));
 
         jLbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&Images/bckg3.jpg"))); // NOI18N
         jLbFondo.setDisabledIcon(null);
