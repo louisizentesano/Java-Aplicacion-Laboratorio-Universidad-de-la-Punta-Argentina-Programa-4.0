@@ -17,6 +17,9 @@ import universidadejemplo.Vistas.MenuPrincipal;
 import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
+import java.awt.BorderLayout;
+import java.net.URL;
+import javax.swing.JLabel;
 
 //@author louisinette
 public class ControladorCargaNotas implements ActionListener {
@@ -27,30 +30,26 @@ public class ControladorCargaNotas implements ActionListener {
     private Image carganotasbackground;
     public MenuPrincipal menu;
     MyTableModel modelo = new MyTableModel();
-    private ArrayList<HashMap<String, Object>> valoresOriginales = new ArrayList<>();
-
+ 
     public ControladorCargaNotas(AlumnoData alumdata, InscripcionData inscdata, CargaNotas vistacarganotas, MenuPrincipal menu) {
         this.alumdata = alumdata;
         this.inscdata = inscdata;
         this.menu = menu;
         this.vistacarganotas = vistacarganotas;
 
+        // Agregan un oyente de accion a los componentes de la interfaz de usuario
+        // this se refiere a la instancia actual de la clase que actua como oyente      
         vistacarganotas.jComboBListAlumCargaNotas.addActionListener(this);
         vistacarganotas.jButtonSalirCargaNotas.addActionListener(this);
         vistacarganotas.jButtonGuardar.addActionListener(this);
 
-//agregan un oyente de accion a los componentes de la interfaz de usuario
-//se refiere a la instancia actual de la clase ControladorCargarNotas 
-// this se refiere a la instancia actual de la clase que actua como oyente de
-// los eventos generados por los componentes jcbMateria etc y ejecuta en esta clase
-// el metodo actionPerformed de la interfaz ActionListener que implementa
         UIManager.put("OptionPane.messageFont", UIManager.getFont("Label.font").deriveFont(20.0f));
+        // Personaliza los mensajes de validacion de usuario
 
         ImageIcon imageIcon = new ImageIcon("/universidadejemplo/&Images/bckg2.jpg");
         carganotasbackground = imageIcon.getImage();
-        //Esto asegurará que la imagen se cargue cuando se crea una instancia de la clase ControladorCargaNotas
-        //asigno la imagen cargada a la variable carganotasbackground
-        // Luego, puedo usar esta imagen en otros métodos, como inicia(), para configurar el fondo personalizado del JPanel.
+        // Esto asegurará que la imagen se cargue cuando se crea una instancia  
+        // asigno la imagen cargada a la variable carganotasbackground
     }
 
     public ControladorCargaNotas() {
@@ -59,28 +58,16 @@ public class ControladorCargaNotas implements ActionListener {
     }
 
     public void inicia() {
-       // menu.jFondo.removeAll();
-       //eliminando todos los componentes que estaban dentro del contenedor jFondo de la clase menu
-       //para limpiar cualquier contenido previo antes de agregar la nueva vista
-       //menu.jFondo.repaint();
         menu.jFondo.add(vistacarganotas); // Agrega la vista actual (vistacarganotas) al contenedor jFondo de la clase menu
         vistacarganotas.setVisible(true); //hace visible se mostrará en la pantalla.
         menu.jFondo.moveToFront(vistacarganotas);// Coloca la vista actual en la parte delantera del contenedor jFondo u otro componentes
         vistacarganotas.requestFocus(); //le da el foco al formulario la vista estará lista para recibir eventos de entrada
-        cargarComboCargaNotas(); //metodo cargar datos en un JComboBox u otro componente de selección en la vista
-        ModeloTablaCargaNotas();//configurar y mostrar una tabla en la vista,  para mostrar datos relacionados con las notas
-
-        // vistacarganotas.jTableCargaNotas.setEnabled(false);
-//Deshabilita la tabla en la vista (jTabla). Esto significa que el usuario no podrá interactuar directamente con la tabla 
-//hasta que se habilite nuevamente.
-        ImagePanel imagePanel = new ImagePanel(carganotasbackground);
-        vistacarganotas.add(imagePanel);
-        //creación y adición un objeto ImagePanel a vistacarganotas pasando carganotasbackground como argumento.
-        //es donde se inicializa el panel y se configura para tener la imagen de fondo
-        //Agrego este panel personalizado a la vistacarganotas para que funcione como el fondo de la vista
+        cargarComboCargaNotas(); //metodo cargar datos en un JComboBox de selección en la vista
+        ModeloTablaCargaNotas();//configura y muestra una tabla en la vista de datos relacionados con las notas
+        cargarFondo();
     }
 
-    //getSource() se utiliza para determinar que componente genero el evento
+    //getSource() determina que componente genero el evento
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -88,14 +75,11 @@ public class ControladorCargaNotas implements ActionListener {
             // verifico si el evento proviene del JComboBox 
             if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
 
-                //  obtengo el elemento seleccionado del JComboBox la cadena  que contiene el DNI, apellido, nombre y el ID del alumno
+                //  obtengo el elemento seleccionado del JComboBox la cadena que contiene el DNI, apellido, nombre y el ID del alumno
                 String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
-
-                //Divido la cadena seleccionada  para obtener el ID del alumno
-                String[] partes = selectedItem.split("-");
-                int idAlumno = Integer.parseInt(partes[2].trim()); //el indice 0 contiene el id del alumno se convierte a entero
-                //antes de intentar convertirla a un entero utiliza  ndo Integer.parseInt()
-                // trim() se utiliza para eliminar los espacios en blanco al principio y al final de la cadena almacenada en partes[0] 
+                String[] partes = selectedItem.split("-");   //Divido la cadena seleccionada  para obtener el ID del alumno
+                int idAlumno = Integer.parseInt(partes[2].trim()); //el indice 2 contiene el id del alumno se convierte a entero
+                // trim() se utiliza para eliminar los espacios en blanco al principio y al final de la cadena almacenada en partes
                 List<Materia> materias = inscdata.obtenerMateriasCursadas(idAlumno);
                 modelo.setRowCount(0);
                 for (Materia materia : materias) {
@@ -110,13 +94,10 @@ public class ControladorCargaNotas implements ActionListener {
         }
 
         //Código para manejar el evento del botón "Guardar" para actualizar la nota
-        //en una celda de la tercera columna // de jTableCargaNotas: 
+        //en una celda seleccionada de la tercera columna de jTableCargaNotas: 
         if (e.getSource() == vistacarganotas.jButtonGuardar) {
             int selectedIndex = vistacarganotas.jComboBListAlumCargaNotas.getSelectedIndex();
             if (selectedIndex == -1 || (selectedIndex == 0 && vistacarganotas.jTableCargaNotas.getSelectedRow() == -1)) {
-                // verifica si el usuario ha seleccionado un alumno válido (índice no es -1) o si ha seleccionado el primer elemento
-                //(índice 0) y también ha seleccionado una fila en la tabla. Si ninguna de estas condiciones se cumple, se muestra
-                //el mensaje "No ha seleccionado un alumno válido". De lo contrario, se permite modificar o guardar datos en la tabla
                 JOptionPane.showMessageDialog(null, "No ha seleccionado un alumno válido");
                 //for (int fila = 0; fila < vistacarganotas.jTableCargaNotas.getSelectedRowCount(); fila++) { // obtener la fila seleccionada
             } else {
@@ -125,12 +106,9 @@ public class ControladorCargaNotas implements ActionListener {
                     Object idMateria = modelo.getValueAt(filaSeleccionada, 0);
                     Object nota = modelo.getValueAt(filaSeleccionada, 2);
                     String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
-                    //Divido la cadena seleccionada para obtener el ID del alumno:
                     String[] partes = selectedItem.split(" - ");
                     int idAlumno = Integer.parseInt(partes[2]);
-
                     double notad = 0;
-
                     if (nota instanceof Number) {
                         notad = ((Number) nota).doubleValue();
                     } else if (nota instanceof String) {
@@ -152,13 +130,11 @@ public class ControladorCargaNotas implements ActionListener {
                 } else {
                     JOptionPane.showMessageDialog(null, "Debe modificar una nota y seleccionar la fila correspondiente para guardar");
                 }
-
             }
         }
 
     }
 
-// modelo de la tabla columnas
     public void ModeloTablaCargaNotas() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
@@ -174,37 +150,26 @@ public class ControladorCargaNotas implements ActionListener {
             if (alumno.isEstado()) {
                 String alumc = alumno.getDni() + " - " + alumno.getApellido() + ", " + alumno.getNombre() + " - " + alumno.getIdAlumno();
                 vistacarganotas.jComboBListAlumCargaNotas.addItem(alumc);
-                //probar  sino vistacarganotas.jComboBListAlumCargaNotas.addItem(alumno.getNombreCompleto());
-                //no puedo usar alumnodelcombo.toString porque no existe el override to.String en Alumno, el error era que en el diseño
-                //estana el type de tabla alumno se saco todo
             }
         }
     }
 
-    private void cargarTablaCargaNotas(int idAlumno) {
-        throw new UnsupportedOperationException("Not supported yet.");
-
-    }
-
-    public class ImagePanel extends JPanel {
-
-        private Image carganotasbackground;
-
-        public ImagePanel(Image carganotasbackground) {
-            this.carganotasbackground = carganotasbackground;
-            //ImagePanel se encarga de dibujar la imagen de fondo en 
-            //el método paintComponent, lo que permite mostrar la imagen como fondo en la vista
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            if (carganotasbackground != null) {
-                g.drawImage(carganotasbackground, 0, 0, getWidth(), getHeight(), this);
-                setOpaque(false);
-                 super.paint(g);
-            }
-        }
+    private void cargarFondo() {
+        ClassLoader directorio = getClass().getClassLoader();
+        URL rutaImagenFondo = directorio.getResource("&Images/bckg3.jpg");
+       //Se carga una imagen de fondo desde un recurso ubicado en un directorio
+        ImageIcon imagenFondoIcon = new ImageIcon(rutaImagenFondo);
+       // La ruta de la imagen se utiliza para crear un objeto ImageIcon que representa la imagen de fondo
+        Image imagenFondo = imagenFondoIcon.getImage();
+       //Se obtiene la imagen desde el objeto ImageIcon
+        imagenFondo = imagenFondo.getScaledInstance(vistacarganotas.jPanel1.getWidth(), vistacarganotas.jPanel1.getHeight(), Image.SCALE_SMOOTH);
+          // Redimensiona la imagen de fondo al tamaño del menu.jFondo JPanel
+         ImageIcon imagenFondoRedimensionadaIcon = new ImageIcon(imagenFondo);
+         // La imagen redimensionada se utiliza para crear un nuevo objeto ImageIcon
+        vistacarganotas.jLbFondo.setIcon(imagenFondoRedimensionadaIcon);
+        vistacarganotas.jLbFondo.setBounds(0, 0, vistacarganotas.jPanel1.getWidth(), vistacarganotas.jPanel1.getHeight());
+        vistacarganotas.jPanel1.revalidate();
+        vistacarganotas.jPanel1.repaint();
     }
 
     public void mostrarMensajePersonalizado() {
@@ -212,22 +177,11 @@ public class ControladorCargaNotas implements ActionListener {
         JOptionPane.showMessageDialog(null, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private boolean filaHaSidoModificada(int fila) {
-        Object notaActual = modelo.getValueAt(fila, 2);
-        HashMap<String, Object> filaOriginal = valoresOriginales.get(fila);
-        Object notaOriginal = filaOriginal.get("Nota");
-        return !notaOriginal.equals(notaActual);
-
-    }
-
     public class MyTableModel extends DefaultTableModel {
-
         //para habilitar la modificacion de la columna 3( indice 2) en jTableCargaNotas
         @Override
         public boolean isCellEditable(int row, int column) {
-            //   probando solo sleccionado: int filaSeleccionada = vistacarganotas.getSelectedRow();
-            //int columnaSeleccionada = tabla.convertColumnIndexToModel(tabla.getSelectedColumn());
-            return column == 2; // Columna número 4 (columna 3 en índice base 0)
+            return column == 2;
         }
     }
 }

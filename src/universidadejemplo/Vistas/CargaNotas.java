@@ -31,24 +31,34 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jTableCargaNotas = new javax.swing.JTable();
         jButtonGuardar = new javax.swing.JButton();
         jButtonSalirCargaNotas = new javax.swing.JButton();
+        jLbFondo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 110, 232));
 
         jPanel1.setBackground(getBackground());
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&Images/logo-ulp.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 304, -1));
 
-        jLCargaNotas.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLCargaNotas.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         jLCargaNotas.setForeground(java.awt.Color.orange);
         jLCargaNotas.setText("Carga de Notas");
+        jPanel1.add(jLCargaNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 230, -1, -1));
 
         jComboBListAlumCargaNotas.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jComboBListAlumCargaNotas.setToolTipText("");
+        jPanel1.add(jComboBListAlumCargaNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 338, 461, 40));
 
         jLSelectAlumn.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLSelectAlumn.setForeground(new java.awt.Color(255, 255, 255));
         jLSelectAlumn.setText("Seleccione un alumno:");
+        jPanel1.add(jLSelectAlumn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, -1, -1));
 
         jLSelectAlumn1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLSelectAlumn1.setForeground(new java.awt.Color(255, 255, 255));
         jLSelectAlumn1.setText("A continuación ud. podra modificar la Nota del alumno seleccionado:");
+        jPanel1.add(jLSelectAlumn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 425, -1, -1));
 
         jTableCargaNotas.setAutoCreateRowSorter(true);
         jTableCargaNotas.setBackground(new java.awt.Color(255, 255, 102));
@@ -68,74 +78,28 @@ public class CargaNotas extends javax.swing.JInternalFrame {
         jTableCargaNotas.setRowHeight(24);
         jScrollPane1.setViewportView(jTableCargaNotas);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 489, 558, 91));
+
         jButtonGuardar.setBackground(java.awt.Color.orange);
         jButtonGuardar.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jPanel1.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 644, -1, -1));
 
         jButtonSalirCargaNotas.setBackground(java.awt.Color.orange);
         jButtonSalirCargaNotas.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jButtonSalirCargaNotas.setText("Salir");
         jButtonSalirCargaNotas.setToolTipText("");
+        jPanel1.add(jButtonSalirCargaNotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 644, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLSelectAlumn1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 123, 123)))
-                .addContainerGap(38, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(jLCargaNotas))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jButtonGuardar)
-                        .addGap(103, 103, 103)
-                        .addComponent(jButtonSalirCargaNotas))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLSelectAlumn)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBListAlumCargaNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLCargaNotas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLSelectAlumn)
-                    .addComponent(jComboBListAlumCargaNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addComponent(jLSelectAlumn1)
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButtonSalirCargaNotas))
-                .addGap(66, 66, 66))
-        );
+        jLbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/&Images/bckg3.jpg"))); // NOI18N
+        jLbFondo.setDisabledIcon(null);
+        jPanel1.add(jLbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 750));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,6 +122,7 @@ public class CargaNotas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLSelectAlumn;
     private javax.swing.JLabel jLSelectAlumn1;
     private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLbFondo;
     public javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jTableCargaNotas;

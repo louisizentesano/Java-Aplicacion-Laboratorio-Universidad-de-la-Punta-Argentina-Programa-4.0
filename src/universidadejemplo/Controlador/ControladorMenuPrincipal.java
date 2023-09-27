@@ -98,7 +98,7 @@ public class ControladorMenuPrincipal implements ActionListener, MenuListener {
     public void menuSelected(MenuEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         if (e.getSource() == menu.jmSalir) {
-            //System.out.println("Se preciono Salir");
+            //System.out.println("Se presiono Salir");
             menu.dispose();
         }
     }

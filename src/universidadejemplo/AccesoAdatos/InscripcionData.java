@@ -20,8 +20,8 @@ import universidadejemplo.Entidades.Materia;
 public class InscripcionData {
 
     private Connection con = null;
-    private MateriaData matdata;
-    private AlumnoData aludata;
+    private MateriaData matdata = new MateriaData();
+    private AlumnoData aludata = new AlumnoData();
 
     public InscripcionData() {
     }
@@ -36,7 +36,7 @@ public class InscripcionData {
                 ps.setInt(3, insc.getMateria().getIdMateria());
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Inscripcion exitosa");
-                }  
+            }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error no se pudo realizar la inscripcion " + ex.getMessage());
@@ -45,86 +45,50 @@ public class InscripcionData {
 
     public List<Inscripcion> obtenerInscripciones() {
         con = Conexion.getConexion();
-        List<Inscripcion> inscripciones = new ArrayList<>();
-
+        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
+        String sql = "SELECT * FROM inscripcion";
         try {
-            String sql = "SELECT * FROM inscripcion WHERE idInscripto IS NOT NULL";
-            //Se define una consulta SQL que selecciona todas las columnas de la tabla inscripcion donde el estado tenga un valor
             PreparedStatement ps = con.prepareStatement(sql);
-            //Se prepara una sentencia SQL utilizando la conexión a la base de datos (con) y la consulta SQL definida.
             ResultSet resultSet = ps.executeQuery();
-            /**
-             * Se ejecuta la consulta SQL y se obtiene un objeto ResultSet
-             * llamado resultSet que contendrá los resultados de la consulta.
-             * Este objeto ResultSet, dispone de varios métodos a través de los
-             * cuales, entre otras cosas, podemos recorrer cada fila y obtener
-             * un dato que se encuentra en una columna determinada de la fila
-             * sobre la que se está posicionado
-             */
-
             //se itera a través de las filas del conjunto de resultados (resultSet).
-            ///si invocamos el método next() de este ResultSet, nos volverá true y se parará en la primer fila 
             while (resultSet.next()) {
-
-                //Se establecen los valores del objeto Alumno a partir de los resultados de la consulta
-                /**
-                 * no me esta tomando los parametros del constructor de
-                 * inscripcion me pide Inscripcion inscripcion = new
-                 * Inscripcion(idInscripto,nota,alumno,materia); int idInscripto
-                 * = resultSet.getInt("idInscripto"); double nota =
-                 * resultSet.getDouble("nota"); int idAlumno =
-                 * resultSet.getInt("idAlumno"); int idMateria =
-                 * resultSet.getInt("idMateria");
-                 */
                 Inscripcion inscripcion = new Inscripcion(); //Para cada fila, se crea una instancia de la clase Inscripcion llamada inscripcion.
                 inscripcion.setIdInscripcion(resultSet.getInt("idInscripto"));
-                //Se establecen los atributos de la instancia inscripcion utilizando los valores de las columnas en la fila actual del resultado. 
-                //Por ejemplo, setIdInscripcion() se utiliza para establecer el valor del atributo "idInscripcion" de la instancia inscripcion a partir 
-                //del valor en la columna "idInscripto" del resultado.
                 inscripcion.setNota(resultSet.getDouble("Nota"));
-                inscripcion.setMateria((Materia) resultSet.getObject("idMateria"));
-                inscripcion.setAlumno((Alumno) resultSet.getObject("idAlumno"));
+                Materia materia = matdata.buscarMateria(resultSet.getInt("idMateria"));
+                Alumno alumno = aludata.buscarAlumnoPorDni(resultSet.getInt("idAlumno"));
+                inscripcion.setMateria(materia);
+                inscripcion.setAlumno(alumno);
 
-                // Se agrega el objeto inscripcion a la lista inscripciones
                 //Se agregan las instancias inscripcion a la lista inscripciones para llevar un registro de todas las inscripciones recuperadas.
                 inscripciones.add(inscripcion);
             }
-
             cerrarRecursos(ps, resultSet);
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a  la tabla de inscripciones " + ex.getMessage());
-
         }
         return inscripciones; //la lista inscripciones se devuelve como resultado de la función.
-
     }
 
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
         con = Conexion.getConexion();
-        List<Inscripcion> inscripciones = new ArrayList<>();
-
+        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
+        String sql = "SELECT idInscripto, idMateria FROM inscripcion WHERE idAlumno = ?";
         try {
-            String sql = "SELECT idInscripto, idMateria, FROM inscripcion WHERE idAlumno = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-
             ResultSet resultSet = ps.executeQuery();
-
             while (resultSet.next()) {
                 Inscripcion inscripcion = new Inscripcion();
                 inscripcion.setIdInscripcion(resultSet.getInt("idInscripto"));
-                int idMateria = resultSet.getInt("idMateria");
-
-                Materia materia = new Materia();
-                Alumno alumno = new Alumno();
-
+                Materia materia = matdata.buscarMateria(resultSet.getInt("idMateria"));
+                Alumno alumno = aludata.buscarAlumnoPorDni(resultSet.getInt("idAlumno"));
                 inscripcion.setMateria(materia);
                 inscripcion.setAlumno(alumno);
 
                 inscripciones.add(inscripcion);
             }
-
             cerrarRecursos(ps, resultSet);
 
         } catch (SQLException ex) {
@@ -132,15 +96,14 @@ public class InscripcionData {
         }
         return inscripciones;
     }
-//    // Método para obtener todas las materias cursadas  y la nota con el ID Alumno especificado
 
+    // Método para obtener todas las materias cursadas con el ID Alumno especificado
     public List<Materia> obtenerMateriasCursadas(int id) {
         con = Conexion.getConexion();
         List<Materia> materiasCursadas = new ArrayList<>();
+        String sql = "SELECT inscripcion.idMateria, materia.nombre, materia.año FROM inscripcion,materia WHERE inscripcion.idMateria=materia.idMateria AND inscripcion.idAlumno = ? AND materia.estado=1";
+        // JOIN entre las tablas inscripcion y materia buscando por idAlumno         
         try {
-            String sql = "SELECT inscripcion.idMateria, materia.nombre, materia.año FROM inscripcion,materia WHERE inscripcion.idMateria=materia.idMateria AND inscripcion.idAlumno = ? AND materia.estado=1";
-//            JOIN entre las tablas inscripcion y materia buscando por idAlumno         
-
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
@@ -161,67 +124,15 @@ public class InscripcionData {
         return materiasCursadas;
     }
 
-//    // Método para obtener todas las materias cursadas  y la nota con el ID Alumno especificado
-    public List<Object> obtenerMateriasCursadas2(int id) {
-        con = Conexion.getConexion();
-        List<Object> materiasCursadas = new ArrayList<>();
-        try {
-            String sql = "SELECT inscripcion.idMateria, materia.nombre, materia.año, inscripcion.nota FROM inscripcion,materia WHERE inscripcion.idMateria=materia.idMateria AND inscripcion.idAlumno = ?";
-//            JOIN entre las tablas inscripcion y materia buscando por idAlumno         
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet resultSet = ps.executeQuery();
-
-            while (resultSet.next()) {
-                int idMateria = resultSet.getInt("idMateria");
-                String nombre = resultSet.getString("nombre");
-                int nota = resultSet.getInt("nota");
-
-                Object materiaObject = new Object();
-                materiasCursadas.add(materiaObject);
-
-//        Materia unidos = new Materia(String.valueOf(idMateria), nombre, nota);
-//        materiasCursadas.add(unidos);
-//    
-            }
-            cerrarRecursos(ps, resultSet);
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se encontraron materias cursadas " + ex.getMessage());
-        }
-        return materiasCursadas;
-    }
-
-//otras pruebas de materias cursadas:    
-//public InscripcionData(MateriaData matdata) {
-// this.matdata = matdata;q
-// }
-//Iterable<Inscripcion> inscripciones = null;
-//         // tengo una lista de inscripciones con  objetos Inscripcion
-//        // Itero sobre las inscripciones y verifico si el alumno está inscrito en una materia
-//        for (Inscripcion inscripcion : inscripciones) {
-//            if (inscripcion.getAlumno().getId() == id) {
-//                // Si el alumno está inscrito en una materia, obtener la materia utilizando el método de MateriaData.
-//         List<Materia> materiasinsc = matdata.listarMaterias();
-//                for (Materia materia : materias) {
-//                    if (materia.getId() == inscripcion.getMateria().getId()) {
-//                        materias.add(materia);
-//                        break;  //Termina el bucle al encontrar la materia.
-//                    }
-//                }
-//            }
-//        }
-    // Método para obtener todas las materias no cursadas con id especificado 
+    // Método para obtener todas las materias no cursadas con idAlumnoespecificado 
     //a consulta se enfoca en la tabla "materia" y busca las materias que no están en la lista de inscripciones del alumno.
     public List<Materia> obtenerMateriasNoCursadas(int id) {
         con = Conexion.getConexion();
-        List<Materia> materiasNoCursadas = new ArrayList<>();
+        ArrayList<Materia> materiasNoCursadas = new ArrayList<>();
+        String sql = "SELECT materia.idMateria, nombre, año FROM materia "
+                + "WHERE materia.idMateria NOT IN (SELECT inscripcion.idMateria FROM inscripcion"
+                + " WHERE inscripcion.idAlumno = ? AND materia.estado=1)";
         try {
-            String sql = "SELECT materia.idMateria, nombre, año FROM materia "
-                    + "WHERE materia.idMateria NOT IN (SELECT inscripcion.idMateria FROM inscripcion"
-                    + " WHERE inscripcion.idAlumno = ? AND materia.estado=1)";
-
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
@@ -233,7 +144,6 @@ public class InscripcionData {
                 materia.setAnioMateria(resultSet.getInt("año"));
                 materiasNoCursadas.add(materia);
             }
-
             cerrarRecursos(ps, resultSet);
 
         } catch (SQLException ex) {
@@ -245,7 +155,6 @@ public class InscripcionData {
     public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
         con = Conexion.getConexion();
         try {
-
             String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
             try (PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setInt(1, idAlumno);
@@ -259,34 +168,6 @@ public class InscripcionData {
         }
     }
 
-    //  ///borrado logico bajas lógicas, es decir, este campo tomará valor “false” cuando el alumno esté de baja  
-//    //uso método público setActivo(boolean estado) de ls clases Alumno y Materia para cambiar el estado  si tambien
-//    //tuviese en inscripcionData boolean
-//    public void borrarInscripcionMateriaAlumno(int idAlumno, int IdMateria) {
-//
-//        try {
-//        Alumno alumno = buscarAlumno(idAlumno);
-//        Materia materia = buscarMateria(idMateria);
-//                
-//             if (alumno != null && materia != null) {
-//            alumno.setActivo(false);
-//            materia.setActivo(false);
-//            
-//          String sql = "UPDATE inscripcion SET estado = false WHERE idAlumno = ? AND idMateria = ?";
-//           PreparedStatement ps = con.prepareStatement(sql);
-//              
-//            
-//                ps.setInt(1, IdAlumno);
-//                ps.setInt(2, IdMateria);
-//                
-//                ps.executeUpdate();
-//                
-//            }else{ JOptionPane.showMessageDialog(null, "El alumno o la materia no existen y no hay inscripcion que borrar");
-//        } 
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error no se pudo acceder a la BD para borrar el registro" + ex.getMessage());
-//        }
-//        }
     public void actualizarNota(int idAlumno, int idMateria, double nota) {
         con = Conexion.getConexion();
         try {
@@ -294,14 +175,11 @@ public class InscripcionData {
             String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             {
-
                 ps.setDouble(1, nota);
                 ps.setInt(2, idAlumno);
                 ps.setInt(3, idMateria);
-
                 ps.executeUpdate();
             }
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error no se pudo actualizar el alumno " + ex.getMessage());
         }
@@ -326,10 +204,8 @@ public class InscripcionData {
                 alumno.setNombre(resultSet.getString("nombre"));
                 alumno.setDni(resultSet.getInt("dni"));
                 alumno.setApellido(resultSet.getString("apellido"));
-                // Establece otros campos del objeto Alumno según tu modelo
                 alumnosInscritos.add(alumno);
             }
-
             cerrarRecursos(ps, resultSet);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error no se pudo obtener la materia del alumno solicitado " + ex.getMessage());// Manejo de excepciones
@@ -337,14 +213,6 @@ public class InscripcionData {
         return alumnosInscritos;
     }
 
-    /**
-     * nota:* el uso del bloque try-with-resources 2do try, que asegura que el
-     * recurso (PreparedStatement en este caso) se cierre automáticamente al
-     * finalizar el bloque, independientemente de si ocurre una excepción o no.
-     * Esto es una buena práctica en Java para gestionar recursos y evitar fugas
-     * de recursos no es necesario cerrar manualmente el PreparedStatement con
-     * ps.close()..
-     */
     // metodo auxiliar para cerrar tanto resultSet como prepare statement
     private void cerrarRecursos(PreparedStatement ps, ResultSet resultSet) throws SQLException {
         if (resultSet != null) {
