@@ -2,11 +2,8 @@ package universidadejemplo.Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import universidadejemplo.AccesoAdatos.AlumnoData;
 import universidadejemplo.AccesoAdatos.InscripcionData;
@@ -17,9 +14,7 @@ import universidadejemplo.Vistas.MenuPrincipal;
 import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
-import java.awt.BorderLayout;
 import java.net.URL;
-import javax.swing.JLabel;
 
 //@author louisinette
 public class ControladorCargaNotas implements ActionListener {
@@ -71,10 +66,10 @@ public class ControladorCargaNotas implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+             //para ingresar los valores a la tabla
         if (e.getSource() == vistacarganotas.jComboBListAlumCargaNotas) {
             // verifico si el evento proviene del JComboBox 
             if (vistacarganotas.jComboBListAlumCargaNotas.getItemCount() > 0) {  ////si tiene elementos >0 
-
                 //  obtengo el elemento seleccionado del JComboBox la cadena que contiene el DNI, apellido, nombre y el ID del alumno
                 String selectedItem = (String) vistacarganotas.jComboBListAlumCargaNotas.getSelectedItem();
                 String[] partes = selectedItem.split("-");   //Divido la cadena seleccionada  para obtener el ID del alumno
@@ -99,7 +94,7 @@ public class ControladorCargaNotas implements ActionListener {
             int selectedIndex = vistacarganotas.jComboBListAlumCargaNotas.getSelectedIndex();
             if (selectedIndex == -1 || (selectedIndex == 0 && vistacarganotas.jTableCargaNotas.getSelectedRow() == -1)) {
                 JOptionPane.showMessageDialog(null, "No ha seleccionado un alumno válido");
-                //for (int fila = 0; fila < vistacarganotas.jTableCargaNotas.getSelectedRowCount(); fila++) { // obtener la fila seleccionada
+                    //obtener el indice para verificar si el alumno es valido o no
             } else {
                 int filaSeleccionada = vistacarganotas.jTableCargaNotas.getSelectedRow(); // obtener la fila seleccionada 
                 if (filaSeleccionada >= 0) {
