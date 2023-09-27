@@ -60,6 +60,7 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
         vista.requestFocus();
         vista.jtxDocumento.setText("0");
         vista.jbtGuardar.setEnabled(false);
+        vista.jbtEliminar.setEnabled(false);
 
     }
 
@@ -79,6 +80,7 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
                     vista.jdcFechadeNacimiento.setDate(Date.valueOf(alum.getFechaNacimiento()));
                     this.idAlumno = alum.getIdAlumno();
                     vista.jbtGuardar.setEnabled(true);
+                    vista.jbtEliminar.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "El alumno no existe");
                     this.idAlumno = -1;
