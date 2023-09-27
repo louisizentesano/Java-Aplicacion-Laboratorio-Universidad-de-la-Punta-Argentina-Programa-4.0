@@ -100,9 +100,9 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
             if (vista.jTable1.getSelectedRow() != -1) {//comprueba Si se ha seleccionado una materia en la tabla
 // Crear una inscripción con los datos necesarios
-                Inscripcion inscribir = new Inscripcion();
-                Materia materiasNueva = new Materia();
-                Alumno alumn = new Alumno();
+                Inscripcion inscribir = new Inscripcion(); //objeto Inscripcion
+                Materia materiasNueva = new Materia();  //objeto Materia
+                Alumno alumn = new Alumno(); //objeto Alumno
 
                 int filaSelect = vista.jTable1.getSelectedRow();        //obtener fila seleccionada
 //obtener el valor de la primera columna (índice 0) en la fila seleccionada de una tabla representada por un modelo de tabla (DefaultTableModel).
@@ -128,7 +128,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
             vista.dispose();
         }
 
-        if (e.getSource() == vista.jbtAnularInscripcion) {
+        if (e.getSource() == vista.jbtAnularInscripcion) {// Cuando se presiona el botón "Anular Inscripción"
             anularInscripcionAlumno();
             rellenarTabla();
         }
@@ -144,10 +144,13 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         }
     }
 
+        // Métodos para manejar cambios en la selección de la tabla
     @Override
+        // Método para manejar cambios en la selección de la tabla
     public void valueChanged(ListSelectionEvent e) {
     }
-
+    
+    // Método para configurar el modelo de la tabla
     public void modelaTabla() {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Materia");
@@ -155,7 +158,8 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
         vista.jTable1.setModel(modelo);//seteando 
     }
-
+    
+    // Método para llenar el combo de alumnos
     private void rellenarCombo() {      //rellena el combobox 
         List<Alumno> alumnos = new ArrayList<>();
         //o List<Alumno> materias = new ArrayList<Alumno>(); cualquiera funciona
@@ -177,7 +181,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         materiasInscriptas = inscripcionData.obtenerMateriasCursadas(alumnoSeleccionado.getIdAlumno());
         actualizarTablaConMaterias(materiasInscriptas);
     }
-
+    // Método para cargar las materias no cursadas por el alumno
     private void cargarMateriasNoCursadas() {
         // Obtener todas las materias disp.
         materiasDisponibles = inscripcionData.obtenerMateriasNoCursadas(alumnoSeleccionado.getIdAlumno());    // Cargar las materias no inscritas en la tabla
@@ -187,7 +191,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         modelo.setRowCount(0);// Limpia la tabla
         vista.jTable1.setModel(modelo);
     }
-
+    // Método para actualizar la tabla con las materias
     private void actualizarTablaConMaterias(List<Materia> materias) {
         DefaultTableModel modelo = (DefaultTableModel) vista.jTable1.getModel();
         modelo.setRowCount(0);
@@ -211,25 +215,26 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
         for (Materia materia : materias) {
             modelo.addRow(new Object[]{materia.getIdMateria(), materia.getNombre(), materia.getAnioMateria()});//rellena el modelo
-        }
+        } 
 
         vista.jTable1.setModel(modelo); //asignamos el modelo a la vista
     }
 
     private int traerID() {
-        String varTemp = vista.jComboBListAlum.getSelectedItem().toString(); //trae el texto que está en el combo
-        String[] partes = varTemp.split("-"); // particiona la cadena usando el guón como punto de partida y genera el vector
+        String varTemp = vista.jComboBListAlum.getSelectedItem().toString(); //trae el texto que está en el combo..método para obtener el ID del alumno seleccionado en el combo
+        String[] partes = varTemp.split("-"); // particiona la cadena usando el guión como punto de partida y genera el vector
         int idAlumno = Integer.parseInt(partes[0].trim()); // selecciona la primer parte de l vector indice 0, lo extrae el dato que está en caracteres y lo parsea a entero
         return idAlumno;
     }
 
+        // Método para obtener la materia seleccionada en la tabla
     private Materia obtenerMateriaSeleccionada(int fila) { //obtiene la materia selaccionada de la fila seleccionada
         int idMateria = (int) vista.jTable1.getValueAt(fila, 0);
         // return universidadejemplo.AccesoAdatos.IncripcionData.obtenerMateriaPorID(idMateria);
         return new Materia();
     }
 
-    private void anularInscripcionAlumno() {
+    private void anularInscripcionAlumno() {     // Método para anular la inscripción de un alumno
         int filaSeleccionada = vista.jTable1.getSelectedRow();
         if (filaSeleccionada != -1) {
 
