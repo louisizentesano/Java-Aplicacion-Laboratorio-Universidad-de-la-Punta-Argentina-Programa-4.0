@@ -29,7 +29,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
     private final AlumnoData alumnoData;                 //Objeto para acceder a datos de Alumnos
     private final InscripcionData inscripcionData;       //Objeto para acceder a datos de Inscripciones
     private final MenuPrincipal menu;
-    DefaultTableModel modelo = new DefaultTableModel(); // Modelo para la tabla
+    DefaultTableModel modelo = new DefaultTableModel(); // Modelo para la tabla prederminado usando el objeto "modelo" como predeterminado
 
     private List<Materia> materiasDisponibles;          // Lista de materias disponibles
     private List<Materia> materiasInscriptas;           // Lista de materias inscriptas
@@ -156,7 +156,7 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
         modelo.addColumn("Materia");
         modelo.addColumn("Año");
 
-        vista.jTable1.setModel(modelo);//seteando 
+        vista.jTable1.setModel(modelo);// usamos un metodo de jtable para rellenar el modelo de la tabla
     }
     
     // Método para llenar el combo de alumnos
