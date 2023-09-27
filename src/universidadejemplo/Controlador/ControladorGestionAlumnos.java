@@ -102,8 +102,8 @@ public class ControladorGestionAlumnos implements ActionListener, KeyListener {
                     vista.jtxDocumento.setText("");
                     vista.jtxNombre.setText("");
                     vista.jtxApellido.setText("");
-                    vista.jrbEstado.setSelected(true); // Puedes establecer el estado a false si deseas
-                    vista.jdcFechadeNacimiento.setDate(null); // También puedes borrar la fecha si lo deseas
+                    vista.jrbEstado.setSelected(true); 
+                    vista.jdcFechadeNacimiento.setDate(null); 
                     data.eliminarAlumno(this.idAlumno);
                 } else {
                     // El usuario canceló la eliminación, no hagas nada
