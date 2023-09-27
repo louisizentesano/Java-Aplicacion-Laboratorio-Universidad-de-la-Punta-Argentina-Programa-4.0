@@ -25,29 +25,31 @@ import universidadejemplo.Vistas.MenuPrincipal;
 
 public class ControladorInscripciones implements ActionListener, ListSelectionListener {
 
-    private final Inscripciones vista;
-    private final AlumnoData alumnoData;
-    private final InscripcionData inscripcionData;
+    private final Inscripciones vista;      
+    private final AlumnoData alumnoData;                 //Objeto para acceder a datos de Alumnos
+    private final InscripcionData inscripcionData;       //Objeto para acceder a datos de Inscripciones
     private final MenuPrincipal menu;
-    DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel modelo = new DefaultTableModel(); // Modelo para la tabla
 
-    private List<Materia> materiasDisponibles;
-    private List<Materia> materiasInscriptas;
-    private Alumno alumnoSeleccionado;
+    private List<Materia> materiasDisponibles;          // Lista de materias disponibles
+    private List<Materia> materiasInscriptas;           // Lista de materias inscriptas
+    private Alumno alumnoSeleccionado;                  // Alumno seleccionado en el combobox
 
+    // Constructor que recibe las referencias a la vista y los objetos de acceso a datos
     public ControladorInscripciones(Inscripciones vista, AlumnoData alumnoData, InscripcionData inscripcionData, MenuPrincipal menu) {
         this.vista = vista;
         this.alumnoData = alumnoData;
         this.inscripcionData = inscripcionData;
         this.menu = menu;
 
-        this.vista.jbtInscribir.addActionListener(this);            //
+        // Asociar los botones y elementos de la interfaz con sus respectivos ActionListener
+        this.vista.jbtInscribir.addActionListener(this);            //escucha el botón de inscribir
         this.vista.jbtAnularInscripcion.addActionListener(this);    //escucha al boton anular inscripcion
         this.vista.jbtSalir.addActionListener(this);                //escucha boton salir
-        this.vista.jComboBListAlum.addActionListener(this);         //escucha al combo
-        this.vista.jRadioButtonMateriasInscriptas.addActionListener(this);
-        this.vista.jRadioButtonMateriasNoInscriptas.addActionListener(this);
-        this.vista.jTable1.getSelectionModel().addListSelectionListener(this);
+        this.vista.jComboBListAlum.addActionListener(this);         //escucha el combo box
+        this.vista.jRadioButtonMateriasInscriptas.addActionListener(this); //escucha radio buttom cuando queres que mmuestre materias inscr
+        this.vista.jRadioButtonMateriasNoInscriptas.addActionListener(this);//escucha radio buttom cuando queres que mmuestre materias Noinscr
+        this.vista.jTable1.getSelectionModel().addListSelectionListener(this);//escucha cuando sleccionamos la fila de materia seleccionada
     }
 
     public void iniciar() {
@@ -55,29 +57,30 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
 
         //menu.jFondo.removeAll();        //remueve todas las vistas anteriores
        // menu.jFondo.repaint();          // repinta
-        menu.jFondo.add(vista);         //agrega fondo
-        vista.setVisible(true);         //lo hace visible
-        menu.jFondo.moveToFront(vista); //mueve el fondo al frente
-        vista.requestFocus();           //le da el foco al formulario
-        rellenarCombo();                     //
-        modelaTabla();                  //
+        menu.jFondo.add(vista);         //Agrega la vista al fondo del menú principal
+        vista.setVisible(true);         //hace visible la vista
+        menu.jFondo.moveToFront(vista); //mueve la vista del fondo al frente
+        vista.requestFocus();           //le da el foco al vista formulario
+        rellenarCombo();                     //Rellena el combo de alumnos
+        modelaTabla();                  //Configura la tabla
         vista.jRadioButtonMateriasInscriptas.setSelected(true); //muestra por defecto materias inscriptas inicializada
         rellenarTabla(); //rellena la tabla de materias incriptas inicializada
         vista.jbtInscribir.setEnabled(false); //desactiva el boton Inscribir (ya que muestra por defecto materias inscriptas)
 
         // ruta relativa a la ubicación de la clase Controlador (carpeta SRC del proyecto "carpeta de inicio")
+                // Cargar un ícono para el botón de salir
         ClassLoader directorio = getClass().getClassLoader();// Crea la ruta al recurso icono de salir
-        URL SalirIconUbicacion = directorio.getResource("&IconButtons/Salir1.png"); // Crea un ImageIcon utilizando la URL de la imagen
-        ImageIcon SalirIcono = new ImageIcon(SalirIconUbicacion); // crea la magen Icono para asignarsela al contenedor
+        URL SalirIconUbicacion = directorio.getResource("&IconButtons/Salir1.png"); // Crea un ImageIcon utilizando la URL/ubicacion de la imagen
+        ImageIcon SalirIcono = new ImageIcon(SalirIconUbicacion); // crea la imagen Icono para asignarsela al contenedor
         vista.jbtSalir.setIcon(SalirIcono); // asignamos al boton jbtSalir el icono Salir1.png
     }
 
+        // Método que maneja eventos de acción
     @Override
-
     public void actionPerformed(ActionEvent e) {                        //escucha acciones cuando cada boton se activa
 
-        if (e.getSource() == vista.jComboBListAlum) {                   //rellena el combo box con los alumnos
-            rellenarTabla();
+        if (e.getSource() == vista.jComboBListAlum) {   // Cuando se selecciona un alumno en el combo                //rellena el combo box con los alumnos
+            rellenarTabla(); //carga la tabla con materias de ese alumno
         }
 
         if (e.getSource() == vista.jRadioButtonMateriasInscriptas) {    // Deshabilita el botón "Inscribir" cuando se selecciona "Materias Inscriptas" y deja habilitado boton "Anular Inscripción"
@@ -86,22 +89,23 @@ public class ControladorInscripciones implements ActionListener, ListSelectionLi
             rellenarTabla();
         }
 
-        if (e.getSource() == vista.jRadioButtonMateriasNoInscriptas) {
+        if (e.getSource() == vista.jRadioButtonMateriasNoInscriptas) { // escucha redio button Cuando se selecciona "Materias Inscriptas"
             // Habilita el botón "Inscribir" cuando se selecciona "Materias No Inscriptas" y deshabilita boton "Anular Inscripción"
             vista.jbtInscribir.setEnabled(true);                         // Habilita el botón "Inscribir"
             vista.jbtAnularInscripcion.setEnabled(false);                // Deshabilita el botón "Anular Inscripción" 
             rellenarTabla();
         }
 
-        if (e.getSource() == vista.jbtInscribir) {                      //Buscar incripcion el alumno a incribir en 
+        if (e.getSource() == vista.jbtInscribir) {   //Cuando se presiona el botón "Inscribir"
 
-            if (vista.jTable1.getSelectedRow() != -1) {
-
+            if (vista.jTable1.getSelectedRow() != -1) {//comprueba Si se ha seleccionado una materia en la tabla
+// Crear una inscripción con los datos necesarios
                 Inscripcion inscribir = new Inscripcion();
                 Materia materiasNueva = new Materia();
                 Alumno alumn = new Alumno();
 
                 int filaSelect = vista.jTable1.getSelectedRow();        //obtener fila seleccionada
+//obtener el valor de la primera columna (índice 0) en la fila seleccionada de una tabla representada por un modelo de tabla (DefaultTableModel).
                 int idMateriaSelect = (int) modelo.getValueAt(filaSelect, 0);
 
                 materiasNueva.setIdMateria(idMateriaSelect);
